@@ -61,9 +61,9 @@ jobs:
           # Angular production build
           local-dir: ./dist/vcare/browser/
 
-          # Root directory of dev.vcarepreschool.in
+          # Root directory of vcarepreschool.in
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          state-name: .ftp-deploy-sync-state-v1.json
+          state-name: .ftp-deploy-sync-state-v1.01.json
           # Keep remote runtime files that are not managed by Git.
           # Blog images are uploaded by the Admin application
           # directly to Hostinger and must survive deployments.
