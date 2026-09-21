@@ -1,0 +1,221 @@
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+<section class="gallery-hero">
+  <div class="gallery-hero__grid-bg" aria-hidden="true"></div>
+  <div class="gallery-hero__orb gallery-hero__orb--red" aria-hidden="true"></div>
+  <div class="gallery-hero__orb gallery-hero__orb--blue" aria-hidden="true"></div>
+  <div class="gallery-hero__orb gallery-hero__orb--yellow" aria-hidden="true"></div>
+
+  <div class="gallery-hero__inner" vcReveal="fade-up">
+    <span class="gallery-kicker">
+      <i [class.gallery-kicker__dot--scanning]="isScanning()"></i>
+      @if (isScanning()) {
+        Scanning archive…
+      } @else {
+        V Care · Visual Journal
+      }
+    </span>
+
+    <h1>
+      Every moment,
+      <span>captured.</span>
+    </h1>
+
+    <p>
+      A living window into life at V Care — the play, the discovery, the tiny victories that make up
+      a day in our classrooms.
+    </p>
+
+    <div class="gallery-hero__stats">
+      <div class="gallery-stat">
+        <strong>{{ images().length }}</strong>
+        <span>{{ isScanning() ? 'Found so far' : 'Moments' }}</span>
+      </div>
+      <div class="gallery-stat__divider"></div>
+      <div class="gallery-stat">
+        <strong>{{ categories().length - 1 }}</strong>
+        <span>Categories</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FILTER BAR
+     ========================================================= -->
+@if (images().length > 0) {
+  <div class="gallery-filters" vcReveal="fade-up">
+    <div class="gallery-filters__track">
+      @for (cat of categories(); track cat) {
+        <button
+          type="button"
+          class="filter-pill"
+          [class.filter-pill--active]="activeCategory() === cat"
+          (click)="setCategory(cat)"
+        >
+          {{ cat }}
+        </button>
+      }
+    </div>
+  </div>
+}
+
+<!-- =========================================================
+     BENTO GRID
+     ========================================================= -->
+<section class="gallery-grid-section">
+  <div class="gallery-grid">
+    @for (img of filteredImages(); track trackByIndex($index, img); let i = $index) {
+      <button
+        type="button"
+        class="tile"
+        [style.--col-span]="img.colSpan"
+        [style.--row-span]="img.rowSpan"
+        [style.animation-delay.ms]="(i % 8) * 70"
+        (click)="openLightbox(i)"
+        [attr.aria-label]="'Open photo: ' + img.alt"
+      >
+        <img [src]="img.src" [alt]="img.alt" loading="lazy" />
+
+        @if (img.tag) {
+          <span class="tile__tag">{{ img.tag }}</span>
+        }
+
+        <span class="tile__scrim"></span>
+
+        <span class="tile__info">
+          <span class="tile__category">{{ img.category }}</span>
+          @if (img.caption) {
+            <span class="tile__caption">{{ img.caption }}</span>
+          }
+        </span>
+
+        <span class="tile__expand" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+      </button>
+    }
+
+    <!-- Skeleton placeholders while the first batch is still scanning -->
+    @if (isScanning() && images().length === 0) {
+      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
+        <div
+          class="tile tile--skeleton"
+          [style.--col-span]="i === 1 ? 2 : 1"
+          [style.--row-span]="i === 1 ? 2 : 1"
+        >
+          <span class="tile__scan-line"></span>
+        </div>
+      }
+    }
+  </div>
+
+  @if (!isScanning() && images().length === 0) {
+    <div class="gallery-empty">
+      <p>No photos found yet.</p>
+      <small>
+        Drop images into <code>assets/images/gallery/</code> named <code>gallery-image-1.jpg</code>,
+        <code>gallery-image-2.jpg</code>, and so on — the gallery will pick them up automatically.
+      </small>
+    </div>
+  }
+
+  @if (isScanning() && images().length > 0) {
+    <div class="gallery-scanning-note">
+      <span class="gallery-scanning-note__pulse"></span>
+      Still scanning for more photos…
+    </div>
+  }
+</section>
+
+<!-- =========================================================
+     LIGHTBOX
+     ========================================================= -->
+@if (lightboxImage(); as img) {
+  <div
+    class="lightbox"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-label]="img.alt"
+    (click)="closeLightbox()"
+  >
+    <button type="button" class="lightbox__close" (click)="closeLightbox()" aria-label="Close">
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <button
+      type="button"
+      class="lightbox__nav lightbox__nav--prev"
+      (click)="prev($event)"
+      aria-label="Previous photo"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="lightbox__content" (click)="$event.stopPropagation()">
+      <div class="lightbox__frame">
+        <img [src]="img.src" [alt]="img.alt" />
+      </div>
+
+      <div class="lightbox__meta">
+        <span class="lightbox__category">{{ img.category }}</span>
+        @if (img.caption) {
+          <p>{{ img.caption }}</p>
+        }
+        <span class="lightbox__counter">
+          {{ (lightboxIndex() ?? 0) + 1 }} / {{ filteredImages().length }}
+        </span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="lightbox__nav lightbox__nav--next"
+      (click)="next($event)"
+      aria-label="Next photo"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="22"
+        height="22"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+}

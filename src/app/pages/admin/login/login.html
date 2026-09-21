@@ -1,0 +1,96 @@
+<section class="admin-login">
+  <div class="admin-login__orb admin-login__orb--red" aria-hidden="true"></div>
+
+  <div class="admin-login__orb admin-login__orb--yellow" aria-hidden="true"></div>
+
+  <div class="admin-login__orb admin-login__orb--green" aria-hidden="true"></div>
+
+  <div class="admin-login__shell">
+    <div class="admin-login__brand">
+      <img src="assets/images/logo.png" alt="V Care Education" />
+
+      <div>
+        <strong>V Care</strong>
+        <span>Administration</span>
+      </div>
+    </div>
+
+    <div class="admin-login__card">
+      <div class="admin-login__icon">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          aria-hidden="true"
+        >
+          <rect x="4" y="10" width="16" height="10" rx="2"></rect>
+
+          <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke-linecap="round"></path>
+
+          <circle cx="12" cy="15" r="1"></circle>
+        </svg>
+      </div>
+
+      <span class="admin-login__eyebrow"> Private Administration </span>
+
+      <h1>
+        Welcome
+        <span>back.</span>
+      </h1>
+
+      <p class="admin-login__intro">Sign in to manage V Care website content and services.</p>
+
+      <form class="admin-login__form" (ngSubmit)="submit()">
+        <label>
+          <span>Username</span>
+
+          <input
+            type="text"
+            name="username"
+            [(ngModel)]="username"
+            autocomplete="username"
+            placeholder="Enter username"
+            [disabled]="isSubmitting()"
+          />
+        </label>
+
+        <label>
+          <span>Password</span>
+
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            autocomplete="current-password"
+            placeholder="Enter password"
+            [disabled]="isSubmitting()"
+          />
+        </label>
+
+        @if (errorMessage()) {
+          <div class="admin-login__error" role="alert">
+            <span>!</span>
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <button type="submit" class="admin-login__submit" [disabled]="isSubmitting()">
+          @if (isSubmitting()) {
+            <span class="admin-login__spinner"></span>
+
+            Signing in…
+          } @else {
+            Sign in
+
+            <span aria-hidden="true"> → </span>
+          }
+        </button>
+      </form>
+
+      <a routerLink="/" class="admin-login__back"> ← Return to website </a>
+    </div>
+
+    <p class="admin-login__footer">V Care Education · Private administration</p>
+  </div>
+</section>

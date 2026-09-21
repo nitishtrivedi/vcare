@@ -1,0 +1,191 @@
+<section class="blog-editor">
+  <header class="blog-editor__header">
+    <div>
+      <a routerLink="/admin/blogs" class="blog-editor__back"> ← Blog management </a>
+
+      <span class="blog-editor__eyebrow">
+        {{ isEditMode() ? 'Edit article' : 'New article' }}
+      </span>
+
+      <h1>
+        {{ isEditMode() ? 'Edit blog' : 'Create a blog' }}
+      </h1>
+
+      <p>Build a V Care Journal article for parents and families.</p>
+    </div>
+
+    <a routerLink="/admin" class="blog-editor__dashboard"> Admin dashboard </a>
+  </header>
+
+  @if (isLoading()) {
+    <div class="blog-editor__loading">Loading article…</div>
+  } @else {
+    <main class="blog-editor__layout">
+      <!-- =====================================================
+           MAIN EDITOR
+           ===================================================== -->
+
+      <section class="blog-editor__main">
+        <!-- BASIC DETAILS -->
+
+        <div class="editor-card">
+          <label class="editor-field">
+            <span>Blog title</span>
+
+            <input
+              type="text"
+              [(ngModel)]="title"
+              maxlength="200"
+              placeholder="Enter a clear, engaging title"
+            />
+          </label>
+
+          <label class="editor-field">
+            <span>Author name</span>
+
+            <input
+              type="text"
+              [(ngModel)]="authorName"
+              maxlength="120"
+              placeholder="e.g. V Care Education"
+            />
+          </label>
+        </div>
+
+        <!-- ARTICLE CONTENT -->
+
+        <div class="editor-card">
+          <div class="editor-card__heading">
+            <div>
+              <span>Article content</span>
+
+              <strong>
+                {{ characterCount }}
+                /
+                {{ maxCharacters }}
+              </strong>
+            </div>
+          </div>
+
+          <!-- TOOLBAR -->
+
+          <div class="editor-toolbar">
+            <button type="button" title="Bold" (click)="execCommand('bold')">
+              <strong>B</strong>
+            </button>
+
+            <button type="button" title="Italic" (click)="execCommand('italic')">
+              <em>I</em>
+            </button>
+
+            <button type="button" title="Underline" (click)="execCommand('underline')">
+              <u>U</u>
+            </button>
+
+            <span class="editor-toolbar__divider"></span>
+
+            <button type="button" title="Heading 2" (click)="formatBlock('h2')">H2</button>
+
+            <button type="button" title="Heading 3" (click)="formatBlock('h3')">H3</button>
+
+            <span class="editor-toolbar__divider"></span>
+
+            <button type="button" title="Bullet list" (click)="execCommand('insertUnorderedList')">
+              • List
+            </button>
+
+            <button type="button" title="Numbered list" (click)="execCommand('insertOrderedList')">
+              1. List
+            </button>
+
+            <button type="button" title="Quote" (click)="formatBlock('blockquote')">Quote</button>
+          </div>
+
+          <!-- CONTENT EDITOR -->
+
+          <div
+            #editor
+            class="editor-content"
+            contenteditable="true"
+            (input)="onContentInput($event)"
+            role="textbox"
+            aria-label="Blog content editor"
+          ></div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           RIGHT SIDEBAR
+           ===================================================== -->
+
+      <aside class="blog-editor__side">
+        <!-- FEATURED IMAGE -->
+
+        <section class="editor-card">
+          <div class="editor-card__heading">
+            <span>Featured image</span>
+          </div>
+
+          @if (featuredImage) {
+            <div class="featured-preview">
+              <img [src]="featuredImagePreviewUrl" alt="Featured blog image" />
+
+              <button type="button" class="featured-preview__remove" (click)="featuredImage = null">
+                Remove image
+              </button>
+            </div>
+          } @else {
+            <label class="featured-upload">
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                (change)="uploadFeaturedImage($event)"
+                [disabled]="isUploading()"
+              />
+
+              <span class="featured-upload__icon"> + </span>
+
+              @if (isUploading()) {
+                <strong> Uploading… </strong>
+              } @else {
+                <strong> Add featured image </strong>
+              }
+
+              <small> JPG, PNG or WebP · Max 5 MB </small>
+            </label>
+          }
+        </section>
+
+        <!-- ERROR -->
+
+        @if (errorMessage()) {
+          <div class="editor-message editor-message--error" role="alert">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <!-- SUCCESS -->
+
+        @if (successMessage()) {
+          <div class="editor-message editor-message--success" role="status">
+            {{ successMessage() }}
+          </div>
+        }
+
+        <!-- ACTIONS -->
+
+        <section class="editor-card editor-card--actions">
+          <button type="button" class="editor-save" [disabled]="isSaving()" (click)="save()">
+            @if (isSaving()) {
+              Saving…
+            } @else {
+              {{ isEditMode() ? 'Update blog' : 'Publish blog' }}
+            }
+          </button>
+
+          <a routerLink="/admin/blogs" class="editor-cancel"> Cancel </a>
+        </section>
+      </aside>
+    </main>
+  }
+</section>

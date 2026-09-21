@@ -1,0 +1,41 @@
+<section class="moments">
+  <div class="moments__inner">
+    <div class="moments__heading">
+      <span class="pt-kicker"> Real moments </span>
+
+      <h2>
+        Little hands.
+        <span>Big discoveries.</span>
+      </h2>
+
+      <p>
+        A glimpse into the playful, social and sensory experiences that make each session special.
+      </p>
+    </div>
+
+    <div class="moments__grid">
+      @for (i of placeholders; track i; let index = $index) {
+        <button
+          type="button"
+          class="moment"
+          [class.moment--large]="index === 0"
+          [attr.aria-label]="'Play video ' + i"
+          vcReveal="fade-up"
+          [vcRevealDelay]="index * 70"
+        >
+          <span class="moment__number"> 0{{ i }} </span>
+
+          <span class="moment__placeholder"> Client video </span>
+
+          <span class="moment__play">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+          </span>
+        </button>
+      }
+    </div>
+
+    <p class="moments__note">Client-provided videos will be added before launch.</p>
+  </div>
+</section>

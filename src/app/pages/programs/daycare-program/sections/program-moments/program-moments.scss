@@ -1,0 +1,200 @@
+.daycare-moments {
+  padding: 9rem 1.5rem;
+
+  background:
+    radial-gradient(circle at 15% 15%, rgba(59, 180, 74, 0.1), transparent 25%),
+    radial-gradient(circle at 85% 85%, rgba(246, 146, 32, 0.1), transparent 25%), var(--navy-deep);
+
+  &__inner {
+    max-width: 1180px;
+
+    margin: 0 auto;
+  }
+
+  &__intro {
+    max-width: 800px;
+
+    h2 {
+      margin-top: 0.85rem;
+
+      color: #fff;
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: clamp(3rem, 5vw, 4.4rem);
+
+      line-height: 0.98;
+
+      span {
+        color: var(--yellow);
+      }
+    }
+
+    p {
+      max-width: 58ch;
+
+      margin-top: 1.5rem;
+
+      color: rgba(255, 255, 255, 0.55);
+
+      font-size: 1rem;
+
+      line-height: 1.85;
+    }
+  }
+
+  &__grid {
+    margin-top: 4rem;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 0.8rem;
+  }
+
+  &__note {
+    margin-top: 1rem;
+
+    color: rgba(255, 255, 255, 0.32);
+
+    font-size: 0.62rem;
+  }
+}
+
+.daycare-kicker--light {
+  color: var(--yellow);
+}
+
+.daycare-moment {
+  position: relative;
+
+  min-height: 190px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  background: linear-gradient(145deg, #173e67, #0d2f50);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+
+    background: linear-gradient(145deg, #20517f, #12385d);
+
+    .daycare-moment__play {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--yellow);
+
+    outline-offset: 3px;
+  }
+
+  &--hero {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  &__number {
+    position: absolute;
+
+    top: 0.8rem;
+    left: 0.8rem;
+
+    color: rgba(255, 255, 255, 0.3);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: 0.58rem;
+  }
+
+  &__placeholder {
+    color: rgba(255, 255, 255, 0.32);
+
+    font-size: 0.62rem;
+
+    font-weight: 900;
+
+    letter-spacing: 0.09em;
+
+    text-transform: uppercase;
+  }
+
+  &__play {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    color: var(--navy-deep);
+
+    background: var(--yellow);
+
+    transition: transform 0.2s ease;
+
+    svg {
+      width: 20px;
+      height: 20px;
+
+      fill: currentColor;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .daycare-moments {
+    &__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .daycare-moment--hero {
+      grid-column: span 2;
+      grid-row: span 1;
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .daycare-moments {
+    padding: 6rem 1rem;
+  }
+
+  .daycare-moments__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .daycare-moment,
+  .daycare-moment--hero {
+    grid-column: auto;
+    grid-row: auto;
+
+    min-height: 160px;
+  }
+}

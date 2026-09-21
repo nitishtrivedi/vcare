@@ -1,0 +1,41 @@
+.stats-band {
+  background: var(--yellow);
+  padding: 1rem 1.5rem 3rem;
+
+  &__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  &__circle {
+    width: 168px;
+    height: 168px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 14px 26px -16px rgba(11, 59, 111, 0.4);
+  }
+
+  &__value {
+    font-family: 'Paytone One', cursive;
+    font-size: 2rem;
+    color: var(--red);
+  }
+
+  &__label {
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--navy-deep);
+    line-height: 1.3;
+  }
+}

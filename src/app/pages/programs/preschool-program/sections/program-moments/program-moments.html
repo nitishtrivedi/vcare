@@ -1,0 +1,37 @@
+<section class="moments">
+  <div class="moments__inner">
+    <div class="moments__header" vcReveal="fade-up">
+      <span class="program-eyebrow"> A glimpse into V Care </span>
+
+      <h2>
+        Little moments.
+        <span>Big memories.</span>
+      </h2>
+
+      <p>See how children learn, play, create and grow together.</p>
+    </div>
+
+    <div class="moments__grid" vcReveal="zoom-in">
+      @for (i of placeholders; track i; let index = $index) {
+        <button
+          type="button"
+          class="moment-card"
+          [class.moment-card--large]="index === 0 || index === 5"
+          [attr.aria-label]="'Play video ' + i"
+        >
+          <span class="moment-card__number"> 0{{ i }} </span>
+
+          <span class="moment-card__placeholder"> Client video </span>
+
+          <span class="moment-card__play">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+          </span>
+        </button>
+      }
+    </div>
+
+    <p class="moments__note">Client-provided videos will be added here before launch.</p>
+  </div>
+</section>

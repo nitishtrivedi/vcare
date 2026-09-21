@@ -1,0 +1,200 @@
+.facts {
+  padding: 2rem 1.5rem 7rem;
+
+  background: #fff;
+
+  &__inner {
+    max-width: 1120px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+      0.8fr
+      1.2fr;
+
+    gap: 4rem;
+
+    align-items: center;
+  }
+
+  &__copy {
+    max-width: 470px;
+  }
+
+  h2 {
+    margin-top: 0.75rem;
+
+    color: var(--navy-deep);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: clamp(2rem, 4vw, 3.2rem);
+
+    line-height: 1.04;
+
+    span {
+      display: block;
+
+      color: var(--orange);
+    }
+  }
+
+  &__copy > p {
+    margin-top: 1rem;
+
+    color: #718092;
+
+    font-size: 0.78rem;
+
+    line-height: 1.8;
+  }
+
+  &__passport {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    padding: 1.5rem;
+
+    border-radius: 28px;
+
+    background: var(--navy-deep);
+
+    box-shadow: 0 24px 50px rgba(8, 42, 80, 0.14);
+  }
+
+  &__note {
+    max-width: 1120px;
+
+    margin: 1rem auto 0;
+
+    color: #9ba4af;
+
+    font-size: 0.6rem;
+
+    text-align: right;
+  }
+}
+
+.passport-item {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0.8rem;
+
+  min-height: 180px;
+
+  padding: 1rem;
+
+  text-align: center;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  &__icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    color: var(--yellow);
+
+    background: rgba(251, 237, 33, 0.08);
+
+    svg {
+      width: 25px;
+      height: 25px;
+
+      fill: none;
+
+      stroke: currentColor;
+
+      stroke-width: 1.7;
+
+      stroke-linecap: round;
+
+      stroke-linejoin: round;
+    }
+  }
+
+  strong {
+    display: block;
+
+    color: #fff;
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: 0.9rem;
+  }
+
+  span {
+    display: block;
+
+    margin-top: 0.15rem;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-size: 0.55rem;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (max-width: 820px) {
+  .facts {
+    &__inner {
+      grid-template-columns: 1fr;
+
+      gap: 2rem;
+    }
+
+    &__copy {
+      max-width: 700px;
+    }
+
+    &__note {
+      text-align: left;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .facts {
+    padding: 1rem 1rem 5rem;
+
+    &__passport {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .passport-item {
+    min-height: 145px;
+
+    border-right: 0;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}

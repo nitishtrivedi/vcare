@@ -1,0 +1,282 @@
+.faq-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: var(--red);
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  &::before {
+    content: '';
+    width: 28px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      var(--red),
+      var(--orange),
+      var(--yellow),
+      var(--green),
+      var(--blue)
+    );
+  }
+}
+
+// =========================================================
+// HERO
+// =========================================================
+
+.faq-hero {
+  position: relative;
+  overflow: hidden;
+
+  padding: 10rem 1.5rem 5rem;
+
+  background:
+    radial-gradient(circle at 85% 15%, rgba(251, 237, 33, 0.2), transparent 24%),
+    linear-gradient(180deg, #fffdf7 0%, var(--cream) 100%);
+
+  &__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  h1 {
+    margin-top: 0.9rem;
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    line-height: 1.05;
+
+    span {
+      display: block;
+      color: var(--blue);
+    }
+  }
+
+  p {
+    max-width: 58ch;
+    margin: 1.2rem auto 0;
+    color: #5e6b7c;
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+
+  &__jump {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 2rem;
+
+    a {
+      padding: 0.6rem 1rem;
+      border-radius: 999px;
+
+      color: var(--accent);
+      background: #fff;
+      border: 1.5px solid var(--accent);
+
+      font-size: 0.72rem;
+      font-weight: 800;
+
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        color 0.15s ease;
+
+      &:hover {
+        background: var(--accent);
+        color: #fff;
+        transform: translateY(-2px);
+      }
+    }
+  }
+}
+
+// =========================================================
+// BODY / CATEGORIES
+// =========================================================
+
+.faq-body {
+  padding: 1rem 1.5rem 6rem;
+  background: var(--cream);
+}
+
+.faq-category {
+  max-width: 880px;
+  margin: 0 auto 3rem;
+  scroll-margin-top: 6.5rem;
+
+  &__heading {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 1.25rem;
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, #fff);
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  h2 {
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: 1.35rem;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+
+.faq-item {
+  border-radius: 18px;
+  background: #fff;
+  border: 1px solid rgba(8, 42, 80, 0.08);
+  box-shadow: 0 10px 26px rgba(8, 42, 80, 0.05);
+  overflow: hidden;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &--open {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: 0 16px 34px rgba(8, 42, 80, 0.09);
+  }
+
+  &__question {
+    width: 100%;
+    padding: 1.15rem 1.4rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    background: transparent;
+    border: 0;
+
+    color: var(--navy-deep);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: left;
+
+    cursor: pointer;
+  }
+
+  &__chevron {
+    flex: 0 0 auto;
+    width: 11px;
+    height: 8px;
+    color: var(--accent);
+    transition: transform 0.25s ease;
+  }
+
+  &--open &__chevron {
+    transform: rotate(180deg);
+  }
+
+  // Smooth height animation without measuring JS — CSS grid-rows trick.
+  &__answer-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+
+  &--open &__answer-wrap {
+    grid-template-rows: 1fr;
+  }
+
+  &__answer-inner {
+    overflow: hidden;
+  }
+
+  &__answer-inner p {
+    padding: 0 1.4rem 1.25rem;
+    color: #647285;
+    font-size: 0.82rem;
+    line-height: 1.75;
+  }
+}
+
+// =========================================================
+// CTA
+// =========================================================
+
+.faq-cta {
+  position: relative;
+  padding: 4.5rem 1.5rem;
+  background: var(--navy);
+  margin-bottom: -90px;
+  padding-bottom: calc(5rem + 90px);
+
+  &__inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+
+    h2 {
+      color: #fff;
+      font-family: 'Paytone One', cursive;
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+    }
+
+    p {
+      max-width: 44ch;
+      margin: 0.85rem auto 2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+// =========================================================
+// RESPONSIVE
+// =========================================================
+
+@media (max-width: 700px) {
+  .faq-hero {
+    padding: 7.5rem 1.25rem 4rem;
+  }
+
+  .faq-item__question {
+    padding: 1rem 1.1rem;
+    font-size: 0.85rem;
+  }
+
+  .faq-item__answer-inner p {
+    padding: 0 1.1rem 1.1rem;
+  }
+}

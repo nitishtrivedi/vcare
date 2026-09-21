@@ -1,0 +1,169 @@
+<header class="nav" [class.nav--scrolled]="isScrolled()">
+  <!-- TOP CONTACT BAR -->
+  <div class="nav__topbar">
+    <div class="nav__topbar-inner">
+      <a href="tel:+919765076513" class="nav__contact">
+        <span class="nav__contact-icon">☎</span>
+        <span>+91 97650 76513</span>
+      </a>
+
+      <span class="nav__topbar-divider"></span>
+
+      <span class="nav__contact">
+        <span class="nav__contact-icon">●</span>
+        <span>Preschool &amp; Activity Centre</span>
+      </span>
+
+      <span class="nav__topbar-divider"></span>
+
+      <span class="nav__contact">
+        <span class="nav__contact-icon">⌖</span>
+        <span>Karvenagar, Pune</span>
+      </span>
+
+      <a href="tel:+919765076513" class="nav__topbar-link"> Admission Enquiry </a>
+    </div>
+  </div>
+
+  <!-- MAIN NAVIGATION -->
+  <div class="nav__main">
+    <div class="nav__inner">
+      <!-- LOGO -->
+      <a routerLink="/" class="nav__brand" (click)="closeMenu()">
+        <img
+          src="assets/images/logo.png"
+          alt="V Care Preschool and Activity Centre"
+          class="nav__logo"
+        />
+      </a>
+
+      <!-- DESKTOP NAVIGATION -->
+      <nav class="nav__links" aria-label="Primary">
+        @for (link of links; track link.label) {
+          @if (!link.children) {
+            <a [routerLink]="[link.route]" [fragment]="link.fragment" class="nav__link">
+              {{ link.label }}
+            </a>
+          } @else {
+            <div
+              class="nav__item"
+              (mouseenter)="openDropdownOnHover(link.label)"
+              (mouseleave)="closeDropdownOnLeave()"
+            >
+              <button
+                type="button"
+                class="nav__link nav__link--dropdown"
+                (click)="toggleDropdown(link.label)"
+                [attr.aria-expanded]="openDropdown() === link.label"
+              >
+                <span>{{ link.label }}</span>
+
+                <svg class="nav__chevron" viewBox="0 0 12 8" fill="none">
+                  <path
+                    d="M1 1.5L6 6.5L11 1.5"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <!-- DROPDOWN -->
+              <div
+                class="nav__dropdown"
+                [class.nav__dropdown--open]="openDropdown() === link.label"
+              >
+                @for (child of link.children; track child.label) {
+                  <a [routerLink]="[child.route]" class="nav__dropdown-link" (click)="closeMenu()">
+                    {{ child.label }}
+                  </a>
+                }
+              </div>
+            </div>
+          }
+        }
+      </nav>
+
+      <!-- CTA -->
+      <a href="tel:+919765076513" class="nav__cta">
+        <span>Book a Visit</span>
+      </a>
+
+      <!-- MOBILE BUTTON -->
+      <button
+        type="button"
+        class="nav__toggle"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-label="Toggle menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- MOBILE MENU -->
+  @if (isMenuOpen()) {
+    <nav class="nav__mobile" aria-label="Mobile">
+      @for (link of links; track link.label) {
+        @if (!link.children) {
+          <a
+            [routerLink]="[link.route]"
+            [fragment]="link.fragment"
+            class="nav__mobile-link"
+            (click)="closeMenu()"
+          >
+            {{ link.label }}
+          </a>
+        } @else {
+          <div class="nav__mobile-group">
+            <button
+              type="button"
+              class="nav__mobile-link nav__mobile-link--toggle"
+              (click)="toggleDropdown(link.label)"
+              [attr.aria-expanded]="openDropdown() === link.label"
+            >
+              <span>{{ link.label }}</span>
+
+              <svg
+                class="nav__chevron"
+                [class.nav__chevron--open]="openDropdown() === link.label"
+                viewBox="0 0 12 8"
+                fill="none"
+              >
+                <path
+                  d="M1 1.5L6 6.5L11 1.5"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            @if (openDropdown() === link.label) {
+              <div class="nav__mobile-submenu">
+                @for (child of link.children; track child.label) {
+                  <a [routerLink]="[child.route]" class="nav__mobile-sublink" (click)="closeMenu()">
+                    {{ child.label }}
+                  </a>
+                }
+              </div>
+            }
+          </div>
+        }
+      }
+
+      <div class="nav__mobile-contact">
+        <a href="tel:+919765076513"> ☎ +91 97650 76513 </a>
+
+        <span>⌖ Karvenagar, Pune</span>
+      </div>
+
+      <a href="tel:+919765076513" class="nav__mobile-cta" (click)="closeMenu()"> Book a Visit </a>
+    </nav>
+  }
+</header>

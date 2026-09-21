@@ -1,0 +1,9 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.admin-app {
+  min-height: 100vh;
+  width: 100%;
+}

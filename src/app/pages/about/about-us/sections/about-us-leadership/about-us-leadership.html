@@ -1,0 +1,59 @@
+<section class="leadership">
+  <div class="leadership__intro" vcReveal="fade-up">
+    <p class="leadership__eyebrow">The People Behind V Care</p>
+    <h2>
+      Guided by experience,
+      <span>driven by care.</span>
+    </h2>
+    <p class="leadership__lead">
+      Behind every meaningful learning experience is a team that genuinely understands children,
+      education and the importance of the early years.
+    </p>
+  </div>
+
+  @for (leader of leaders; track leader.name; let i = $index) {
+    <article
+      class="leader-row"
+      [class.leader-row--reverse]="leader.imageSide === 'left'"
+      [class.leader-row--tint]="i % 2 === 1"
+    >
+      <div class="leader-row__inner">
+        <div
+          class="leader-row__content"
+          [vcReveal]="leader.imageSide === 'left' ? 'slide-left' : 'slide-right'"
+        >
+          <span class="leader-row__role" [style.background]="leader.accent">{{ leader.role }}</span>
+          <h3 class="leader-row__name">{{ leader.sectionLabel }}</h3>
+          <p class="leader-row__desc">{{ leader.description }}</p>
+        </div>
+
+        <div
+          class="leader-row__visual"
+          [vcReveal]="leader.imageSide === 'left' ? 'slide-right' : 'slide-left'"
+        >
+          <div class="leader-row__frame">
+            <span class="leader-row__accent-bar" [style.background]="leader.accent"></span>
+
+            <div class="leader-row__photo">
+              <img
+                class="leader-row__photo-img"
+                [src]="leader.image"
+                [alt]="leader.name"
+                onerror="this.style.display = 'none'"
+                loading="lazy"
+              />
+              <span class="leader-row__initials" [style.background]="leader.accent">{{
+                leader.initials
+              }}</span>
+            </div>
+
+            <div class="leader-row__label">
+              <strong>{{ leader.name }}</strong>
+              <span>{{ leader.role }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  }
+</section>

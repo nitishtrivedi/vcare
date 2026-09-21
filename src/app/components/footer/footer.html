@@ -1,0 +1,89 @@
+<footer class="footer" id="contact">
+  <app-wave-divider fill="#DDF1F8" class="footer__wave" />
+
+  <div class="footer__top">
+    <div class="footer__inner">
+      <!-- BRAND -->
+      <div class="footer__brand">
+        <img src="assets/images/logo.png" alt="V Care Education logo" class="footer__logo" />
+      </div>
+
+      <!-- QUICK LINKS + TAGLINE + SOCIALS -->
+      <div class="footer__col">
+        <h3 class="footer__heading">Quick Links</h3>
+
+        <nav class="footer__links" aria-label="Footer">
+          @for (link of quickLinks; track link.label) {
+            <a routerLink="/" [fragment]="link.fragment">{{ link.label }}</a>
+          }
+        </nav>
+
+        <p class="footer__tagline">{{ tagline }}</p>
+
+        <div class="footer__socials">
+          <a href="#" aria-label="Facebook" class="footer__social">f</a>
+          <a href="#" aria-label="Instagram" class="footer__social">ig</a>
+          <a href="#" aria-label="YouTube" class="footer__social">yt</a>
+          <a href="#" aria-label="LinkedIn" class="footer__social">in</a>
+        </div>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="footer__col">
+        <h3 class="footer__heading">Contact Us</h3>
+
+        <div class="footer__contact">
+          @for (row of contactRows; track row.icon) {
+            <div class="footer__contact-row">
+              <span class="footer__contact-icon">
+                @switch (row.icon) {
+                  @case ('pin') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path
+                        d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <circle cx="12" cy="9.5" r="2.4" />
+                    </svg>
+                  }
+                  @case ('phone') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path
+                        d="M6 3h3l2 5-2.5 2a11 11 0 0 0 5.5 5.5l2-2.5 5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 6.2 2 2 0 0 1 6 3z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  }
+                  @case ('mail') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  }
+                  @case ('clock') {
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  }
+                }
+              </span>
+
+              <p class="footer__contact-text">
+                @for (line of row.lines; track line) {
+                  {{ line }}<br />
+                }
+              </p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <p>&copy; {{ year }} V Care Education. All rights reserved.</p>
+  </div>
+</footer>

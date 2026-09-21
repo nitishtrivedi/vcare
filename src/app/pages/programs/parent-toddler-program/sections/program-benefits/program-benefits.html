@@ -1,0 +1,37 @@
+<section class="benefits" id="experience">
+  <div class="benefits__inner">
+    <div class="benefits__intro" vcReveal="fade-up">
+      <span class="pt-kicker"> The experience </span>
+
+      <h2>
+        Designed for
+        <span>two people growing together.</span>
+      </h2>
+
+      @for (para of introParagraphs; track para) {
+        <p>{{ para }}</p>
+      }
+    </div>
+
+    <div class="benefits__orbit" vcReveal="zoom-in">
+      <div class="benefits__core">
+        <span>V</span>
+        <strong>CARE</strong>
+        <small>TOGETHER</small>
+      </div>
+
+      @for (circle of circles; track circle.text; let i = $index) {
+        <article
+          class="benefit-node benefit-node--{{ i + 1 }}"
+          [style.--accent]="circle.accent"
+          vcReveal="pop"
+          [vcRevealDelay]="i * 70"
+        >
+          <span class="benefit-node__index"> 0{{ i + 1 }} </span>
+
+          <p>{{ circle.text }}</p>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+<section class="daycare-parents">
+  <div class="daycare-parents__inner">
+    <div class="daycare-parents__heading" vcReveal="fade-up">
+      <span class="daycare-kicker"> PARENT VOICES </span>
+
+      <h2>
+        When your child is cared for,
+        <span>you can breathe easier.</span>
+      </h2>
+    </div>
+
+    <div class="daycare-parents__grid">
+      @for (t of testimonials; track t.name; let i = $index) {
+        <article
+          class="daycare-parent"
+          [style.--accent]="t.accent"
+          vcReveal="fade-up"
+          [vcRevealDelay]="i * 80"
+        >
+          <div class="daycare-parent__quote">“</div>
+
+          <p>
+            {{ t.quote }}
+          </p>
+
+          <div class="daycare-parent__person">
+            <span>
+              {{ t.initials }}
+            </span>
+
+            <div>
+              <strong>{{ t.name }}</strong>
+              <small>{{ t.relation }}</small>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

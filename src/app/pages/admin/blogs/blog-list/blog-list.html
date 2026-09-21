@@ -1,0 +1,112 @@
+<section class="blog-admin">
+  <header class="blog-admin__header">
+    <div>
+      <a routerLink="/admin" class="blog-admin__back"> ← Admin dashboard </a>
+
+      <span class="blog-admin__eyebrow"> Content management </span>
+
+      <h1>Blog</h1>
+
+      <p>Publish and manage V Care Journal articles.</p>
+    </div>
+
+    <div class="blog-admin__actions">
+      <button type="button" class="blog-admin__logout" (click)="logout()">Sign out</button>
+
+      <a routerLink="/admin/blogs/new" class="blog-admin__create"> + New Blog </a>
+    </div>
+  </header>
+
+  <main class="blog-admin__content">
+    @if (isLoading()) {
+      <div class="blog-admin__loading">Loading articles…</div>
+    }
+
+    @if (!isLoading() && errorMessage()) {
+      <div class="blog-admin__state blog-admin__state--error">
+        <strong> Unable to load blogs. </strong>
+
+        <span>
+          {{ errorMessage() }}
+        </span>
+
+        <button type="button" (click)="loadBlogs()">Try again</button>
+      </div>
+    }
+
+    @if (!isLoading() && !errorMessage() && blogs().length === 0) {
+      <div class="blog-admin__empty">
+        <div class="blog-admin__empty-icon">✦</div>
+
+        <h2>Your journal is empty.</h2>
+
+        <p>Create your first V Care article.</p>
+
+        <a routerLink="/admin/blogs/new" class="blog-admin__create"> Create first blog </a>
+      </div>
+    }
+
+    @if (!isLoading() && !errorMessage() && blogs().length > 0) {
+      <div class="blog-table">
+        <div class="blog-table__head">
+          <span>Article</span>
+          <span>Author</span>
+          <span>Created</span>
+          <span>Modified</span>
+          <span>Actions</span>
+        </div>
+
+        @for (blog of blogs(); track blog.id) {
+          <article class="blog-row">
+            <div class="blog-row__article">
+              <div class="blog-row__image">
+                @if (blog.featured_image) {
+                  <img [src]="resolveImageUrl(blog.featured_image)" [alt]="blog.title" />
+                } @else {
+                  <span> VC </span>
+                }
+              </div>
+
+              <div>
+                <h2>
+                  {{ blog.title }}
+                </h2>
+
+                <span> /blog/{{ blog.slug }} </span>
+              </div>
+            </div>
+
+            <div class="blog-row__cell">
+              {{ blog.author_name }}
+            </div>
+
+            <div class="blog-row__cell">
+              {{ formatDate(blog.created_at) }}
+            </div>
+
+            <div class="blog-row__cell">
+              {{ formatDate(blog.updated_at) }}
+            </div>
+
+            <div class="blog-row__actions">
+              <a [routerLink]="['/admin/blogs/edit', blog.id]" class="blog-row__edit"> Edit </a>
+
+              <button
+                type="button"
+                class="blog-row__delete"
+                [disabled]="deletingId() === blog.id"
+                (click)="deleteBlog(blog)"
+              >
+                @if (deletingId() === blog.id) {
+                  Deleting…
+                } @else {
+                  Delete
+                }
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </main>
+</section>

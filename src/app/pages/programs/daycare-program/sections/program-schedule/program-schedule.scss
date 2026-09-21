@@ -1,0 +1,290 @@
+.day {
+  padding: 9rem 1.5rem;
+
+  background: linear-gradient(180deg, #eef7fa 0%, #fffdf7 100%);
+
+  &__intro {
+    max-width: 820px;
+
+    margin: 0 auto 5rem;
+
+    text-align: center;
+
+    h2 {
+      margin-top: 0.85rem;
+
+      color: var(--navy-deep);
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: clamp(3rem, 5vw, 4.5rem);
+
+      line-height: 0.98;
+
+      span {
+        display: block;
+
+        color: var(--blue);
+      }
+    }
+
+    p {
+      max-width: 58ch;
+
+      margin: 1.5rem auto 0;
+
+      color: #6f7d8e;
+
+      font-size: 1rem;
+
+      line-height: 1.9;
+    }
+  }
+
+  &__timeline {
+    position: relative;
+
+    max-width: 1000px;
+
+    margin: 0 auto;
+  }
+
+  &__rail {
+    position: absolute;
+
+    left: 50%;
+    top: 0;
+    bottom: 0;
+
+    width: 3px;
+
+    transform: translateX(-50%);
+
+    background: linear-gradient(
+      to bottom,
+      var(--red),
+      var(--orange),
+      var(--yellow),
+      var(--green),
+      var(--blue),
+      var(--navy-deep)
+    );
+
+    border-radius: 999px;
+
+    opacity: 0.45;
+  }
+
+  &__footnote {
+    max-width: 900px;
+
+    margin: 3rem auto 0;
+
+    color: #8f99a5;
+
+    font-size: 0.67rem;
+
+    line-height: 1.7;
+
+    text-align: center;
+  }
+}
+
+.day-kicker {
+  color: var(--red);
+
+  font-size: 0.68rem;
+  font-weight: 900;
+
+  letter-spacing: 0.12em;
+}
+
+.day-event {
+  position: relative;
+
+  width: 50%;
+
+  min-height: 120px;
+
+  padding: 0 55px 2rem 0;
+
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  &--right {
+    margin-left: 50%;
+
+    padding: 0 0 2rem 55px;
+
+    justify-content: flex-start;
+  }
+
+  &__time {
+    position: absolute;
+
+    top: 50%;
+
+    color: var(--accent);
+
+    font-size: 0.68rem;
+
+    font-weight: 900;
+
+    transform: translateY(-50%);
+  }
+
+  &:not(.day-event--right) &__time {
+    right: 12px;
+
+    text-align: right;
+  }
+
+  &--right &__time {
+    left: 12px;
+  }
+
+  &__dot {
+    position: absolute;
+
+    top: 50%;
+    right: -8px;
+
+    width: 18px;
+    height: 18px;
+
+    transform: translateY(-50%);
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    border: 4px solid #eef7fa;
+
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+
+    z-index: 3;
+  }
+
+  &--right &__dot {
+    left: -8px;
+    right: auto;
+  }
+
+  &__card {
+    position: relative;
+
+    width: min(330px, 100%);
+
+    min-height: 92px;
+
+    padding: 1.3rem 1.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #fff;
+
+    border: 1px solid rgba(8, 42, 80, 0.07);
+
+    box-shadow: 0 12px 28px rgba(8, 42, 80, 0.06);
+
+    &::before {
+      content: '';
+
+      position: absolute;
+
+      left: 0;
+      top: 0;
+      bottom: 0;
+
+      width: 5px;
+
+      border-radius: 20px 0 0 20px;
+
+      background: var(--accent);
+    }
+  }
+
+  &__index {
+    color: #a4adb7;
+
+    font-size: 0.55rem;
+    font-weight: 900;
+
+    letter-spacing: 0.08em;
+  }
+
+  h3 {
+    margin-top: 0.35rem;
+
+    color: var(--navy-deep);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: 1rem;
+
+    line-height: 1.3;
+  }
+}
+
+@media (max-width: 700px) {
+  .day {
+    padding: 6rem 1rem;
+
+    &__timeline {
+      padding-left: 35px;
+    }
+
+    &__rail {
+      left: 10px;
+
+      transform: none;
+    }
+  }
+
+  .day-event,
+  .day-event--right {
+    width: 100%;
+
+    margin-left: 0;
+
+    min-height: auto;
+
+    padding: 0 0 1rem 35px;
+
+    justify-content: flex-start;
+  }
+
+  .day-event__time,
+  .day-event--right .day-event__time,
+  .day-event:not(.day-event--right) .day-event__time {
+    position: static;
+
+    margin-bottom: 0.45rem;
+
+    transform: none;
+
+    text-align: left;
+  }
+
+  .day-event__dot,
+  .day-event--right .day-event__dot {
+    left: 1px;
+    right: auto;
+    top: 34px;
+
+    transform: translateY(-50%);
+  }
+
+  .day-event__card {
+    width: 100%;
+  }
+}

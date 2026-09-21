@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "vcarepreschool3004"
+  },
+  "targets": {
+    "vcarepreschool3004": {
+      "hosting": {
+        "vcarepreschool": [
+          "vcarepreschool"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

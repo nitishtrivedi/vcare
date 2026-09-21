@@ -1,0 +1,35 @@
+<section class="daycare-highlights">
+  <div class="daycare-highlights__intro" vcReveal="fade-up">
+    <span class="daycare-kicker"> WHY FAMILIES CHOOSE V CARE </span>
+
+    <h2>
+      Care that feels
+      <span>personal.</span>
+    </h2>
+
+    <p>{{ intro }}</p>
+  </div>
+
+  <div class="daycare-highlights__grid">
+    @for (feature of features; track feature.title; let i = $index) {
+      <article
+        class="care-pillar"
+        [style.--accent]="feature.accent"
+        vcReveal="fade-up"
+        [vcRevealDelay]="i * 70"
+      >
+        <span class="care-pillar__index">0{{ i + 1 }}</span>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+
+        @if (feature.bullets) {
+          <ul class="care-pillar__list">
+            @for (item of feature.bullets; track item) {
+              <li>{{ item }}</li>
+            }
+          </ul>
+        }
+      </article>
+    }
+  </div>
+</section>

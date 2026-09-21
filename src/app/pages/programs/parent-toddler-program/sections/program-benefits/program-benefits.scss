@@ -1,0 +1,320 @@
+.pt-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: var(--red);
+
+  font-size: 0.67rem;
+  font-weight: 900;
+
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  &::before {
+    content: '';
+
+    width: 28px;
+    height: 4px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+      90deg,
+      var(--red),
+      var(--orange),
+      var(--yellow),
+      var(--green),
+      var(--blue)
+    );
+  }
+}
+
+.benefits {
+  padding: 8rem 1.5rem;
+
+  background: #fffdf7;
+
+  &__inner {
+    max-width: 1120px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+      0.8fr
+      1.2fr;
+
+    gap: 5rem;
+
+    align-items: center;
+  }
+
+  &__intro {
+    max-width: 470px;
+
+    h2 {
+      margin-top: 0.75rem;
+
+      color: var(--navy-deep);
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: clamp(2.1rem, 4vw, 3.4rem);
+
+      line-height: 1.04;
+
+      span {
+        display: block;
+
+        color: var(--orange);
+      }
+    }
+
+    p {
+      margin-top: 1rem;
+
+      color: #707d8d;
+
+      font-size: 0.76rem;
+
+      line-height: 1.85;
+
+      & + p {
+        margin-top: 0.8rem;
+      }
+    }
+  }
+
+  &__orbit {
+    position: relative;
+
+    min-height: 590px;
+  }
+
+  &__core {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 155px;
+    height: 155px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    color: #fff;
+
+    background: linear-gradient(145deg, var(--navy-deep), #174c7b);
+
+    box-shadow: 0 25px 50px rgba(8, 42, 80, 0.18);
+
+    span {
+      color: var(--yellow);
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: 1.7rem;
+    }
+
+    strong {
+      margin-top: -0.1rem;
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: 0.78rem;
+    }
+
+    small {
+      margin-top: 0.25rem;
+
+      color: rgba(255, 255, 255, 0.45);
+
+      font-size: 0.45rem;
+
+      font-weight: 800;
+
+      letter-spacing: 0.12em;
+    }
+  }
+}
+
+.benefit-node {
+  position: absolute;
+
+  width: 175px;
+  min-height: 118px;
+
+  padding: 1.1rem;
+
+  border-radius: 22px;
+
+  background: #fff;
+
+  border: 1px solid rgba(8, 42, 80, 0.08);
+
+  box-shadow: 0 15px 35px rgba(8, 42, 80, 0.07);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 22px 42px rgba(8, 42, 80, 0.11);
+  }
+
+  &::before {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    border-radius: 22px 22px 0 0;
+
+    background: var(--accent);
+  }
+
+  &__index {
+    color: var(--accent);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: 0.58rem;
+  }
+
+  p {
+    margin-top: 0.7rem;
+
+    color: var(--navy-deep);
+
+    font-size: 0.67rem;
+
+    font-weight: 700;
+
+    line-height: 1.6;
+  }
+
+  &--1 {
+    left: 0;
+    top: 6%;
+  }
+
+  &--2 {
+    right: 0;
+    top: 0;
+  }
+
+  &--3 {
+    right: -2%;
+    top: 38%;
+  }
+
+  &--4 {
+    right: 8%;
+    bottom: 4%;
+  }
+
+  &--5 {
+    left: 5%;
+    bottom: 9%;
+  }
+
+  &--6 {
+    left: -4%;
+    top: 43%;
+  }
+}
+
+@media (max-width: 900px) {
+  .benefits {
+    &__inner {
+      grid-template-columns: 1fr;
+
+      gap: 3rem;
+    }
+
+    &__intro {
+      max-width: 700px;
+    }
+
+    &__orbit {
+      max-width: 650px;
+
+      width: 100%;
+
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .benefits {
+    padding: 5rem 1rem;
+
+    &__orbit {
+      min-height: 640px;
+    }
+  }
+
+  .benefit-node {
+    width: 142px;
+    min-height: 105px;
+
+    p {
+      font-size: 0.6rem;
+    }
+
+    &--1 {
+      left: 0;
+    }
+
+    &--2 {
+      right: 0;
+    }
+
+    &--3 {
+      right: 0;
+      top: 36%;
+    }
+
+    &--4 {
+      right: 3%;
+      bottom: 3%;
+    }
+
+    &--5 {
+      left: 3%;
+      bottom: 5%;
+    }
+
+    &--6 {
+      left: 0;
+      top: 38%;
+    }
+  }
+
+  .benefits__core {
+    width: 125px;
+    height: 125px;
+
+    span {
+      font-size: 1.35rem;
+    }
+  }
+}

@@ -1,0 +1,150 @@
+<section class="faq-hero">
+  <div class="faq-hero__inner" vcReveal="fade-up">
+    <span class="faq-kicker">We're happy to help</span>
+
+    <h1>
+      Frequently Asked
+      <span>Questions.</span>
+    </h1>
+
+    <p>
+      Everything parents usually ask us about programs, admissions, the Zero Fee Model and daily
+      life at V Care. Can't find your answer? Reach out and we'll help directly.
+    </p>
+
+    <nav class="faq-hero__jump" aria-label="Jump to category">
+      @for (cat of categories; track cat.title) {
+        <a [href]="'#' + cat.title" [style.--accent]="cat.accent">{{ cat.title }}</a>
+      }
+    </nav>
+  </div>
+</section>
+
+<section class="faq-body">
+  @for (cat of categories; track cat.title; let ci = $index) {
+    <div class="faq-category" [id]="cat.title" [style.--accent]="cat.accent" vcReveal="fade-up">
+      <div class="faq-category__heading">
+        <div class="faq-category__icon">
+          @switch (cat.icon) {
+            @case ('general') {
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 014 18.5v-13z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 001.5-1.5v-13z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            }
+            @case ('admissions') {
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect
+                  x="5"
+                  y="4"
+                  width="14"
+                  height="17"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+                <path
+                  d="M9 3.5h6v2H9z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.5 13l2 2 4-4.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            }
+            @case ('zero-fee') {
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M9.5 12l1.8 1.8L14.5 10"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            }
+            @case ('safety') {
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" />
+                <path
+                  d="M12 8v4l2.5 2.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            }
+          }
+        </div>
+
+        <h2>{{ cat.title }}</h2>
+      </div>
+
+      <div class="faq-category__list">
+        @for (item of cat.items; track item.question; let ii = $index) {
+          <div class="faq-item" [class.faq-item--open]="isOpen(ci + '-' + ii)">
+            <button
+              type="button"
+              class="faq-item__question"
+              (click)="toggle(ci + '-' + ii)"
+              [attr.aria-expanded]="isOpen(ci + '-' + ii)"
+            >
+              <span>{{ item.question }}</span>
+
+              <svg class="faq-item__chevron" viewBox="0 0 12 8" fill="none">
+                <path
+                  d="M1 1.5L6 6.5L11 1.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+
+            <div class="faq-item__answer-wrap">
+              <div class="faq-item__answer-inner">
+                <p>{{ item.answer }}</p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</section>
+
+<section class="faq-cta">
+  <div class="faq-cta__inner" vcReveal="zoom-in">
+    <h2>Still have a question?</h2>
+    <p>Our team is happy to talk you through anything not covered here.</p>
+
+    <div class="faq-cta__actions">
+      <a href="tel:+919765076513" class="btn btn--primary">Call +91 97650 76513</a>
+      <a routerLink="/" fragment="contact" class="btn btn--ghost">Send an Enquiry</a>
+    </div>
+  </div>
+</section>

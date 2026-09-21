@@ -1,0 +1,43 @@
+<section class="nutrition">
+  <div class="nutrition__inner">
+    <div class="nutrition__col" vcReveal="fade-up">
+      <span class="daycare-kicker"> FOCUS ON NUTRITION </span>
+      <h2>Why nutrition matters</h2>
+
+      <ul class="nutrition__list">
+        @for (point of whyItMatters; track point) {
+          <li>
+            <span class="nutrition__check">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 13l4 4 10-10"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            {{ point }}
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="nutrition__col nutrition__col--partner" vcReveal="fade-up" [vcRevealDelay]="120">
+      <h2>Parent partnership</h2>
+      <p class="nutrition__lead">We encourage parents to:</p>
+
+      <ul class="nutrition__list">
+        @for (point of parentPartnership; track point) {
+          <li><span class="nutrition__dot"></span>{{ point }}</li>
+        }
+      </ul>
+
+      <div class="nutrition__note">
+        ✨ Together, we ensure that your child grows up healthy, strong and happy — one bite at a
+        time!
+      </div>
+    </div>
+  </div>
+</section>

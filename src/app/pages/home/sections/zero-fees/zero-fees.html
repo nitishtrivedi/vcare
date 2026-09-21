@@ -1,0 +1,82 @@
+<section class="zero-fee" id="zero-fee">
+  <div class="zero-fee__inner">
+    <div class="zero-fee__header" vcReveal="fade-up">
+      <span class="zero-fee__badge">A V Care Promise</span>
+      <h2 class="zero-fee__title">Introducing V Care's ZERO Fee Model</h2>
+      <p class="zero-fee__lead">
+        What if quality education didn't mean losing your hard-earned money? Education is a right,
+        not an expense - and your child's learning journey should be a financially secure one too.
+      </p>
+    </div>
+
+    <ul class="zero-fee__promises" vcReveal="zoom-in">
+      @for (p of promises; track p.text) {
+        <li class="promise-pill">
+          <svg
+            viewBox="0 0 24 24"
+            width="18"
+            height="18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M4 12l5 5L20 6" />
+          </svg>
+          <span>{{ p.text }}</span>
+        </li>
+      }
+    </ul>
+
+    <div class="zero-fee__steps">
+      @for (step of steps; track step.number; let i = $index) {
+        <div class="step-card" vcReveal="fade-up" [vcRevealDelay]="i * 100">
+          <span class="step-card__number">{{ step.number }}</span>
+          <h3 class="step-card__title">{{ step.title }}</h3>
+          <p class="step-card__desc">{{ step.description }}</p>
+        </div>
+      }
+    </div>
+
+    <div class="zero-fee__compare" vcReveal="fade-up">
+      <div class="compare-table">
+        <div class="compare-table__head">
+          <span>Traditional Preschools</span>
+          <span>V Care ZERO Fee Model</span>
+        </div>
+        @for (row of comparisonRows; track row.traditional) {
+          <div class="compare-table__row">
+            <span class="compare-table__cell compare-table__cell--against">{{
+              row.traditional
+            }}</span>
+            <span class="compare-table__cell compare-table__cell--for">{{ row.vcare }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- <div class="zero-fee__trust" vcReveal="fade-up">
+      @for (point of trustPoints; track point) {
+        <div class="trust-chip">
+          <svg
+            viewBox="0 0 24 24"
+            width="16"
+            height="16"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke-linejoin="round" />
+          </svg>
+          <span>{{ point }}</span>
+        </div>
+      }
+    </div> -->
+
+    <div class="zero-fee__cta" vcReveal="fade-up">
+      <a routerLink="/about/zero-fee-model" class="btn btn--primary">Learn How It Works</a>
+      <a [routerLink]="'/about/faq'" class="btn btn--ghost">Ask Us a Question</a>
+    </div>
+  </div>
+</section>

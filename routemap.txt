@@ -1,0 +1,85 @@
+vcare/
+├── public/
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   ├── footer/
+│   │   │   ├── navbar/
+│   │   │   └── wave-divider/
+│   │   │
+│   │   ├── directives/
+│   │   │   ├── scroll-reveal.ts
+│   │   │   └── scroll-reveal.spec.ts
+│   │   │
+│   │   ├── models/
+│   │   │   └── program.model.ts                    ⬅ NEW — shared interfaces
+│   │   │
+│   │   ├── pages/
+│   │   │   ├── home/
+│   │   │   │   ├── sections/
+│   │   │   │   │   ├── hero/
+│   │   │   │   │   ├── media-banner/
+│   │   │   │   │   ├── stats-band/
+│   │   │   │   │   ├── programs-carousel/
+│   │   │   │   │   ├── why-vcare/
+│   │   │   │   │   ├── testimonials/
+│   │   │   │   │   └── admissions-cta/
+│   │   │   │   ├── home.html
+│   │   │   │   ├── home.scss
+│   │   │   │   ├── home.spec.ts
+│   │   │   │   └── home.ts
+│   │   │   │
+│   │   │   ├── programs/
+│   │   │   │   ├── programs.routes.ts              ⬅ NEW
+│   │   │   │   ├── preschool-program/               ⬅ NEW — built below
+│   │   │   │   │   ├── sections/
+│   │   │   │   │   │   ├── program-hero/
+│   │   │   │   │   │   │   ├── program-hero.html
+│   │   │   │   │   │   │   ├── program-hero.scss
+│   │   │   │   │   │   │   └── program-hero.ts
+│   │   │   │   │   │   ├── program-learnings/
+│   │   │   │   │   │   │   ├── program-learnings.html
+│   │   │   │   │   │   │   ├── program-learnings.scss
+│   │   │   │   │   │   │   └── program-learnings.ts
+│   │   │   │   │   │   ├── program-classes/
+│   │   │   │   │   │   │   ├── program-classes.html
+│   │   │   │   │   │   │   ├── program-classes.scss
+│   │   │   │   │   │   │   └── program-classes.ts
+│   │   │   │   │   │   └── program-moments/
+│   │   │   │   │   │       ├── program-moments.html
+│   │   │   │   │   │       ├── program-moments.scss
+│   │   │   │   │   │       └── program-moments.ts
+│   │   │   │   │   ├── preschool-program.html
+│   │   │   │   │   ├── preschool-program.scss
+│   │   │   │   │   └── preschool-program.ts
+│   │   │   │   ├── daycare/                        ⏳ next
+│   │   │   │   ├── activity-centre/                 ⏳
+│   │   │   │   ├── summer-camp/                    ⏳
+│   │   │   │   ├── after-school-care/              ⏳
+│   │   │   │   └── enrichment-programs/            ⏳
+│   │   │   │
+│   │   │   ├── about/
+│   │   │   │   ├── about.routes.ts
+│   │   │   │   ├── our-story/                      ⏳
+│   │   │   │   ├── curriculum-approach/            ⏳
+│   │   │   │   ├── zero-fee-model/                 ⏳
+│   │   │   │   ├── infrastructure-safety/          ⏳
+│   │   │   │   └── team-educators/                 ⏳
+│   │   │   ├── gallery/                            ⏳
+│   │   │   ├── blog/                               ⏳
+│   │   │   └── contact/                            ⏳
+│   │   │
+│   │   ├── app.config.ts
+│   │   ├── app.css
+│   │   ├── app.html
+│   │   ├── app.routes.ts
+│   │   ├── app.spec.ts
+│   │   └── app.ts
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.scss
+├── .editorconfig
+├── .gitignore
+├── .postcssrc.json
+├── angular.json
+└── package.json

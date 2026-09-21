@@ -1,0 +1,18 @@
+<section class="voices" id="voices">
+  <div class="voices__inner">
+    <h2 class="voices__title">What Parents Have To Say</h2>
+    <span class="rainbow-arc"></span>
+
+    <div class="voices__grid">
+      @for (t of testimonials; track t.name; let i = $index) {
+        <div class="voice-card" vcReveal="fade-up" [vcRevealDelay]="i * 120">
+          <p class="voice-card__quote">&ldquo;{{ t.quote }}&rdquo;</p>
+          <div class="voice-card__pointer"></div>
+          <div class="voice-card__avatar">{{ t.initials }}</div>
+          <p class="voice-card__name">{{ t.name }}</p>
+          <p class="voice-card__relation">{{ t.relation }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

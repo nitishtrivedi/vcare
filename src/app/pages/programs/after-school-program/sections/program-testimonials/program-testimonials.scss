@@ -1,0 +1,166 @@
+.parents {
+  position: relative;
+  z-index: 2;
+  padding: 7rem 1.5rem;
+  margin-bottom: -1rem;
+
+  background: #fffdf7;
+
+  &__inner {
+    max-width: 1120px;
+
+    margin: 0 auto;
+  }
+
+  &__intro {
+    max-width: 650px;
+
+    margin-bottom: 3rem;
+
+    h2 {
+      margin-top: 0.75rem;
+
+      color: var(--navy-deep);
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: clamp(2.1rem, 4vw, 3.4rem);
+
+      line-height: 1.04;
+
+      span {
+        display: block;
+
+        color: var(--blue);
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 1rem;
+  }
+}
+
+.parent-card {
+  position: relative;
+
+  min-height: 260px;
+
+  padding: 1.7rem;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  background: #fff;
+
+  border: 1px solid rgba(8, 42, 80, 0.08);
+
+  box-shadow: 0 16px 32px rgba(8, 42, 80, 0.05);
+
+  &::before {
+    content: '';
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 4px;
+
+    background: var(--accent);
+  }
+
+  &__quote {
+    height: 36px;
+
+    color: var(--accent);
+
+    font-family: Georgia, serif;
+
+    font-size: 4rem;
+
+    line-height: 0.7;
+  }
+
+  &__text {
+    margin-top: 0.8rem;
+
+    color: #647285;
+
+    font-size: 0.74rem;
+
+    line-height: 1.75;
+  }
+
+  &__person {
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.7rem;
+
+    margin-top: 1.5rem;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid rgba(8, 42, 80, 0.08);
+
+    strong {
+      display: block;
+
+      color: var(--navy-deep);
+
+      font-size: 0.68rem;
+
+      font-weight: 800;
+    }
+
+    small {
+      display: block;
+
+      margin-top: 0.15rem;
+
+      color: #98a2ae;
+
+      font-size: 0.56rem;
+    }
+  }
+
+  &__avatar {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #fff;
+
+    background: var(--accent);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: 0.63rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .parents {
+    padding: 5rem 1rem;
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

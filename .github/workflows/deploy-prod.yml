@@ -1,0 +1,72 @@
+name: Deploy VCare Prod
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy to vcarepreschool.in
+
+    # IMPORTANT:
+    # This tells GitHub to use the secrets/settings
+    # stored inside the DEV environment.
+    environment: Prod
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # ---------------------------------------
+      # 1. Checkout the dev branch
+      # ---------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ---------------------------------------
+      # 2. Setup Node.js
+      # ---------------------------------------
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # ---------------------------------------
+      # 3. Install dependencies
+      # ---------------------------------------
+      - name: Install dependencies
+        run: npm install
+
+      # ---------------------------------------
+      # 4. Build Angular
+      # ---------------------------------------
+      - name: Build Angular
+        run: npm run build
+
+      # ---------------------------------------
+      # 5. Deploy Angular build to Hostinger
+      # ---------------------------------------
+      - name: Deploy to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: 82.25.106.151
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+          # Hostinger FTP from your screenshot
+          protocol: ftp
+          port: 21
+
+          # Angular production build
+          local-dir: ./dist/vcare/browser/
+
+          # Root directory of dev.vcarepreschool.in
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          state-name: .ftp-deploy-sync-state-v2.2.json
+          # Keep remote runtime files that are not managed by Git.
+          # Blog images are uploaded by the Admin application
+          # directly to Hostinger and must survive deployments.
+          exclude: |
+            assets/images/blog/**
+            **/.ftp-deploy-sync-state.json

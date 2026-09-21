@@ -1,0 +1,61 @@
+.cta {
+  background: var(--navy);
+  padding: 8rem 1.5rem;
+  margin-bottom: -90px;
+
+  &__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__kicker {
+    color: var(--yellow);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+  }
+
+  &__title {
+    font-size: clamp(1.6rem, 3vw, 4.1rem);
+    color: #fff;
+    margin-bottom: 0.9rem;
+  }
+
+  &__sub {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 48ch;
+    margin: 0 auto 2.25rem;
+  }
+
+  &__features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.25rem;
+
+    @media (max-width: 700px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  &__feature {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 1rem 0.75rem;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+}

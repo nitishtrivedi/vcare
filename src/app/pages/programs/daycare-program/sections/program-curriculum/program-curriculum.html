@@ -1,0 +1,33 @@
+<section class="curriculum">
+  <div class="curriculum__intro" vcReveal="fade-up">
+    <span class="daycare-kicker"> OUR HOLISTIC CURRICULUM </span>
+
+    <h2>
+      Explore the
+      <span>journey.</span>
+    </h2>
+
+    <p>
+      Ten interconnected learning tracks work together across the day, so every child grows
+      academically, physically, socially and emotionally.
+    </p>
+  </div>
+
+  <div class="curriculum__grid">
+    @for (category of categories; track category.title; let i = $index) {
+      <article
+        class="curriculum-card"
+        [style.--accent]="category.accent"
+        vcReveal="fade-up"
+        [vcRevealDelay]="(i % 5) * 60"
+      >
+        <h3>{{ category.title }}</h3>
+        <ul>
+          @for (item of category.items; track item) {
+            <li><span class="curriculum-card__diamond"></span>{{ item }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+</section>

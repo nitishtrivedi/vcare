@@ -1,0 +1,83 @@
+<section class="learnings">
+  <div class="learnings__inner">
+    <div class="learnings__intro" vcReveal="fade-up">
+      <span class="program-eyebrow"> The learning journey </span>
+
+      <h2 class="program-heading">
+        Curious minds need
+        <span>room to explore.</span>
+      </h2>
+
+      <div class="learnings__chips">
+        @for (chip of chips; track chip.label; let i = $index) {
+          <span class="learnings__chip" [class.learnings__chip--offset]="i % 3 === 1">
+            {{ chip.label }}
+          </span>
+        }
+      </div>
+    </div>
+
+    <div class="learnings__story" vcReveal="slide-left">
+      @for (para of introParagraphs; track para) {
+        <p>{{ para }}</p>
+      }
+
+      <div class="learnings__accent">
+        <span></span>
+        <strong>Learning through real experience.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="learnings__details">
+    @for (row of detailRows; track row.title; let i = $index) {
+      <article
+        class="learning-card"
+        [style.--accent]="row.accent"
+        vcReveal="fade-up"
+        [vcRevealDelay]="i * 100"
+      >
+        <div class="learning-card__index">0{{ i + 1 }}</div>
+
+        <div
+          class="learning-card__icon"
+          [style.background]="row.accent + '18'"
+          [style.color]="row.accent"
+        >
+          @switch (row.icon) {
+            @case ('duration') {
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M12 7v5l3 3"></path>
+              </svg>
+            }
+
+            @case ('routine') {
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 4h10"></path>
+                <path d="M8 4v4c0 2 1.5 3 4 3s4-1 4-3V4"></path>
+                <path d="M12 11v8"></path>
+                <path d="M8 20h8"></path>
+              </svg>
+            }
+
+            @case ('safety') {
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3l7 3v5c0 4.5-3 7.5-7 10-4-2.5-7-5.5-7-10V6l7-3z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+            }
+          }
+        </div>
+
+        <div class="learning-card__body">
+          <span>{{ row.title }}</span>
+
+          <p>
+            {{ row.description }}
+          </p>
+        </div>
+      </article>
+    }
+  </div>
+</section>

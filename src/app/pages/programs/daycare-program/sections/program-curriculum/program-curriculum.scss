@@ -1,0 +1,109 @@
+.curriculum {
+  padding: 9rem 1.5rem;
+  background: #fff;
+
+  &__intro {
+    max-width: 780px;
+    margin: 0 auto 4.5rem;
+    text-align: center;
+
+    h2 {
+      margin-top: 0.9rem;
+      color: var(--navy-deep);
+      font-family: 'Paytone One', cursive;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.035em;
+
+      span {
+        color: var(--red);
+      }
+    }
+
+    p {
+      max-width: 60ch;
+      margin: 1.5rem auto 0;
+      color: #6e7b8c;
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+  }
+
+  &__grid {
+    max-width: 1180px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1.1rem;
+  }
+}
+
+.curriculum-card {
+  padding: 1.8rem 1.7rem 2rem;
+  border-radius: 22px;
+
+  background: #fffdf7;
+  border-top: 5px solid var(--accent);
+  box-shadow: 0 14px 32px rgba(8, 42, 80, 0.05);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(8, 42, 80, 0.09);
+  }
+
+  h3 {
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: 1.15rem;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.9rem;
+  }
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+
+    color: #58687b;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  &__diamond {
+    flex: 0 0 auto;
+    width: 7px;
+    height: 7px;
+    margin-top: 6px;
+
+    background: var(--accent);
+    transform: rotate(45deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .curriculum {
+    padding: 6rem 1rem;
+
+    &__intro {
+      margin-bottom: 3rem;
+
+      h2 {
+        font-size: 3rem;
+      }
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

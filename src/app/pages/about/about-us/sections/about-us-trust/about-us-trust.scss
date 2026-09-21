@@ -1,0 +1,125 @@
+.trust {
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 1.5rem 7rem;
+  background: var(--cream);
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1100px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  &__heading {
+    margin-bottom: 1.6rem;
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+
+      color: #4a5766;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    &--plain li {
+      align-items: center;
+    }
+  }
+
+  &__check {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+    margin-top: 1px;
+
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+
+    svg {
+      width: 13px;
+      height: 13px;
+    }
+  }
+
+  &__dot {
+    flex: 0 0 auto;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  &__shape {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+
+    &--arc {
+      right: -60px;
+      bottom: -60px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: var(--brown, #874d3e);
+      opacity: 0.12;
+    }
+
+    &--diamond {
+      right: 90px;
+      bottom: 40px;
+      width: 46px;
+      height: 46px;
+      background: var(--green);
+      transform: rotate(45deg);
+      opacity: 0.5;
+      border-radius: 6px;
+    }
+
+    &--triangle {
+      right: 30px;
+      bottom: 130px;
+      width: 0;
+      height: 0;
+      border-left: 26px solid transparent;
+      border-right: 26px solid transparent;
+      border-bottom: 42px solid var(--blue);
+      opacity: 0.5;
+    }
+  }
+}
+
+@media (max-width: 820px) {
+  .trust {
+    padding: 5rem 1.25rem 6rem;
+
+    &__inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    &__shape {
+      display: none;
+    }
+  }
+}

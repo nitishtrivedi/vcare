@@ -1,0 +1,63 @@
+<section class="about-hero">
+  <!-- Decorative shapes -->
+  <span class="about-hero__shape about-hero__shape--red"></span>
+  <span class="about-hero__shape about-hero__shape--yellow"></span>
+  <span class="about-hero__shape about-hero__shape--green"></span>
+
+  <div class="about-hero__inner">
+    <div class="about-hero__content">
+      <p class="about-hero__kicker" vcReveal="fade-up">
+        Preschool &amp; Activity Centre · Karvenagar, Pune
+      </p>
+
+      <h1 class="about-hero__title" vcReveal="fade-up" [vcRevealDelay]="80">
+        Growing little minds
+        <span>with care, confidence &amp; curiosity.</span>
+      </h1>
+
+      <p class="about-hero__description" vcReveal="fade-up" [vcRevealDelay]="160">
+        At V Care, we believe early childhood is not just about preparing children for school. It is
+        about helping them discover who they are, understand the world around them and grow into
+        confident, kind and curious individuals.
+      </p>
+
+      <div class="about-hero__actions" vcReveal="fade-up" [vcRevealDelay]="240">
+        <a href="tel:+919765076513" class="about-hero__btn about-hero__btn--primary">
+          Book a Visit
+        </a>
+
+        <a href="#our-story" class="about-hero__btn about-hero__btn--ghost">
+          Our Story
+          <span>↓</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="about-hero__visual" vcReveal="zoom-in" [vcRevealDelay]="120">
+      <div class="about-hero__visual-bg"></div>
+
+      <div class="about-hero__photo">
+        <img
+          [src]="heroImage"
+          alt="Happy child at V Care Preschool"
+          onerror="this.style.display = 'none'"
+        />
+      </div>
+
+      <div class="about-hero__badge about-hero__badge--top">
+        <strong>Play</strong>
+        <span>comes first</span>
+      </div>
+
+      <div class="about-hero__badge about-hero__badge--bottom">
+        <strong>Learn</strong>
+        <span>with joy</span>
+      </div>
+
+      <span class="about-hero__dot about-hero__dot--blue"></span>
+      <span class="about-hero__dot about-hero__dot--orange"></span>
+    </div>
+  </div>
+
+  <div class="about-hero__wave"></div>
+</section>

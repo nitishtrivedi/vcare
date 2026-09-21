@@ -1,0 +1,10 @@
+<section class="stats-band">
+  <div class="stats-band__grid">
+    @for (stat of stats; track stat.label; let i = $index) {
+      <div class="stats-band__circle icon-bounce" vcReveal="pop" [vcRevealDelay]="i * 90">
+        <span class="stats-band__value">{{ stat.value }}</span>
+        <span class="stats-band__label">{{ stat.label }}</span>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,121 @@
+<section class="public-blog">
+  <section class="public-blog__hero">
+    <div class="public-blog__shape public-blog__shape--one" aria-hidden="true"></div>
+
+    <div class="public-blog__shape public-blog__shape--two" aria-hidden="true"></div>
+
+    <div class="public-blog__shape public-blog__shape--three" aria-hidden="true"></div>
+
+    <div class="public-blog__hero-inner" vcReveal="fade-up">
+      <div>
+        <span class="public-blog__kicker">
+          <span></span>
+          V Care Journal
+        </span>
+
+        <h1>
+          Little minds.
+          <span>Big ideas.</span>
+        </h1>
+
+        <p>
+          Stories, ideas and practical insights from V Care — helping children learn, grow, belong
+          and become.
+        </p>
+      </div>
+
+      <div class="public-blog__visual" aria-hidden="true">
+        <div class="public-blog__visual-circle"></div>
+
+        <div class="public-blog__visual-card">
+          <strong>Learn.</strong>
+          <strong>Explore.</strong>
+          <strong>Grow.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="public-blog__content section">
+    <div class="section-inner">
+      <div class="public-blog__heading" vcReveal="fade-up">
+        <div>
+          <span> From V Care </span>
+
+          <h2>Stories worth reading.</h2>
+        </div>
+
+        <p>A collection of ideas, stories and everyday learning moments.</p>
+      </div>
+
+      @if (isLoading()) {
+        <div class="public-blog__loading">Loading the V Care Journal…</div>
+      } @else if (errorMessage()) {
+        <div class="public-blog__state">
+          <strong> We couldn't load the journal. </strong>
+
+          <p>
+            {{ errorMessage() }}
+          </p>
+
+          <button type="button" (click)="loadBlogs()">Try again</button>
+        </div>
+      } @else if (blogs().length === 0) {
+        <div class="public-blog__state">
+          <strong> The journal is just getting started. </strong>
+
+          <p>New V Care stories will appear here soon.</p>
+        </div>
+      } @else {
+        <div class="public-blog__grid">
+          @for (blog of blogs(); track blog.id) {
+            <article class="public-blog__card" vcReveal="fade-up">
+              <a [routerLink]="['/blog', blog.slug]" class="public-blog__image">
+                @if (blog.featured_image) {
+                  <img
+                    [src]="resolveImageUrl(blog.featured_image)"
+                    [alt]="blog.title"
+                    loading="lazy"
+                  />
+                } @else {
+                  <div>V CARE</div>
+                }
+
+                <span> V Care Journal </span>
+              </a>
+
+              <div class="public-blog__card-body">
+                <div class="public-blog__meta">
+                  <span>
+                    {{ blog.author_name }}
+                  </span>
+
+                  <i></i>
+
+                  <span>
+                    {{ formatDate(blog.created_at) }}
+                  </span>
+                </div>
+
+                <h3>
+                  <a [routerLink]="['/blog', blog.slug]">
+                    {{ blog.title }}
+                  </a>
+                </h3>
+
+                <p>
+                  {{ getExcerpt(blog.content) }}
+                </p>
+
+                <a [routerLink]="['/blog', blog.slug]" class="public-blog__read">
+                  Read article
+                  <span>→</span>
+                </a>
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </div>
+  </section>
+</section>

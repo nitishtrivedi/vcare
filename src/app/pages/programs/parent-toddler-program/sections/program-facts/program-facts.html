@@ -1,0 +1,24 @@
+<section class="facts">
+  <div class="facts__inner">
+    <div class="facts__label">
+      <span>THE BASICS</span>
+      <strong>Made simple.</strong>
+    </div>
+
+    @for (fact of facts; track fact.label; let i = $index) {
+      <div class="fact" vcReveal="fade-up" [vcRevealDelay]="i * 90">
+        <span class="fact__number"> 0{{ i + 1 }} </span>
+
+        <div>
+          <strong>{{ fact.value }}</strong>
+          <small>{{ fact.label }}</small>
+        </div>
+      </div>
+    }
+
+    <a routerLink="/contact" class="facts__cta" vcReveal="fade-up">
+      Start the conversation
+      <span>→</span>
+    </a>
+  </div>
+</section>

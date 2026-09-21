@@ -1,0 +1,20 @@
+<section class="cta">
+  <div class="cta__inner" vcReveal="zoom-in">
+    <p class="cta__kicker">Give Your Child A Head Start</p>
+    <h2 class="cta__title">Admissions Are Open</h2>
+    <p class="cta__sub">
+      Come see the campus, meet the teachers, and find the right program for your child.
+    </p>
+
+    <div class="cta__features">
+      @for (f of features; track f) {
+        <div class="cta__feature">{{ f }}</div>
+      }
+    </div>
+
+    <div class="cta__actions">
+      <a href="tel:+919765076513" class="btn btn--on-dark">Call +91 97650 76513</a>
+      <a [routerLink]="'/contact'" class="btn btn--on-dark-ghost">Send an Enquiry</a>
+    </div>
+  </div>
+</section>

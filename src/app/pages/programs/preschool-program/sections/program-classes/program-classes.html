@@ -1,0 +1,105 @@
+<section class="classes" id="classes">
+  <div class="classes__heading" vcReveal="fade-up">
+    <span class="program-eyebrow"> Find your child's stage </span>
+
+    <h2 class="program-heading">
+      Four stages.
+      <span>One joyful journey.</span>
+    </h2>
+
+    <p>
+      Each classroom is designed around the developmental needs of children at that particular
+      stage.
+    </p>
+  </div>
+
+  <div class="classes__timeline">
+    @for (cls of classes; track cls.name; let i = $index) {
+      <article
+        class="class-card"
+        [style.--accent]="cls.color"
+        vcReveal="fade-up"
+        [vcRevealDelay]="i * 90"
+      >
+        <div class="class-card__top">
+          <span class="class-card__number"> 0{{ i + 1 }} </span>
+
+          <div>
+            <span class="class-card__label">
+              {{ cls.eligibility }}
+            </span>
+
+            <h3>{{ cls.name }}</h3>
+          </div>
+        </div>
+
+        <div class="class-card__aims">
+          <span>Focus areas</span>
+
+          <ul>
+            @for (aim of cls.aims; track aim) {
+              <li>
+                <i></i>
+                {{ aim }}
+              </li>
+            }
+          </ul>
+        </div>
+
+        @for (schedule of cls.schedules; track $index) {
+          <div class="class-card__schedule">
+            <div class="class-card__schedule-title">
+              <span>{{ schedule.label }}</span>
+            </div>
+
+            <div class="class-card__schedule-grid">
+              <div>
+                <small>Timing</small>
+                <strong>{{ schedule.timing }}</strong>
+              </div>
+
+              <div>
+                <small>Session</small>
+                <strong>{{ schedule.duration }}</strong>
+              </div>
+
+              <div>
+                <small>Days</small>
+                <strong>{{ schedule.days }}</strong>
+              </div>
+
+              <div>
+                <small>Meals</small>
+                <strong>{{ schedule.meals }}</strong>
+              </div>
+            </div>
+          </div>
+        }
+      </article>
+    }
+  </div>
+
+  <div class="classes__footer" vcReveal="fade-up">
+    <p>
+      Every class is available under our
+      <a routerLink="/about/zero-fee-model"> Zero Fee Refundable Deposit Model </a>
+      — pay a one-time refundable deposit with no monthly or hidden charges, and receive a complete
+      refund, ANYTIME!
+    </p>
+
+    <div class="classes__actions">
+      <a routerLink="/contact" class="program-button program-button--primary">
+        Make an Enquiry
+        <span>↗</span>
+      </a>
+
+      <a
+        href="assets/docs/vcare-brochure.pdf"
+        download
+        class="program-button program-button--ghost"
+      >
+        Download Brochure
+      </a>
+    </div>
+  </div>
+</section>

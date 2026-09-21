@@ -1,0 +1,54 @@
+<section class="facts">
+  <div class="facts__inner">
+    <div class="facts__copy" vcReveal="fade-up">
+      <span class="program-kicker"> At a glance </span>
+
+      <h2>
+        One place.
+        <span>Many possibilities.</span>
+      </h2>
+
+      <p>
+        {{ intro }}
+      </p>
+    </div>
+
+    <div class="facts__passport" vcReveal="zoom-in">
+      @for (fact of facts; track fact.label; let i = $index) {
+        <div class="passport-item" [class.passport-item--last]="i === facts.length - 1">
+          <div class="passport-item__icon">
+            @switch (fact.icon) {
+              @case ('age') {
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="8" r="3"></circle>
+                  <path d="M5 19c.8-4 3.4-6 7-6s6.2 2 7 6"></path>
+                </svg>
+              }
+
+              @case ('timing') {
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="9"></circle>
+                  <path d="M12 7v5l3 3"></path>
+                </svg>
+              }
+
+              @case ('days') {
+                <svg viewBox="0 0 24 24">
+                  <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                  <path d="M3 10h18M8 3v4M16 3v4"></path>
+                </svg>
+              }
+            }
+          </div>
+
+          <div>
+            <strong>{{ fact.value }}</strong>
+            <span>{{ fact.label }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <p class="facts__note">*Closed on the 2nd and last Saturday of every month.</p>
+</section>

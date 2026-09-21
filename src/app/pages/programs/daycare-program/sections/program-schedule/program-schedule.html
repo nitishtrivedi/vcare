@@ -1,0 +1,50 @@
+<section class="day" id="day">
+  <div class="day__intro" vcReveal="fade-up">
+    <span class="day-kicker"> A DAY AT V CARE </span>
+
+    <h2>
+      There is a rhythm
+      <span>to a happy day.</span>
+    </h2>
+
+    <p>
+      A balanced routine gives children freedom to explore while creating familiar moments of care,
+      learning, food, rest and play.
+    </p>
+  </div>
+
+  <div class="day__timeline">
+    <div class="day__rail"></div>
+
+    @for (block of blocks; track block.time + block.label; let i = $index) {
+      <article
+        class="day-event"
+        [class.day-event--right]="i % 2 !== 0"
+        [style.--accent]="block.accent"
+        vcReveal="fade-up"
+        [vcRevealDelay]="(i % 5) * 60"
+      >
+        <span class="day-event__time">
+          {{ block.time }}
+        </span>
+
+        <div class="day-event__dot"></div>
+
+        <div class="day-event__card">
+          <span class="day-event__index">
+            {{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}
+          </span>
+
+          <h3>
+            {{ block.label }}
+          </h3>
+        </div>
+      </article>
+    }
+  </div>
+
+  <div class="day__footnote">
+    Durations shown reflect a typical day at our Activity Centre. Exact start times may shift
+    slightly day to day to suit the group.
+  </div>
+</section>

@@ -1,0 +1,448 @@
+.pt-hero {
+  position: relative;
+  z-index: 1;
+
+  overflow: hidden;
+
+  padding: 9rem 1.5rem 7rem;
+
+  background:
+    radial-gradient(circle at 78% 15%, rgba(251, 237, 33, 0.18), transparent 18%),
+    radial-gradient(circle at 15% 80%, rgba(246, 146, 32, 0.15), transparent 22%),
+    linear-gradient(135deg, #fff1e4 0%, #fce3d0 52%, #f8ddd1 100%);
+
+  &__inner {
+    position: relative;
+    z-index: 2;
+
+    max-width: 1160px;
+    min-height: 650px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+      1fr
+      0.95fr;
+
+    gap: 4rem;
+
+    align-items: center;
+  }
+
+  &__content {
+    max-width: 620px;
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+
+    gap: 0.55rem;
+
+    color: var(--navy-deep);
+
+    font-size: 0.62rem;
+    font-weight: 900;
+
+    letter-spacing: 0.11em;
+
+    span {
+      color: var(--red);
+    }
+
+    i {
+      width: 25px;
+      height: 3px;
+
+      border-radius: 999px;
+
+      background: linear-gradient(
+        90deg,
+        var(--red),
+        var(--orange),
+        var(--yellow),
+        var(--green),
+        var(--blue)
+      );
+    }
+  }
+
+  h1 {
+    margin-top: 1.3rem;
+
+    color: var(--navy-deep);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: clamp(3rem, 6vw, 4.5rem);
+
+    line-height: 0.98;
+
+    letter-spacing: -0.04em;
+
+    span {
+      display: block;
+      color: var(--red);
+    }
+  }
+
+  &__lead {
+    max-width: 54ch;
+
+    margin-top: 1.5rem;
+
+    color: #5f6875;
+
+    font-size: 0.9rem;
+
+    line-height: 1.9;
+  }
+
+  &__actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.75rem;
+
+    margin-top: 1.8rem;
+  }
+
+  &__quote {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 0.7rem;
+
+    max-width: 420px;
+
+    margin-top: 2rem;
+
+    padding-top: 1rem;
+
+    border-top: 1px solid rgba(8, 42, 80, 0.12);
+
+    span {
+      color: var(--orange);
+
+      font-family: Georgia, serif;
+
+      font-size: 2.7rem;
+
+      line-height: 0.75;
+    }
+
+    p {
+      color: #7a8490;
+
+      font-size: 0.68rem;
+
+      font-weight: 700;
+
+      line-height: 1.6;
+    }
+  }
+
+  &__visual {
+    position: relative;
+
+    min-height: 610px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    position: relative;
+
+    z-index: 2;
+
+    width: min(470px, 88%);
+
+    padding: 11px;
+
+    border-radius: 48% 52% 46% 54% / 54% 44% 56% 46%;
+
+    background: #fff;
+
+    box-shadow: 0 30px 65px rgba(135, 77, 62, 0.2);
+
+    transform: rotate(3deg);
+
+    img {
+      display: block;
+
+      width: 100%;
+      aspect-ratio: 1;
+
+      object-fit: cover;
+
+      border-radius: 45% 55% 43% 57% / 52% 43% 57% 48%;
+    }
+  }
+
+  &__orb {
+    position: absolute;
+
+    border-radius: 50%;
+
+    &--yellow {
+      width: 390px;
+      height: 390px;
+
+      background: rgba(251, 237, 33, 0.62);
+    }
+
+    &--pink {
+      width: 95px;
+      height: 95px;
+
+      right: 2%;
+      top: 10%;
+
+      background: var(--red);
+
+      opacity: 0.15;
+    }
+  }
+
+  &__floating {
+    position: absolute;
+
+    z-index: 5;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 105px;
+    height: 105px;
+
+    border-radius: 50%;
+
+    text-align: center;
+
+    box-shadow: 0 18px 35px rgba(8, 42, 80, 0.13);
+
+    strong {
+      font-family: 'Paytone One', cursive;
+
+      font-size: 0.8rem;
+    }
+
+    span {
+      margin-top: 0.15rem;
+
+      font-size: 0.57rem;
+
+      font-weight: 700;
+    }
+
+    &--one {
+      left: 0;
+      top: 12%;
+
+      color: #fff;
+
+      background: var(--green);
+
+      transform: rotate(-7deg);
+    }
+
+    &--two {
+      right: 1%;
+      bottom: 10%;
+
+      color: var(--navy-deep);
+
+      background: #fff;
+
+      border: 6px solid var(--orange);
+
+      transform: rotate(7deg);
+    }
+  }
+
+  &__wave {
+    position: absolute;
+
+    z-index: 10;
+
+    left: 0;
+    right: 0;
+    bottom: -1px;
+
+    height: 95px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    line-height: 0;
+
+    pointer-events: none;
+
+    app-wave-divider {
+      width: 100%;
+      height: 100%;
+      margin-bottom: -30px;
+    }
+  }
+
+  &__grain {
+    position: absolute;
+    inset: 0;
+
+    opacity: 0.12;
+
+    background-image: radial-gradient(rgba(8, 42, 80, 0.35) 0.7px, transparent 0.7px);
+
+    background-size: 20px 20px;
+
+    pointer-events: none;
+  }
+}
+
+.pt-button {
+  min-height: 51px;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.5rem;
+
+  padding: 0.85rem 1.3rem;
+
+  border-radius: 999px;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+
+  &--primary {
+    color: #fff;
+
+    background: var(--red);
+
+    box-shadow: 0 15px 30px rgba(235, 32, 39, 0.2);
+
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &--light {
+    color: var(--navy-deep);
+
+    background: rgba(255, 255, 255, 0.62);
+
+    border: 1px solid rgba(8, 42, 80, 0.12);
+
+    &:hover {
+      transform: translateY(-3px);
+
+      background: #fff;
+    }
+  }
+}
+
+@media (max-width: 940px) {
+  .pt-hero {
+    padding-top: 7rem;
+
+    &__inner {
+      grid-template-columns: 1fr;
+
+      min-height: auto;
+
+      gap: 2rem;
+    }
+
+    &__content {
+      max-width: 760px;
+
+      margin: 0 auto;
+
+      text-align: center;
+    }
+
+    &__eyebrow,
+    &__actions {
+      justify-content: center;
+    }
+
+    &__quote {
+      margin-left: auto;
+      margin-right: auto;
+
+      text-align: left;
+    }
+
+    &__visual {
+      min-height: 520px;
+
+      max-width: 650px;
+
+      width: 100%;
+
+      margin: 0 auto;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .pt-hero {
+    padding: 6.5rem 1rem 5rem;
+
+    h1 {
+      font-size: clamp(2.7rem, 13vw, 4rem);
+    }
+
+    &__lead {
+      font-size: 0.84rem;
+    }
+
+    &__visual {
+      min-height: 380px;
+    }
+
+    &__image {
+      width: 280px;
+    }
+
+    &__orb--yellow {
+      width: 300px;
+      height: 300px;
+    }
+
+    &__floating {
+      width: 82px;
+      height: 82px;
+
+      strong {
+        font-size: 0.63rem;
+      }
+
+      span {
+        font-size: 0.48rem;
+      }
+    }
+
+    &__wave {
+      height: 68px;
+    }
+  }
+}

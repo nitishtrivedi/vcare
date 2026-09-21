@@ -1,0 +1,202 @@
+.moments {
+  padding: 7rem 1.5rem 12rem;
+
+  color: #fff;
+
+  margin-bottom: -7rem;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(59, 180, 74, 0.15), transparent 25%),
+    radial-gradient(circle at 85% 80%, rgba(246, 146, 32, 0.13), transparent 25%), var(--navy-deep);
+
+  &__inner {
+    max-width: 1120px;
+
+    margin: 0 auto;
+  }
+
+  &__header {
+    max-width: 650px;
+
+    margin-bottom: 3rem;
+
+    h2 {
+      margin-top: 0.75rem;
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: clamp(2rem, 4vw, 3.3rem);
+
+      line-height: 1.05;
+
+      span {
+        display: block;
+
+        color: var(--yellow);
+      }
+    }
+
+    p {
+      max-width: 50ch;
+
+      margin-top: 1rem;
+
+      color: rgba(255, 255, 255, 0.58);
+
+      font-size: 0.8rem;
+
+      line-height: 1.7;
+    }
+
+    .program-eyebrow {
+      color: var(--yellow);
+
+      &::before {
+        background: linear-gradient(90deg, var(--yellow), var(--green), var(--blue));
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    grid-auto-rows: 170px;
+
+    gap: 0.8rem;
+  }
+
+  &__note {
+    margin-top: 1.3rem;
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 0.62rem;
+  }
+}
+
+.moment-card {
+  position: relative;
+
+  overflow: hidden;
+
+  min-height: 170px;
+
+  border: 0;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(145deg, #163c67, #0d2f53);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+
+    background: linear-gradient(145deg, #1b4b7d, #12375d);
+
+    .moment-card__play {
+      transform: scale(1.08);
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--yellow);
+    outline-offset: 3px;
+  }
+
+  &--large {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  &__number {
+    position: absolute;
+
+    top: 0.9rem;
+    left: 0.9rem;
+
+    color: rgba(255, 255, 255, 0.45);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: 0.58rem;
+  }
+
+  &__placeholder {
+    color: rgba(255, 255, 255, 0.35);
+
+    font-size: 0.67rem;
+
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  &__play {
+    position: absolute;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: var(--navy-deep);
+
+    background: var(--yellow);
+
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+
+    transition: transform 0.2s ease;
+  }
+}
+
+@media (max-width: 800px) {
+  .moments {
+    &__grid {
+      grid-template-columns: repeat(2, 1fr);
+
+      grid-auto-rows: 150px;
+    }
+
+    .moment-card {
+      min-height: 150px;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .moments {
+    padding: 5rem 1rem;
+
+    &__grid {
+      grid-template-columns: 1fr 1fr;
+
+      grid-auto-rows: 130px;
+
+      gap: 0.6rem;
+    }
+
+    .moment-card {
+      min-height: 130px;
+
+      border-radius: 16px;
+
+      &--large {
+        grid-column: span 2;
+      }
+    }
+  }
+}

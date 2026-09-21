@@ -1,0 +1,235 @@
+.why {
+  padding: 8rem 1.5rem;
+
+  background: linear-gradient(145deg, #eaf5f8, #fffdf7);
+
+  &__inner {
+    max-width: 1120px;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+      0.75fr
+      1.25fr;
+
+    gap: 5rem;
+
+    align-items: start;
+  }
+
+  &__heading {
+    position: sticky;
+
+    top: 7rem;
+
+    max-width: 440px;
+
+    h2 {
+      margin-top: 0.75rem;
+
+      color: var(--navy-deep);
+
+      font-family: 'Paytone One', cursive;
+
+      font-size: clamp(2.1rem, 4vw, 3.4rem);
+
+      line-height: 1.04;
+
+      span {
+        display: block;
+
+        color: var(--blue);
+      }
+    }
+
+    > p {
+      margin-top: 1rem;
+
+      color: #718092;
+
+      font-size: 0.76rem;
+
+      line-height: 1.8;
+    }
+  }
+
+  &__journey {
+    position: relative;
+
+    padding: 0.5rem 0 1rem;
+  }
+
+  &__line {
+    position: absolute;
+
+    left: 50%;
+
+    top: 0;
+    bottom: 0;
+
+    width: 2px;
+
+    transform: translateX(-50%);
+
+    background: linear-gradient(
+      to bottom,
+      var(--red),
+      var(--orange),
+      var(--yellow),
+      var(--green),
+      var(--blue),
+      var(--navy-deep)
+    );
+
+    opacity: 0.35;
+  }
+}
+
+.why-point {
+  position: relative;
+
+  min-height: 105px;
+
+  display: flex;
+
+  align-items: center;
+
+  width: 50%;
+
+  padding: 0.6rem 0;
+
+  &--left {
+    justify-content: flex-end;
+
+    padding-right: 42px;
+  }
+
+  &--right {
+    margin-left: 50%;
+
+    padding-left: 42px;
+  }
+
+  &__dot {
+    position: absolute;
+
+    top: 50%;
+
+    width: 32px;
+    height: 32px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    transform: translateY(-50%);
+
+    border: 4px solid;
+
+    border-radius: 50%;
+
+    color: var(--navy-deep);
+
+    font-family: 'Paytone One', cursive;
+
+    font-size: 0.55rem;
+
+    z-index: 3;
+  }
+
+  &--left &__dot {
+    right: 25px;
+  }
+
+  &--right &__dot {
+    left: 25px;
+  }
+
+  &__card {
+    width: min(300px, 100%);
+
+    padding: 1.2rem 1.3rem;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    border: 1px solid rgba(8, 42, 80, 0.07);
+
+    box-shadow: 0 12px 28px rgba(8, 42, 80, 0.06);
+
+    small {
+      color: #a2abb5;
+
+      font-size: 0.52rem;
+
+      font-weight: 900;
+    }
+
+    p {
+      margin-top: 0.35rem;
+
+      color: var(--navy-deep);
+
+      font-size: 0.68rem;
+
+      font-weight: 700;
+
+      line-height: 1.55;
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  .why {
+    &__inner {
+      grid-template-columns: 1fr;
+
+      gap: 3rem;
+    }
+
+    &__heading {
+      position: static;
+
+      max-width: 700px;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .why {
+    padding: 5rem 1rem;
+  }
+
+  .why__line {
+    left: 16px;
+
+    transform: none;
+  }
+
+  .why-point,
+  .why-point--right,
+  .why-point--left {
+    width: 100%;
+
+    margin-left: 0;
+
+    justify-content: flex-start;
+
+    padding: 0.6rem 0 0.6rem 55px;
+  }
+
+  .why-point__dot,
+  .why-point--left .why-point__dot,
+  .why-point--right .why-point__dot {
+    left: 0;
+    right: auto;
+  }
+
+  .why-point__card {
+    width: 100%;
+  }
+}

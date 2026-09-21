@@ -1,0 +1,76 @@
+.mission-banner {
+  display: flex;
+  justify-content: center;
+
+  padding: 6rem 1.5rem;
+
+  background: #fffdf7;
+
+  &__card {
+    position: relative;
+
+    max-width: 780px;
+    padding: 3rem 3rem 3.2rem;
+
+    text-align: center;
+
+    background: #fff;
+    border-radius: 32px;
+    border-top: 6px solid var(--orange);
+
+    box-shadow: 0 25px 55px -25px rgba(8, 42, 80, 0.18);
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    margin-bottom: 1.1rem;
+    padding: 0.5rem 1.1rem;
+
+    color: #fff;
+    background: var(--orange);
+    border-radius: 999px;
+
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: clamp(2rem, 3.6vw, 2.9rem);
+    line-height: 1.15;
+
+    span {
+      color: var(--blue);
+    }
+  }
+
+  &__divider {
+    margin: 1.3rem auto 1.6rem;
+  }
+
+  p {
+    max-width: 56ch;
+    margin: 0 auto 1rem;
+
+    color: #5b6878;
+    font-size: 0.98rem;
+    line-height: 1.8;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .mission-banner {
+    padding: 4.5rem 1.1rem;
+
+    &__card {
+      padding: 2.3rem 1.6rem 2.6rem;
+    }
+  }
+}

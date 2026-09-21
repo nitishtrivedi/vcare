@@ -1,0 +1,109 @@
+<section class="media-banner">
+  <div class="media-banner__frame">
+    <span class="media-banner__caption">
+      Life at VCare<br />
+      <small>Preschool &amp; Activity Centre, Karvenagar</small>
+    </span>
+
+    <!--
+      Drop your own photo or video here. For a photo, replace the div below with:
+      <img src="assets/images/a-day-at-vcare.jpg" alt="Children at V Care" />
+
+      For a video, use:
+      <video src="assets/videos/a-day-at-vcare.mp4" controls poster="assets/images/video-poster.jpg"></video>
+    -->
+
+    <!-- <video
+      #bannerVideo
+      class="media-banner__video"
+      src="assets/videos/homepage/vcare-media-banner-video.mp4"
+      preload="metadata"
+      playsinline
+      muted
+      [muted]="isMuted()"
+      (timeupdate)="onTimeUpdate()"
+      (seeking)="onSeeking()"
+      (ended)="onEnded()"
+      (contextmenu)="$event.preventDefault()"
+      (keydown)="onVideoKeydown($event)"
+      controlsList="nodownload noplaybackrate noremoteplayback"
+      disablePictureInPicture
+      disableRemotePlayback
+    ></video> -->
+    <video
+      #bannerVideo
+      class="media-banner__video"
+      src="assets/videos/homepage/vcare-media-banner-video.mp4"
+      autoplay
+      muted
+      playsinline
+      preload="auto"
+      (play)="onPlay()"
+      (pause)="onPause()"
+      (volumechange)="onVolumeChange()"
+      (ended)="onEnded()"
+    ></video>
+    <div class="media-banner__controls">
+      <button
+        type="button"
+        class="media-banner__btn"
+        (click)="togglePlay(); $event.stopPropagation()"
+        [attr.aria-label]="isPlaying() ? 'Pause video' : 'Play video'"
+      >
+        @if (isPlaying()) {
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <rect x="6" y="5" width="4" height="14" rx="1" />
+            <rect x="14" y="5" width="4" height="14" rx="1" />
+          </svg>
+        } @else {
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        }
+      </button>
+
+      <button
+        type="button"
+        class="media-banner__btn"
+        (click)="toggleMute(); $event.stopPropagation()"
+        [attr.aria-label]="isMuted() ? 'Unmute video' : 'Mute video'"
+      >
+        @if (isMuted()) {
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M11 5L6 9H3v6h3l5 4V5z" />
+            <path d="M16 9l6 6M22 9l-6 6" />
+          </svg>
+        } @else {
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M11 5L6 9H3v6h3l5 4V5z" />
+            <path d="M15.5 8.5a5 5 0 010 7M18.5 5.5a9 9 0 010 13" />
+          </svg>
+        }
+      </button>
+    </div>
+
+    <!-- <div class="media-banner__placeholder">
+      <span>Your photo or video goes here</span>
+    </div> -->
+  </div>
+
+  <app-wave-divider fill="#FBED21"></app-wave-divider>
+</section>

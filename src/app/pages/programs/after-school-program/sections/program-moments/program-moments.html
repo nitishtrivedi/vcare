@@ -1,0 +1,35 @@
+<section class="moments">
+  <div class="moments__inner">
+    <div class="moments__heading" vcReveal="fade-up">
+      <span class="program-kicker"> V Care moments </span>
+
+      <h2>
+        After school,
+        <span>made memorable.</span>
+      </h2>
+    </div>
+
+    <div class="moments__grid" vcReveal="zoom-in">
+      @for (i of placeholders; track i; let index = $index) {
+        <button
+          type="button"
+          class="moment"
+          [class.moment--feature]="index === 0 || index === 4"
+          [attr.aria-label]="'Play video ' + i"
+        >
+          <span class="moment__number"> 0{{ i }} </span>
+
+          <span class="moment__label"> Client video </span>
+
+          <span class="moment__play">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+          </span>
+        </button>
+      }
+    </div>
+
+    <p class="moments__note">Client-provided videos will be added before launch.</p>
+  </div>
+</section>

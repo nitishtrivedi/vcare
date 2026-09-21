@@ -1,0 +1,47 @@
+<section class="why">
+  <div class="why__inner">
+    <div class="why__heading" vcReveal="fade-up">
+      <span class="pt-kicker"> Why V Care </span>
+
+      <h2>
+        Eight little reasons
+        <span>to begin together.</span>
+      </h2>
+
+      <p>
+        The Parent Toddler Program is designed around meaningful connection, exploration and a
+        gentle first step into the wider world.
+      </p>
+    </div>
+
+    <div class="why__journey">
+      <div class="why__line"></div>
+
+      @for (point of points; track point.title; let i = $index) {
+        <article
+          class="why-point why-point--{{ i % 2 === 0 ? 'left' : 'right' }}"
+          vcReveal="fade-up"
+          [vcRevealDelay]="i * 60"
+        >
+          <span
+            class="why-point__dot"
+            [style.border-color]="point.ring"
+            [style.background]="point.tint"
+          >
+            {{ i + 1 }}
+          </span>
+
+          <div class="why-point__card">
+            <small>
+              {{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}
+            </small>
+
+            <p>
+              {{ point.title }}
+            </p>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

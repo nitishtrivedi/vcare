@@ -1,0 +1,65 @@
+<section class="highlights" id="activity-studio">
+  <div class="highlights__header" vcReveal="fade-up">
+    <div>
+      <span class="program-kicker"> Activity Studio </span>
+
+      <h2>
+        A well-rounded day,
+        <span>every day.</span>
+      </h2>
+    </div>
+
+    <p>Different children discover different things. Our afternoons leave room for all of them.</p>
+  </div>
+
+  <div class="highlights__board">
+    @for (item of items; track item.title; let i = $index) {
+      <article
+        class="studio-card studio-card--{{ i + 1 }}"
+        [style.--accent]="item.accent"
+        vcReveal="fade-up"
+        [vcRevealDelay]="i * 80"
+      >
+        <div class="studio-card__top">
+          <span>0{{ i + 1 }}</span>
+
+          <span class="studio-card__pill">
+            {{ item.title }}
+          </span>
+        </div>
+
+        <div class="studio-card__content">
+          <div class="studio-card__icon">
+            @switch (item.icon) {
+              @case ('move') {
+                <span>↗</span>
+              }
+
+              @case ('art') {
+                <span>✦</span>
+              }
+
+              @case ('logic') {
+                <span>⌘</span>
+              }
+
+              @case ('life') {
+                <span>♡</span>
+              }
+
+              @case ('meal') {
+                <span>○</span>
+              }
+            }
+          </div>
+
+          <p>
+            {{ item.subtitle }}
+          </p>
+        </div>
+
+        <div class="studio-card__bar"></div>
+      </article>
+    }
+  </div>
+</section>

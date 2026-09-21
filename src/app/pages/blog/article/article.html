@@ -1,0 +1,62 @@
+<section class="article">
+  @if (isLoading()) {
+    <div class="article__loading">Loading article…</div>
+  } @else if (errorMessage()) {
+    <section class="article__error">
+      <span>!</span>
+
+      <h1>Article unavailable</h1>
+
+      <p>
+        {{ errorMessage() }}
+      </p>
+
+      <a routerLink="/blog"> Back to Blog </a>
+    </section>
+  } @else if (blog(); as post) {
+    <header class="article__hero">
+      <div class="article__hero-inner" vcReveal="fade-up">
+        <a routerLink="/blog" class="article__back"> ← Back to V Care Journal </a>
+
+        <span class="article__kicker"> V Care Journal </span>
+
+        <h1>
+          {{ post.title }}
+        </h1>
+
+        <div class="article__meta">
+          <span> By {{ post.author_name }} </span>
+
+          <i></i>
+
+          <span>
+            {{ formatDate(post.created_at) }}
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="article__content">
+      @if (post.featured_image) {
+        <div class="article__image" vcReveal="zoom-in">
+          <img [src]="resolveImageUrl(post.featured_image)" [alt]="post.title" />
+        </div>
+      }
+
+      <div class="article__body" vcReveal="fade-up" [innerHTML]="post.content"></div>
+    </main>
+
+    <footer class="article__footer">
+      <div>
+        <span> Keep exploring </span>
+
+        <h2>More from V Care.</h2>
+      </div>
+
+      <a routerLink="/blog">
+        View all articles
+        <span>→</span>
+      </a>
+    </footer>
+  }
+</section>

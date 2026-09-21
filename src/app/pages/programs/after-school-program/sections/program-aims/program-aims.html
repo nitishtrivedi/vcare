@@ -1,0 +1,42 @@
+<section class="aims">
+  <div class="aims__inner">
+    <div class="aims__heading" vcReveal="fade-up">
+      <span class="program-kicker"> Why it matters </span>
+
+      <h2>
+        After school should be
+        <span>more than supervision.</span>
+      </h2>
+
+      <p>
+        It should be a place where children discover new interests, build independence and learn how
+        to use their time well.
+      </p>
+    </div>
+
+    <div class="aims__list">
+      @for (card of cards; track card.title; let i = $index) {
+        <article
+          class="aim-item"
+          [style.--accent]="card.accent"
+          vcReveal="slide-right"
+          [vcRevealDelay]="i * 100"
+        >
+          <span class="aim-item__number"> 0{{ i + 1 }} </span>
+
+          <div class="aim-item__body">
+            <h3>
+              {{ card.title }}
+            </h3>
+
+            <p>
+              {{ card.description }}
+            </p>
+          </div>
+
+          <span class="aim-item__arrow"> ↗ </span>
+        </article>
+      }
+    </div>
+  </div>
+</section>

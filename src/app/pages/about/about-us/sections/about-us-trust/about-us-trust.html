@@ -1,0 +1,38 @@
+<section class="trust">
+  <span class="trust__shape trust__shape--arc"></span>
+  <span class="trust__shape trust__shape--diamond"></span>
+  <span class="trust__shape trust__shape--triangle"></span>
+
+  <div class="trust__inner">
+    <div class="trust__col" vcReveal="fade-up">
+      <h2 class="trust__heading">Trusted by Parents</h2>
+      <ul class="trust__list">
+        @for (point of trustedByParents; track point.text) {
+          <li>
+            <span class="trust__check">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 13l4 4 10-10"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            {{ point.text }}
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="trust__col" vcReveal="fade-up" [vcRevealDelay]="120">
+      <h2 class="trust__heading">Inside V-Care</h2>
+      <ul class="trust__list trust__list--plain">
+        @for (point of insideVCare; track point.text) {
+          <li><span class="trust__dot"></span>{{ point.text }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

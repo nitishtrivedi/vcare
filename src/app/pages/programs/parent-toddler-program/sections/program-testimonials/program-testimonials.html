@@ -1,0 +1,40 @@
+<section class="parents">
+  <div class="parents__inner">
+    <div class="parents__intro">
+      <span class="pt-kicker"> Parent perspective </span>
+
+      <h2>
+        Growing together
+        <span>feels different.</span>
+      </h2>
+    </div>
+
+    <div class="parents__grid">
+      @for (t of testimonials; track t.name; let i = $index) {
+        <article
+          class="parent-card"
+          [style.--accent]="t.accent"
+          vcReveal="fade-up"
+          [vcRevealDelay]="i * 70"
+        >
+          <div class="parent-card__quote">“</div>
+
+          <p>
+            {{ t.quote }}
+          </p>
+
+          <div class="parent-card__person">
+            <span>
+              {{ t.initials }}
+            </span>
+
+            <div>
+              <strong>{{ t.name }}</strong>
+              <small>{{ t.relation }}</small>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,42 @@
+<section class="daycare-moments">
+  <div class="daycare-moments__inner">
+    <div class="daycare-moments__intro">
+      <span class="daycare-kicker daycare-kicker--light"> LIFE AT V CARE </span>
+
+      <h2>
+        The little moments
+        <span>matter most.</span>
+      </h2>
+
+      <p>
+        A glimpse into the everyday experiences that turn daycare into a place children look forward
+        to returning to.
+      </p>
+    </div>
+
+    <div class="daycare-moments__grid">
+      @for (i of placeholders; track i; let index = $index) {
+        <button
+          type="button"
+          class="daycare-moment"
+          [class.daycare-moment--hero]="index === 0"
+          [attr.aria-label]="'Play video ' + i"
+          vcReveal="fade-up"
+          [vcRevealDelay]="index * 70"
+        >
+          <span class="daycare-moment__number"> 0{{ i }} </span>
+
+          <span class="daycare-moment__placeholder"> Client video </span>
+
+          <span class="daycare-moment__play">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+          </span>
+        </button>
+      }
+    </div>
+
+    <p class="daycare-moments__note">Client-provided videos will be added before launch.</p>
+  </div>
+</section>

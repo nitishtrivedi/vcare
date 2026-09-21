@@ -1,0 +1,255 @@
+.highlights {
+  padding: 7rem 1.5rem 8rem;
+  background: #f4f7f9;
+
+  &__header {
+    max-width: 1120px;
+    margin: 0 auto 3rem;
+
+    display: grid;
+    grid-template-columns: 1fr 0.65fr;
+    align-items: end;
+    gap: 3rem;
+
+    h2 {
+      margin-top: 0.75rem;
+
+      color: var(--navy-deep);
+
+      font-family: 'Paytone One', cursive;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.03;
+      letter-spacing: -0.03em;
+
+      span {
+        display: block;
+        color: var(--green);
+      }
+    }
+
+    > p {
+      max-width: 36ch;
+
+      color: #778596;
+
+      font-size: 0.76rem;
+      line-height: 1.8;
+    }
+  }
+
+  &__board {
+    max-width: 1120px;
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+
+    gap: 1rem;
+  }
+}
+
+.studio-card {
+  position: relative;
+
+  min-height: 240px;
+
+  padding: 1.4rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  overflow: hidden;
+
+  border-radius: 24px;
+
+  background: #fff;
+
+  box-shadow: 0 14px 35px rgba(8, 42, 80, 0.06);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  // Large feature card
+  &--1 {
+    grid-column: span 3;
+    min-height: 300px;
+  }
+
+  // Second card
+  &--2 {
+    grid-column: span 3;
+  }
+
+  // Remaining three cards
+  &--3,
+  &--4,
+  &--5 {
+    grid-column: span 2;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 22px 45px rgba(8, 42, 80, 0.1);
+  }
+
+  &__top {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    > span:first-child {
+      color: var(--accent);
+
+      font-family: 'Paytone One', cursive;
+      font-size: 0.65rem;
+    }
+  }
+
+  &__pill {
+    padding: 0.5rem 0.7rem;
+
+    border-radius: 999px;
+
+    color: var(--accent);
+
+    background: color-mix(in srgb, var(--accent) 9%, #fff);
+
+    font-size: 0.52rem;
+    font-weight: 900;
+
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 3rem;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  &__icon {
+    flex: 0 0 auto;
+
+    width: 62px;
+    height: 62px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    color: #fff;
+    background: var(--accent);
+
+    font-family: 'Paytone One', cursive;
+    font-size: 1.3rem;
+  }
+
+  &__content p {
+    max-width: 25ch;
+
+    color: #718093;
+
+    font-size: 0.68rem;
+    line-height: 1.6;
+
+    text-align: right;
+  }
+
+  &__bar {
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 5px;
+
+    background: var(--accent);
+  }
+
+  // Subtle decorative circle
+  &::after {
+    content: '';
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    right: -65px;
+    bottom: -65px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    opacity: 0.055;
+
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .highlights {
+    &__header {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    &__board {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .studio-card,
+  .studio-card--1,
+  .studio-card--2,
+  .studio-card--3,
+  .studio-card--4,
+  .studio-card--5 {
+    grid-column: span 1;
+  }
+
+  .studio-card--1,
+  .studio-card--2 {
+    min-height: 270px;
+  }
+}
+
+@media (max-width: 560px) {
+  .highlights {
+    padding: 5rem 1rem 6rem;
+
+    &__board {
+      grid-template-columns: 1fr;
+      gap: 0.8rem;
+    }
+  }
+
+  .studio-card,
+  .studio-card--1,
+  .studio-card--2,
+  .studio-card--3,
+  .studio-card--4,
+  .studio-card--5 {
+    grid-column: auto;
+
+    min-height: 205px;
+  }
+}
