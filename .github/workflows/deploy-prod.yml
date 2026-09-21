@@ -50,7 +50,7 @@ jobs:
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
-          server: 82.25.106.151
+          server: 217.21.90.186
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
 
@@ -63,7 +63,7 @@ jobs:
 
           # Root directory of dev.vcarepreschool.in
           server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          state-name: .ftp-deploy-sync-state-v2.2.json
+          state-name: .ftp-deploy-sync-state-v1.json
           # Keep remote runtime files that are not managed by Git.
           # Blog images are uploaded by the Admin application
           # directly to Hostinger and must survive deployments.
