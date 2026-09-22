@@ -39,7 +39,7 @@ export class Footer {
       ],
     },
     { icon: 'phone', lines: ['+91 97650 76513'] },
-    { icon: 'mail', lines: ['vcareeducationpune@gmail.com'] },
+    { icon: 'mail', lines: ['support@vcarepreschool.in'] },
     { icon: 'clock', lines: ['Monday to Saturday: 9:00 AM – 6:00 PM'] },
   ];
 }
