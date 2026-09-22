@@ -88,6 +88,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/gallery/gallery').then((m) => m.Gallery),
     title: 'Gallery | V Care Education',
   },
+  {
+    path: 'franchise',
+    loadComponent: () => import('./pages/franchise/franchise').then((m) => m.Franchise),
+    title: 'Franchise | V Care Education',
+  },
 
   /*
    * ==========================================================

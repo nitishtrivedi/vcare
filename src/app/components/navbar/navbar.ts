@@ -40,6 +40,7 @@ export class Navbar {
         { label: 'Daycare', route: '/programs/daycare-program' },
       ],
     },
+    { label: 'Franchise', route: '/franchise' },
     {
       label: 'About V Care',
       children: [
