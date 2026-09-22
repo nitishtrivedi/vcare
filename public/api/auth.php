@@ -13,6 +13,8 @@ declare(strict_types=1);
 | POST /api/auth.php?action=logout
 | GET  /api/auth.php?action=session
 |
+| User lookup/password handling is delegated to users.php so there is
+| one user-data implementation for the application.
 |--------------------------------------------------------------------------
 */
 
@@ -41,10 +43,9 @@ if (in_array($requestOrigin, $allowedOrigins, true)) {
 header('Access-Control-Allow-Headers: Content-Type');
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 
-
 /*
 |--------------------------------------------------------------------------
-| Handle CORS preflight
+| CORS preflight
 |--------------------------------------------------------------------------
 */
 
@@ -53,78 +54,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-
 /*
 |--------------------------------------------------------------------------
-| Start PHP session
+| Start authenticated session
 |--------------------------------------------------------------------------
 */
 
-$secureCookie = (
-    isset($_SERVER['HTTPS']) &&
-    $_SERVER['HTTPS'] !== 'off'
-);
+function vcare_auth_start_session(): void
+{
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        return;
+    }
 
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/',
-    'domain' => '',
-    'secure' => $secureCookie,
-    'httponly' => true,
-    'samesite' => 'None',
-]);
-
-session_start();
-
-
-/*
-|--------------------------------------------------------------------------
-| Load database configuration
-|--------------------------------------------------------------------------
-*/
-
-$config = require __DIR__ . '/config.php';
-
-$dbHost = $config['host'];
-$dbName = $config['database'];
-$dbUser = $config['username'];
-$dbPassword = $config['password'];
-$dbCharset = $config['charset'];
-
-
-/*
-|--------------------------------------------------------------------------
-| Connect to MySQL
-|--------------------------------------------------------------------------
-*/
-
-try {
-
-    $pdo = new PDO(
-        "mysql:host={$dbHost};dbname={$dbName};charset={$dbCharset}",
-        $dbUser,
-        $dbPassword,
-        [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES => false,
-        ]
+    $secureCookie = (
+        isset($_SERVER['HTTPS']) &&
+        $_SERVER['HTTPS'] !== 'off'
     );
 
-} catch (PDOException $e) {
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path' => '/',
+        'domain' => '',
+        'secure' => $secureCookie,
+        'httponly' => true,
+        'samesite' => 'None',
+    ]);
 
-    error_log(
-        'VCare authentication database error: ' .
-        $e->getMessage()
-    );
-
-    sendResponse(
-        500,
-        false,
-        'Unable to connect to the database.'
-    );
+    session_start();
 }
 
+vcare_auth_start_session();
+
+/*
+|--------------------------------------------------------------------------
+| Reuse user layer
+|--------------------------------------------------------------------------
+*/
+
+require_once __DIR__ . '/users.php';
+
+/*
+|--------------------------------------------------------------------------
+| Database
+|--------------------------------------------------------------------------
+*/
+
+$pdo = vcare_user_pdo();
+
+/*
+|--------------------------------------------------------------------------
+| JSON response helper
+|--------------------------------------------------------------------------
+*/
+
+function vcare_auth_response(
+    int $statusCode,
+    bool $success,
+    string $message,
+    array $data = []
+): never {
+    http_response_code($statusCode);
+
+    echo json_encode(
+        [
+            'success' => $success,
+            'message' => $message,
+            ...$data,
+        ],
+        JSON_UNESCAPED_UNICODE
+    );
+
+    exit;
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -134,7 +135,6 @@ try {
 
 $action = $_GET['action'] ?? 'session';
 
-
 /*
 |--------------------------------------------------------------------------
 | LOGIN
@@ -142,9 +142,8 @@ $action = $_GET['action'] ?? 'session';
 */
 
 if ($action === 'login') {
-
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        sendResponse(
+        vcare_auth_response(
             405,
             false,
             'Method not allowed.'
@@ -154,7 +153,7 @@ if ($action === 'login') {
     $rawInput = file_get_contents('php://input');
 
     if ($rawInput === false || trim($rawInput) === '') {
-        sendResponse(
+        vcare_auth_response(
             400,
             false,
             'No login data received.'
@@ -164,7 +163,7 @@ if ($action === 'login') {
     $data = json_decode($rawInput, true);
 
     if (!is_array($data)) {
-        sendResponse(
+        vcare_auth_response(
             400,
             false,
             'Invalid login data.'
@@ -179,15 +178,8 @@ if ($action === 'login') {
         $data['password'] ?? ''
     );
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Validate input
-    |--------------------------------------------------------------------------
-    */
-
     if ($username === '') {
-        sendResponse(
+        vcare_auth_response(
             422,
             false,
             'Username is required.'
@@ -195,87 +187,44 @@ if ($action === 'login') {
     }
 
     if ($password === '') {
-        sendResponse(
+        vcare_auth_response(
             422,
             false,
             'Password is required.'
         );
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Find user
-    |--------------------------------------------------------------------------
-    */
-
     try {
-
-        $stmt = $pdo->prepare(
-            '
-            SELECT
-                id,
-                username,
-                password,
-                role
-            FROM users
-            WHERE username = :username
-            LIMIT 1
-            '
+        $user = vcare_find_user_by_username(
+            $pdo,
+            $username
         );
-
-        $stmt->execute([
-            ':username' => $username,
-        ]);
-
-        $user = $stmt->fetch();
-
     } catch (PDOException $e) {
-
         error_log(
             'VCare authentication lookup error: ' .
             $e->getMessage()
         );
 
-        sendResponse(
+        vcare_auth_response(
             500,
             false,
             'Unable to process login.'
         );
     }
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | Verify credentials
-    |--------------------------------------------------------------------------
-    |
-    | Plain-text comparison is intentional here based on the chosen
-    | VCare administration architecture.
-    |--------------------------------------------------------------------------
-    */
-
     if (
         !$user ||
-        !hash_equals(
+        !vcare_password_is_valid(
             (string)$user['password'],
             $password
         )
     ) {
-
-        sendResponse(
+        vcare_auth_response(
             401,
             false,
             'Invalid username or password.'
         );
     }
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Start authenticated session
-    |--------------------------------------------------------------------------
-    */
 
     session_regenerate_id(true);
 
@@ -284,21 +233,15 @@ if ($action === 'login') {
     $_SESSION['role'] = (string)$user['role'];
     $_SESSION['authenticated'] = true;
 
-
-    sendResponse(
+    vcare_auth_response(
         200,
         true,
         'Login successful.',
         [
-            'user' => [
-                'id' => (int)$user['id'],
-                'username' => (string)$user['username'],
-                'role' => (string)$user['role'],
-            ],
+            'user' => vcare_public_user($user),
         ]
     );
 }
-
 
 /*
 |--------------------------------------------------------------------------
@@ -307,34 +250,59 @@ if ($action === 'login') {
 */
 
 if ($action === 'session') {
-
-    if (
-        empty($_SESSION['authenticated']) ||
-        empty($_SESSION['user_id'])
-    ) {
-
-        sendResponse(
+    if (!vcare_user_is_authenticated()) {
+        vcare_auth_response(
             401,
             false,
             'Not authenticated.'
         );
     }
 
+    try {
+        $user = vcare_find_user_by_id(
+            $pdo,
+            (int)$_SESSION['user_id']
+        );
+    } catch (PDOException $e) {
+        error_log(
+            'VCare session lookup error: ' .
+            $e->getMessage()
+        );
 
-    sendResponse(
+        vcare_auth_response(
+            500,
+            false,
+            'Unable to validate the current session.'
+        );
+    }
+
+    if (!$user) {
+        $_SESSION = [];
+        session_destroy();
+
+        vcare_auth_response(
+            401,
+            false,
+            'User account no longer exists.'
+        );
+    }
+
+    /*
+     * Refresh session fields in case the user's username or role changed.
+     */
+    $_SESSION['username'] = (string)$user['username'];
+    $_SESSION['role'] = (string)$user['role'];
+    $_SESSION['authenticated'] = true;
+
+    vcare_auth_response(
         200,
         true,
         'Authenticated.',
         [
-            'user' => [
-                'id' => (int)$_SESSION['user_id'],
-                'username' => (string)$_SESSION['username'],
-                'role' => (string)$_SESSION['role'],
-            ],
+            'user' => vcare_public_user($user),
         ]
     );
 }
-
 
 /*
 |--------------------------------------------------------------------------
@@ -343,29 +311,17 @@ if ($action === 'session') {
 */
 
 if ($action === 'logout') {
-
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        sendResponse(
+        vcare_auth_response(
             405,
             false,
             'Method not allowed.'
         );
     }
 
-
-    /*
-    | Clear session variables.
-    */
-
     $_SESSION = [];
 
-
-    /*
-    | Delete session cookie.
-    */
-
     if (ini_get('session.use_cookies')) {
-
         $params = session_get_cookie_params();
 
         setcookie(
@@ -379,21 +335,14 @@ if ($action === 'logout') {
         );
     }
 
-
-    /*
-    | Destroy session.
-    */
-
     session_destroy();
 
-
-    sendResponse(
+    vcare_auth_response(
         200,
         true,
         'Logged out successfully.'
     );
 }
-
 
 /*
 |--------------------------------------------------------------------------
@@ -401,36 +350,8 @@ if ($action === 'logout') {
 |--------------------------------------------------------------------------
 */
 
-sendResponse(
+vcare_auth_response(
     400,
     false,
     'Unknown authentication action.'
 );
-
-
-/*
-|--------------------------------------------------------------------------
-| JSON Response Helper
-|--------------------------------------------------------------------------
-*/
-
-function sendResponse(
-    int $statusCode,
-    bool $success,
-    string $message,
-    array $data = []
-): never {
-
-    http_response_code($statusCode);
-
-    echo json_encode(
-        [
-            'success' => $success,
-            'message' => $message,
-            ...$data,
-        ],
-        JSON_UNESCAPED_UNICODE
-    );
-
-    exit;
-}
