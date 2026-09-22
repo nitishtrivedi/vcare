@@ -17,11 +17,11 @@ declare(strict_types=1);
 return [
     'host' => 'localhost',
 
-    'database' => 'u877446794_vcare_db',
+    'database' => 'u877446794_vcare_dev_db',
 
-    'username' => 'u877446794_vcaredb',
+    'username' => 'u877446794_vcare_dev',
 
-    'password' => 'Vcaredatabase123',
+    'password' => 'Vcaredev123',
 
     'charset' => 'utf8mb4',
 ];
