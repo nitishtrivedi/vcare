@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import type { Blog as BlogItem } from '../../../models/blog.model';
 import { ScrollReveal } from '../../../directives/scroll-reveal';
 import { BlogService } from '../../../services/blog';
+import { Seo } from '../../../services/seo';
 
 @Component({
   selector: 'app-article',
@@ -20,10 +21,33 @@ export class Article implements OnInit {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly blogService: BlogService,
+    private readonly seoService: Seo,
   ) {}
 
   resolveImageUrl(path: string | null): string | null {
     return this.blogService.resolveImageUrl(path);
+  }
+
+  private updateArticleSeo(post: BlogItem): void {
+    const url = `https://vcarepreschool.in/blog/${post.slug}`;
+
+    const description = post.content
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 155);
+
+    const image = post.featured_image
+      ? this.blogService.resolveImageUrl(post.featured_image)
+      : null;
+
+    this.seoService.update({
+      title: `${post.title} | V Care Journal`,
+      description,
+      canonical: url,
+      image: image ?? undefined,
+      robots: 'index,follow',
+    });
   }
   async ngOnInit(): Promise<void> {
     const slug = this.route.snapshot.paramMap.get('slug');
@@ -46,6 +70,7 @@ export class Article implements OnInit {
       }
 
       this.blog.set(blog);
+      this.updateArticleSeo(blog);
     } catch (error) {
       this.errorMessage.set(
         error instanceof Error ? error.message : 'Unable to load this article.',

@@ -24,7 +24,13 @@
       @for (photo of photos; track photo.src; let i = $index) {
         <div class="gallery__tile">
           @if (!brokenImages.has(i)) {
-            <img [src]="photo.src" [alt]="photo.alt" (error)="onImageError(i)" />
+            <img
+              [src]="photo.src"
+              [alt]="photo.alt"
+              (error)="onImageError(i)"
+              loading="lazy"
+              decoding="async"
+            />
           } @else {
             <span class="gallery__icon">
               <svg

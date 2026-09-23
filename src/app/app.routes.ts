@@ -51,6 +51,16 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home').then((m) => m.Home),
+    data: {
+      seo: {
+        title: 'V Care Education | Preschool & Activity Centre in Pune',
+        description:
+          'V Care Education is a preschool and activity centre in Karvenagar, Pune, offering preschool, daycare, after-school and parent toddler programs.',
+        canonical: 'https://vcarepreschool.in/',
+        ogImage: 'assets/images/homepage/vcare-hero-image.png',
+        robots: 'index,follow',
+      },
+    },
   },
 
   {
@@ -61,37 +71,87 @@ export const routes: Routes = [
   {
     path: 'about-us',
     loadComponent: () => import('./pages/about/about-us/about-us').then((m) => m.AboutUs),
-    title: 'About V Care | V Care Education',
+    data: {
+      seo: {
+        title: 'About V Care Education | Preschool in Karvenagar, Pune',
+        description:
+          'Learn about V Care Education, a preschool and activity centre in Karvenagar, Pune, built around care, confidence, curiosity and joyful learning.',
+        canonical: 'https://vcarepreschool.in/about-us',
+        ogImage: 'assets/images/about-us/about-us-hero.JPG',
+        robots: 'index,follow',
+      },
+    },
   },
 
   {
     path: 'about/zero-fee-model',
     loadComponent: () =>
       import('./pages/about/zero-fee-model/zero-fee-model').then((m) => m.ZeroFeeModel),
-    title: 'Zero Fee Model | V Care Education',
+    data: {
+      seo: {
+        title: 'Zero Fee Model | V Care Education, Karvenagar Pune',
+        description:
+          "Explore V Care's Zero Fee Model, including the four-year Playgroup to Senior KG journey and its education commitments.",
+        canonical: 'https://vcarepreschool.in/about/zero-fee-model',
+        robots: 'index,follow',
+      },
+    },
   },
 
   {
     path: 'about/faq',
     loadComponent: () => import('./pages/about/faq/faq').then((m) => m.Faq),
-    title: 'FAQ | V Care Education',
+    data: {
+      seo: {
+        title: 'V Care FAQ | Programs, Admissions & Daycare in Pune',
+        description:
+          'Find answers about V Care programs, admissions, the Zero Fee Model, daycare, curriculum, safety and daily life at the centre in Karvenagar, Pune.',
+        canonical: 'https://vcarepreschool.in/about/faq',
+        robots: 'index,follow',
+      },
+    },
   },
 
   {
     path: 'contact',
     loadComponent: () => import('./pages/contact/contact').then((m) => m.Contact),
-    title: 'Contact Us | V Care Education',
+    data: {
+      seo: {
+        title: 'Contact V Care Education | Karvenagar, Pune',
+        description:
+          'Contact V Care Education in Karvenagar, Pune to ask about preschool, daycare, after-school and parent toddler programs or plan a campus visit.',
+        canonical: 'https://vcarepreschool.in/contact',
+        ogImage: 'assets/images/contact/contact-image.jpg',
+        robots: 'index,follow',
+      },
+    },
   },
 
   {
     path: 'gallery',
     loadComponent: () => import('./pages/gallery/gallery').then((m) => m.Gallery),
-    title: 'Gallery | V Care Education',
+    data: {
+      seo: {
+        title: 'V Care Preschool Gallery | Karvenagar, Pune',
+        description:
+          'Explore photos from V Care Education and see moments from the preschool and activity centre in Karvenagar, Pune.',
+        canonical: 'https://vcarepreschool.in/gallery',
+        robots: 'index,follow',
+      },
+    },
   },
   {
     path: 'franchise',
     loadComponent: () => import('./pages/franchise/franchise').then((m) => m.Franchise),
-    title: 'Franchise | V Care Education',
+    data: {
+      seo: {
+        title: 'VCare Preschool Franchise | Education Business Opportunity',
+        description:
+          'Explore the VCare franchise program, including the Zero Fee Model, curriculum, support systems and launch process for new centres.',
+        canonical: 'https://vcarepreschool.in/franchise',
+        robots: 'index,follow',
+      },
+    },
   },
 
   /*
@@ -107,7 +167,15 @@ export const routes: Routes = [
   {
     path: 'blog',
     loadComponent: () => import('./pages/blog/blog').then((m) => m.Blog),
-    title: 'Blog | V Care Education',
+    data: {
+      seo: {
+        title: 'V Care Journal | Parenting & Early Learning',
+        description:
+          'Read the V Care Journal for stories, ideas and practical insights on children, learning, growth and everyday family life.',
+        canonical: 'https://vcarepreschool.in/blog',
+        robots: 'index,follow',
+      },
+    },
   },
 
   {
