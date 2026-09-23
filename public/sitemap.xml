@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- HOME -->
+  <url>
+    <loc>https://vcarepreschool.in/</loc>
+  </url>
+
+  <!-- PROGRAMS -->
+  <url>
+    <loc>https://vcarepreschool.in/programs/preschool-program</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/programs/daycare-program</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/programs/after-school-program</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/programs/parent-toddler-program</loc>
+  </url>
+
+  <!-- ABOUT -->
+  <url>
+    <loc>https://vcarepreschool.in/about-us</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/about/zero-fee-model</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/about/faq</loc>
+  </url>
+
+  <!-- OTHER PUBLIC PAGES -->
+  <url>
+    <loc>https://vcarepreschool.in/contact</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/gallery</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/franchise</loc>
+  </url>
+
+  <url>
+    <loc>https://vcarepreschool.in/blog</loc>
+  </url>
+
+</urlset>
