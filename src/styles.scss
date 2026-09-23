@@ -347,3 +347,11 @@ button:focus-visible,
 .icon-bounce:hover {
   transform: scale(1.15) rotate(-4deg);
 }
+/* Fully hides and disables the fixed navbar while any full-screen
+   lightbox (video, gallery, etc.) is open. Toggled via
+   document.body.classList.add/remove('lightbox-open') in the
+   component that owns the lightbox. */
+body.lightbox-open .nav {
+  visibility: hidden;
+  pointer-events: none;
+}

@@ -20,6 +20,15 @@ export interface GalleryImage {
   tag?: string;
 }
 
+interface ManifestEntry {
+  src: string;
+  category?: string;
+  caption?: string;
+  tag?: string;
+  colSpan?: number;
+  rowSpan?: number;
+}
+
 /**
  * Optional per-photo overrides, keyed by the number in the filename
  * (gallery-image-3.jpg → key 3). Nothing here is required — any photo
@@ -29,20 +38,20 @@ export interface GalleryImage {
  * Fill this in only for photos you want to specifically caption / tag /
  * resize. Everything else is left to the auto pattern.
  */
-const IMAGE_META: Record<
-  number,
-  Partial<Pick<GalleryImage, 'category' | 'caption' | 'tag' | 'colSpan' | 'rowSpan'>>
-> = {
-  1: {
-    category: 'Classroom',
-    caption: 'Hands-on exploration, every single day.',
-    tag: 'Featured',
-    colSpan: 2,
-    rowSpan: 2,
-  },
-  // 2: { category: 'Outdoor Play', caption: 'Free play in the sun.' },
-  // 3: { category: 'Events', tag: 'New', colSpan: 2, rowSpan: 1 },
-};
+// const IMAGE_META: Record<
+//   number,
+//   Partial<Pick<GalleryImage, 'category' | 'caption' | 'tag' | 'colSpan' | 'rowSpan'>>
+// > = {
+//   1: {
+//     category: 'Classroom',
+//     caption: 'Hands-on exploration, every single day.',
+//     tag: 'Featured',
+//     colSpan: 2,
+//     rowSpan: 2,
+//   },
+//   // 2: { category: 'Outdoor Play', caption: 'Free play in the sun.' },
+//   // 3: { category: 'Events', tag: 'New', colSpan: 2, rowSpan: 1 },
+// };
 
 // A rotating bento pattern so photos without an explicit size in
 // IMAGE_META still lay out with nice visual variety at any scale.
@@ -69,27 +78,31 @@ const DEFAULT_CATEGORY = 'V Care Moments';
 })
 export class Gallery implements OnInit, OnDestroy {
   // ============================================================
-  // 🎛️  SCAN CONFIG — tweak if you ever change the naming scheme
+  // 🎛️  IMAGE SOURCE
+  // Add or remove photos by editing the manifest file below —
+  // no code changes needed, and no guessed/blind network
+  // requests (that's what caused the 404 console spam before).
+  //
+  //   public/assets/images/gallery/manifest.json
+  //   public/assets/images/gallery/<any-filename>.jpg
+  //
+  // manifest.json looks like:
+  //   [
+  //     { "src": "gallery-1.jpg", "category": "Classroom", "caption": "...", "tag": "Featured", "colSpan": 2, "rowSpan": 2 },
+  //     { "src": "gallery-2.jpg" },
+  //     { "src": "gallery-3.jpg", "category": "Outdoor Play" }
+  //   ]
+  //
+  // Only "src" is required — everything else is optional and falls
+  // back to sensible defaults.
   // ============================================================
   private readonly FOLDER = 'assets/images/gallery/';
-  private readonly FILE_PREFIX = 'gallery-image-';
-  private readonly EXTENSIONS = ['jpg', 'JPG', 'jpeg', 'png', 'webp'];
-
-  /** How many indices to probe at once. */
-  private readonly BATCH_SIZE = 15;
-  /** Stop scanning after this many consecutive fully-empty batches
-   *  (tolerates small gaps in numbering without giving up too early). */
-  private readonly MAX_EMPTY_BATCHES = 2;
-  /** Absolute safety ceiling so a runaway scan can never loop forever. */
-  private readonly MAX_INDEX = 3000;
+  private readonly MANIFEST_URL = `${this.FOLDER}manifest.json`;
 
   private destroyed = false;
 
-  // ---------------- STATE ----------------
-
   readonly images = signal<GalleryImage[]>([]);
   readonly isScanning = signal(true);
-  readonly scannedCount = signal(0);
 
   readonly categories = computed(() => {
     const set = new Set(this.images().map((img) => img.category));
@@ -111,88 +124,66 @@ export class Gallery implements OnInit, OnDestroy {
   // ---------------- LIFECYCLE ----------------
 
   ngOnInit(): void {
-    this.scan();
+    this.loadManifest();
   }
 
   ngOnDestroy(): void {
     this.destroyed = true;
     if (typeof document !== 'undefined') {
       document.body.style.overflow = '';
+      document.body.classList.remove('lightbox-open');
     }
   }
 
-  // ---------------- AUTO-DISCOVERY ----------------
+  // ---------------- MANIFEST LOADING ----------------
 
-  private async scan(): Promise<void> {
-    const found: GalleryImage[] = [];
-    let index = 1;
-    let emptyBatches = 0;
+  private async loadManifest(): Promise<void> {
+    try {
+      const response = await fetch(this.MANIFEST_URL);
 
-    while (index <= this.MAX_INDEX && emptyBatches < this.MAX_EMPTY_BATCHES && !this.destroyed) {
-      const batch = Array.from({ length: this.BATCH_SIZE }, (_, k) => index + k);
-
-      const results = await Promise.all(
-        batch.map(async (i) => ({ i, src: await this.resolveIndexSrc(i) })),
-      );
-
-      const hits = results.filter((r) => r.src !== null);
-
-      if (hits.length === 0) {
-        emptyBatches++;
-      } else {
-        emptyBatches = 0;
-        for (const hit of hits) {
-          found.push(this.buildImage(hit.i, hit.src as string));
-        }
+      if (!response.ok) {
+        // No manifest yet — treat as "nothing uploaded", not an error.
+        if (!this.destroyed) this.isScanning.set(false);
+        return;
       }
 
-      if (this.destroyed) return;
+      const entries = (await response.json()) as ManifestEntry[];
 
-      found.sort((a, b) => a.index - b.index);
-      this.images.set([...found]);
-      this.scannedCount.set(index + this.BATCH_SIZE - 1);
+      const list: GalleryImage[] = entries.map((entry, i) => this.buildImage(i + 1, entry));
 
-      index += this.BATCH_SIZE;
-    }
-
-    if (!this.destroyed) {
-      this.isScanning.set(false);
+      if (!this.destroyed) {
+        this.images.set(list);
+      }
+    } catch {
+      // Manifest missing or malformed — fall back to empty state quietly.
+    } finally {
+      if (!this.destroyed) {
+        this.isScanning.set(false);
+      }
     }
   }
 
-  private async resolveIndexSrc(index: number): Promise<string | null> {
-    for (const ext of this.EXTENSIONS) {
-      const url = `${this.FOLDER}${this.FILE_PREFIX}${index}.${ext}`;
-      // eslint-disable-next-line no-await-in-loop
-      const ok = await this.probeImage(url);
-      if (ok) return url;
-    }
-    return null;
-  }
-
-  private probeImage(url: string): Promise<boolean> {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => resolve(true);
-      img.onerror = () => resolve(false);
-      img.src = url;
-    });
-  }
-
-  private buildImage(index: number, src: string): GalleryImage {
-    const meta = IMAGE_META[index] ?? {};
+  private buildImage(index: number, entry: ManifestEntry): GalleryImage {
     const pattern = SIZE_PATTERN[(index - 1) % SIZE_PATTERN.length];
 
     return {
       index,
-      src,
-      alt: meta.caption ?? `V Care Education gallery photo ${index}`,
-      category: meta.category ?? DEFAULT_CATEGORY,
-      caption: meta.caption,
-      tag: meta.tag,
-      colSpan: meta.colSpan ?? pattern.colSpan,
-      rowSpan: meta.rowSpan ?? pattern.rowSpan,
+      src: `${this.FOLDER}${entry.src}`,
+      alt: entry.caption ?? `V Care Education gallery photo ${index}`,
+      category: entry.category ?? DEFAULT_CATEGORY,
+      caption: entry.caption,
+      tag: entry.tag,
+      colSpan: entry.colSpan ?? pattern.colSpan,
+      rowSpan: entry.rowSpan ?? pattern.rowSpan,
     };
+  }
+
+  /**
+   * If a manifest entry points at a file that's missing or was moved,
+   * drop just that tile instead of leaving a broken image in the grid.
+   */
+  onImageError(index: number): void {
+    this.images.update((current) => current.filter((img) => img.index !== index));
   }
 
   // ---------------- LIGHTBOX ----------------
@@ -209,6 +200,7 @@ export class Gallery implements OnInit, OnDestroy {
     this.lightboxIndex.set(index);
     if (typeof document !== 'undefined') {
       document.body.style.overflow = 'hidden';
+      document.body.classList.add('lightbox-open');
     }
   }
 
@@ -216,6 +208,7 @@ export class Gallery implements OnInit, OnDestroy {
     this.lightboxIndex.set(null);
     if (typeof document !== 'undefined') {
       document.body.style.overflow = '';
+      document.body.classList.remove('lightbox-open');
     }
   }
 
