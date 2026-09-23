@@ -1,3 +1,3 @@
 export const siteConfig = {
-  siteUnderDevelopment: false,
+  siteUnderDevelopment: true,
 };
