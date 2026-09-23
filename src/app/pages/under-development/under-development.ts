@@ -32,8 +32,8 @@ export class UnderDevelopment implements OnInit, OnDestroy {
   }
 
   private startCountdown(): void {
-    // September 30, 2026 at 11:59:59 PM
-    const launchDate = new Date('2026-10-01T23:59:59').getTime();
+    // September 25, 2026 at 11:59:59 PM
+    const launchDate = new Date('2026-09-25T23:59:59').getTime();
 
     const updateCountdown = (): void => {
       const now = new Date().getTime();
