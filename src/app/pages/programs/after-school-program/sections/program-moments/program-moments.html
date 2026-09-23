@@ -9,27 +9,149 @@
       </h2>
     </div>
 
-    <div class="moments__grid" vcReveal="zoom-in">
-      @for (i of placeholders; track i; let index = $index) {
-        <button
-          type="button"
-          class="moment"
-          [class.moment--feature]="index === 0 || index === 4"
-          [attr.aria-label]="'Play video ' + i"
-        >
-          <span class="moment__number"> 0{{ i }} </span>
+    @if (videos().length > 0) {
+      <div class="moments__grid" vcReveal="zoom-in">
+        @for (video of videos(); track trackByIndex($index, video); let i = $index) {
+          <button
+            type="button"
+            class="moment"
+            [class.moment--feature]="i === 0 || i === 4"
+            [attr.aria-label]="'Play video ' + (i + 1)"
+            (click)="openLightbox(i)"
+          >
+            <video
+              class="moment__thumb"
+              [class.moment__thumb--ready]="loadedThumbs().has(video.index)"
+              [src]="video.src"
+              [poster]="video.poster || null"
+              muted
+              playsinline
+              preload="metadata"
+              tabindex="-1"
+              (loadedmetadata)="onThumbMetadata($event)"
+              (seeked)="onThumbReady(video.index)"
+              (loadeddata)="onThumbReady(video.index)"
+            ></video>
 
-          <span class="moment__label"> Client video </span>
+            <span class="moment__number"> 0{{ i + 1 }} </span>
 
-          <span class="moment__play">
-            <svg viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z"></path>
-            </svg>
-          </span>
-        </button>
-      }
-    </div>
+            <span class="moment__play">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+            </span>
+          </button>
+        }
+      </div>
+    }
 
-    <p class="moments__note">Client-provided videos will be added before launch.</p>
+    @if (isScanning() && videos().length === 0) {
+      <div class="moments__grid" vcReveal="zoom-in">
+        @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+          <div class="moment moment--skeleton" [class.moment--feature]="i === 1 || i === 5">
+            <span class="moment__scan-line"></span>
+          </div>
+        }
+      </div>
+    }
+
+    @if (!isScanning() && videos().length === 0) {
+      <div class="moments__empty">
+        <p>No videos uploaded yet.</p>
+        <!-- <small>
+          Add video files to <code>public/assets/videos/after-school-program/</code>, then list them
+          in <code>manifest.json</code> in that same folder — they'll appear here automatically.
+        </small> -->
+      </div>
+    }
+
+    @if (isScanning() && videos().length > 0) {
+      <p class="moments__note moments__note--scanning">Still checking for more videos…</p>
+    } @else if (videos().length > 0) {
+      <p class="moments__note">Tap a video to watch.</p>
+    }
   </div>
 </section>
+
+@if (lightboxVideo(); as video) {
+  <div
+    class="video-lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Video player"
+    (click)="closeLightbox()"
+  >
+    <button
+      type="button"
+      class="video-lightbox__close"
+      (click)="closeLightbox()"
+      aria-label="Close"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        width="20"
+        height="20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    @if (videos().length > 1) {
+      <button
+        type="button"
+        class="video-lightbox__nav video-lightbox__nav--prev"
+        (click)="prev($event)"
+        aria-label="Previous video"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="22"
+          height="22"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    }
+
+    <div class="video-lightbox__content" (click)="$event.stopPropagation()">
+      <video
+        class="video-lightbox__player"
+        [src]="video.src"
+        [poster]="video.poster || null"
+        controls
+        autoplay
+        playsinline
+      ></video>
+
+      <span class="video-lightbox__counter">
+        {{ (lightboxIndex() ?? 0) + 1 }} / {{ videos().length }}
+      </span>
+    </div>
+
+    @if (videos().length > 1) {
+      <button
+        type="button"
+        class="video-lightbox__nav video-lightbox__nav--next"
+        (click)="next($event)"
+        aria-label="Next video"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="22"
+          height="22"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    }
+  </div>
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "src": "gallery-image-1.jpg",
+    "category": "Classroom",
+    "caption": "Hands-on exploration, every single day.",
+    "tag": "Featured",
+    "colSpan": 2,
+    "rowSpan": 2
+  },
+  { "src": "gallery-image-2.jpg", "category": "Classroom" },
+  { "src": "gallery-image-3.jpg", "category": "Outdoor Play" },
+  { "src": "gallery-image-4.jpg" },
+  { "src": "gallery-image-5.jpg", "category": "Outdoor Play" },
+  { "src": "gallery-image-6.jpg" }
+]

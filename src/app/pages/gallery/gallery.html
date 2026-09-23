@@ -11,7 +11,7 @@
     <span class="gallery-kicker">
       <i [class.gallery-kicker__dot--scanning]="isScanning()"></i>
       @if (isScanning()) {
-        Scanning archive…
+        Loading gallery…
       } @else {
         V Care · Visual Journal
       }
@@ -30,7 +30,7 @@
     <div class="gallery-hero__stats">
       <div class="gallery-stat">
         <strong>{{ images().length }}</strong>
-        <span>{{ isScanning() ? 'Found so far' : 'Moments' }}</span>
+        <span>Moments</span>
       </div>
       <div class="gallery-stat__divider"></div>
       <div class="gallery-stat">
@@ -76,7 +76,7 @@
         (click)="openLightbox(i)"
         [attr.aria-label]="'Open photo: ' + img.alt"
       >
-        <img [src]="img.src" [alt]="img.alt" loading="lazy" />
+        <img [src]="img.src" [alt]="img.alt" loading="lazy" (error)="onImageError(img.index)" />
 
         @if (img.tag) {
           <span class="tile__tag">{{ img.tag }}</span>
@@ -110,7 +110,7 @@
       </button>
     }
 
-    <!-- Skeleton placeholders while the first batch is still scanning -->
+    <!-- Skeleton placeholders while the manifest is still loading -->
     @if (isScanning() && images().length === 0) {
       @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
         <div
@@ -126,18 +126,11 @@
 
   @if (!isScanning() && images().length === 0) {
     <div class="gallery-empty">
-      <p>No photos found yet.</p>
+      <p>No photos added yet.</p>
       <small>
-        Drop images into <code>assets/images/gallery/</code> named <code>gallery-image-1.jpg</code>,
-        <code>gallery-image-2.jpg</code>, and so on — the gallery will pick them up automatically.
+        Add photos to <code>public/assets/images/gallery/</code>, then list them in
+        <code>manifest.json</code> in that same folder — they'll appear here automatically.
       </small>
-    </div>
-  }
-
-  @if (isScanning() && images().length > 0) {
-    <div class="gallery-scanning-note">
-      <span class="gallery-scanning-note__pulse"></span>
-      Still scanning for more photos…
     </div>
   }
 </section>
