@@ -47,7 +47,7 @@
       <div class="programs__track">
         @for (
           program of visible();
-          track page() + '-' + $index + '-' + program.name;
+          track startIndex() + '-' + $index + '-' + program.name;
           let i = $index
         ) {
           <article
