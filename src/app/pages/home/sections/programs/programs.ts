@@ -13,7 +13,8 @@ interface Program {
   fragment?: string;
 }
 
-const PAGE_SIZE = 3;
+//const PAGE_SIZE = 3;
+const WINDOW_SIZE = 3;
 
 @Component({
   selector: 'app-programs',
@@ -99,22 +100,43 @@ export class Programs {
     },
   ];
 
-  /** Index of the current PAGE (0, 1, 2…), not the current card */
-  readonly page = signal(0);
+  // /** Index of the current PAGE (0, 1, 2…), not the current card */
+  // readonly page = signal(0);
 
-  readonly totalPages = computed(() => Math.ceil(this.programs.length / PAGE_SIZE));
+  // readonly totalPages = computed(() => Math.ceil(this.programs.length / PAGE_SIZE));
 
-  /** The 3 (or fewer, on the last page) cards to show right now */
+  // /** The 3 (or fewer, on the last page) cards to show right now */
+  // readonly visible = computed(() => {
+  //   const start = this.page() * PAGE_SIZE;
+  //   return this.programs.slice(start, start + PAGE_SIZE);
+  // });
+
+  // next(): void {
+  //   this.page.update((p) => (p + 1) % this.totalPages());
+  // }
+
+  // prev(): void {
+  //   this.page.update((p) => (p - 1 + this.totalPages()) % this.totalPages());
+  // }
+
+  /** Index of the FIRST visible card in the sliding window (0-based, wraps around) */
+  readonly startIndex = signal(0);
+
+  /** The 3 (or fewer, if there aren't 3 programs yet) cards to show right now,
+   *  wrapping back to the start of the list once the window runs off the end. */
   readonly visible = computed(() => {
-    const start = this.page() * PAGE_SIZE;
-    return this.programs.slice(start, start + PAGE_SIZE);
+    const total = this.programs.length;
+    const count = Math.min(WINDOW_SIZE, total);
+    const start = this.startIndex();
+
+    return Array.from({ length: count }, (_, i) => this.programs[(start + i) % total]);
   });
 
   next(): void {
-    this.page.update((p) => (p + 1) % this.totalPages());
+    this.startIndex.update((i) => (i + 1) % this.programs.length);
   }
 
   prev(): void {
-    this.page.update((p) => (p - 1 + this.totalPages()) % this.totalPages());
+    this.startIndex.update((i) => (i - 1 + this.programs.length) % this.programs.length);
   }
 }
