@@ -1,0 +1,659 @@
+<section
+  class="inauguration"
+  [class.inauguration--open]="phase() !== 'curtain'"
+  [class.inauguration--text]="
+    phase() === 'text' ||
+    phase() === 'ribbon' ||
+    phase() === 'scissors' ||
+    phase() === 'ready' ||
+    phase() === 'cutting' ||
+    phase() === 'done'
+  "
+  [class.inauguration--ribbon]="
+    phase() === 'ribbon' ||
+    phase() === 'scissors' ||
+    phase() === 'ready' ||
+    phase() === 'cutting' ||
+    phase() === 'done'
+  "
+  [class.inauguration--scissors]="
+    phase() === 'scissors' || phase() === 'ready' || phase() === 'cutting' || phase() === 'done'
+  "
+  [class.inauguration--cutting]="phase() === 'cutting' || phase() === 'done'"
+  [class.inauguration--done]="phase() === 'done'"
+  role="dialog"
+  aria-modal="true"
+  aria-label="VCare Grand Opening"
+>
+  <!-- =========================================================
+       STAGE BACKGROUND
+       ========================================================= -->
+
+  <div class="stage" aria-hidden="true">
+    <div class="stage__glow stage__glow--main"></div>
+    <div class="stage__glow stage__glow--gold"></div>
+
+    <div class="stage__stars"></div>
+
+    <div class="spotlight spotlight--left"></div>
+    <div class="spotlight spotlight--right"></div>
+    <div class="spotlight spotlight--centre"></div>
+
+    <div class="stage-light stage-light--one"></div>
+    <div class="stage-light stage-light--two"></div>
+    <div class="stage-light stage-light--three"></div>
+    <div class="stage-light stage-light--four"></div>
+
+    <div class="stage__floor"></div>
+  </div>
+
+  <!-- =========================================================
+       THEATRE CURTAINS
+
+       Both halves begin at the centre and move
+       horizontally outward.
+       ========================================================= -->
+
+  <div class="theatre-curtain theatre-curtain--left" aria-hidden="true">
+    <div class="theatre-curtain__fabric">
+      <div class="theatre-curtain__valance"></div>
+
+      <div class="theatre-curtain__fold fold--1"></div>
+      <div class="theatre-curtain__fold fold--2"></div>
+      <div class="theatre-curtain__fold fold--3"></div>
+      <div class="theatre-curtain__fold fold--4"></div>
+      <div class="theatre-curtain__fold fold--5"></div>
+      <div class="theatre-curtain__fold fold--6"></div>
+
+      <div class="theatre-curtain__fabric-sheen"></div>
+      <div class="theatre-curtain__inner-shadow"></div>
+
+      <div class="theatre-curtain__gold-trim"></div>
+    </div>
+  </div>
+
+  <div class="theatre-curtain theatre-curtain--right" aria-hidden="true">
+    <div class="theatre-curtain__fabric">
+      <div class="theatre-curtain__valance"></div>
+
+      <div class="theatre-curtain__fold fold--1"></div>
+      <div class="theatre-curtain__fold fold--2"></div>
+      <div class="theatre-curtain__fold fold--3"></div>
+      <div class="theatre-curtain__fold fold--4"></div>
+      <div class="theatre-curtain__fold fold--5"></div>
+      <div class="theatre-curtain__fold fold--6"></div>
+
+      <div class="theatre-curtain__fabric-sheen"></div>
+      <div class="theatre-curtain__inner-shadow"></div>
+
+      <div class="theatre-curtain__gold-trim"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       INTRO
+       ========================================================= -->
+
+  <div class="inauguration__intro">
+    <div class="intro-badge">
+      <span></span>
+      GRAND OPENING
+      <span></span>
+    </div>
+
+    <div class="inauguration__logo-wrap">
+      <div class="inauguration__logo-glow"></div>
+
+      <img src="assets/images/logo.png" alt="VCare Education" class="inauguration__logo" />
+    </div>
+
+    <p class="inauguration__eyebrow">A New Chapter Begins</p>
+
+    <h1 class="inauguration__title">
+      Welcome to our new digital address
+      <span>The new VCare Preschool Website</span>
+    </h1>
+
+    <p class="inauguration__subtitle">
+      Our new digital home is ready.
+      <br />
+      Come, open the doors to a brighter journey for little learners.
+    </p>
+
+    <div class="inauguration__ornament">
+      <i></i>
+      <b>✦</b>
+      <i></i>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       CEREMONY
+       ========================================================= -->
+
+  <div class="ceremony" #ceremony>
+    <!-- =======================================================
+         GOLD POSTS
+         ======================================================= -->
+
+    <div class="ceremony-post ceremony-post--left">
+      <div class="ceremony-post__cap"></div>
+      <div class="ceremony-post__pole"></div>
+      <div class="ceremony-post__base"></div>
+    </div>
+
+    <div class="ceremony-post ceremony-post--right">
+      <div class="ceremony-post__cap"></div>
+      <div class="ceremony-post__pole"></div>
+      <div class="ceremony-post__base"></div>
+    </div>
+
+    <!-- =======================================================
+         RIBBON
+         ======================================================= -->
+
+    <div class="ribbon-stage">
+      <svg class="ribbon-svg" viewBox="0 0 1000 210" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="ribbonRed" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#ff6872" />
+            <stop offset="14%" stop-color="#ec2632" />
+            <stop offset="34%" stop-color="#a80713" />
+            <stop offset="52%" stop-color="#ef202c" />
+            <stop offset="73%" stop-color="#980711" />
+            <stop offset="88%" stop-color="#e82834" />
+            <stop offset="100%" stop-color="#62040a" />
+          </linearGradient>
+
+          <linearGradient id="ribbonShine" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+
+            <stop offset="17%" stop-color="#ffffff" stop-opacity=".42" />
+
+            <stop offset="24%" stop-color="#ffffff" stop-opacity=".04" />
+
+            <stop offset="49%" stop-color="#ffffff" stop-opacity="0" />
+
+            <stop offset="62%" stop-color="#ffffff" stop-opacity=".36" />
+
+            <stop offset="69%" stop-color="#ffffff" stop-opacity="0" />
+
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+          </linearGradient>
+
+          <linearGradient id="goldMetal" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#fff3a4" />
+            <stop offset="28%" stop-color="#dda72a" />
+            <stop offset="48%" stop-color="#fff0a0" />
+            <stop offset="73%" stop-color="#9f6e0d" />
+            <stop offset="100%" stop-color="#f7d059" />
+          </linearGradient>
+
+          <filter id="ribbonShadow" x="-20%" y="-30%" width="140%" height="170%">
+            <feDropShadow
+              dx="0"
+              dy="15"
+              stdDeviation="10"
+              flood-color="#000000"
+              flood-opacity=".35"
+            />
+          </filter>
+        </defs>
+
+        <!-- =====================================================
+             LEFT RIBBON HALF
+             ===================================================== -->
+
+        <g class="ribbon-part ribbon-part--left">
+          <path
+            d="
+              M 55 65
+              C 145 45, 235 50, 330 67
+              C 386 77, 420 80, 470 81
+              L 470 159
+              C 420 157, 379 153, 328 144
+              C 232 127, 140 123, 55 141
+              Z
+            "
+            fill="url(#ribbonRed)"
+            filter="url(#ribbonShadow)"
+          />
+
+          <path
+            d="
+              M 55 65
+              C 145 45, 235 50, 330 67
+              C 386 77, 420 80, 470 81
+              L 470 105
+              C 414 103, 376 98, 327 90
+              C 230 74, 137 74, 55 90
+              Z
+            "
+            fill="url(#ribbonShine)"
+          />
+
+          <path
+            d="M150 54 C180 76 180 126 151 146"
+            stroke="#72040c"
+            stroke-width="12"
+            opacity=".42"
+            fill="none"
+          />
+
+          <path
+            d="M215 50 C245 70 245 130 215 151"
+            stroke="#ff6c73"
+            stroke-width="10"
+            opacity=".19"
+            fill="none"
+          />
+
+          <path
+            d="M300 58 C330 80 331 125 300 149"
+            stroke="#72040c"
+            stroke-width="13"
+            opacity=".4"
+            fill="none"
+          />
+
+          <path
+            d="
+              M57 138
+              C150 120, 230 126, 328 143
+              C383 153, 421 157, 470 159
+            "
+            fill="none"
+            stroke="#f7d66e"
+            stroke-width="2"
+            stroke-dasharray="5 7"
+            opacity=".78"
+          />
+        </g>
+
+        <!-- =====================================================
+             RIGHT RIBBON HALF
+             ===================================================== -->
+
+        <g class="ribbon-part ribbon-part--right">
+          <path
+            d="
+              M530 81
+              C580 80, 614 77, 670 67
+              C765 50, 855 45, 945 65
+              L945 141
+              C860 123, 768 127, 672 144
+              C621 153, 580 157, 530 159
+              Z
+            "
+            fill="url(#ribbonRed)"
+            filter="url(#ribbonShadow)"
+          />
+
+          <path
+            d="
+              M530 81
+              C584 80, 624 76, 673 67
+              C767 50, 855 45, 945 65
+              L945 90
+              C864 74, 770 74, 673 90
+              C624 98, 586 103, 530 105
+              Z
+            "
+            fill="url(#ribbonShine)"
+          />
+
+          <path
+            d="M850 54 C820 76 820 126 849 146"
+            stroke="#72040c"
+            stroke-width="12"
+            opacity=".42"
+            fill="none"
+          />
+
+          <path
+            d="M785 50 C755 70 755 130 785 151"
+            stroke="#ff6c73"
+            stroke-width="10"
+            opacity=".19"
+            fill="none"
+          />
+
+          <path
+            d="M700 58 C670 80 669 125 700 149"
+            stroke="#72040c"
+            stroke-width="13"
+            opacity=".4"
+            fill="none"
+          />
+
+          <path
+            d="
+              M530 159
+              C579 157, 617 153, 672 143
+              C768 126, 850 120, 943 138
+            "
+            fill="none"
+            stroke="#f7d66e"
+            stroke-width="2"
+            stroke-dasharray="5 7"
+            opacity=".78"
+          />
+        </g>
+
+        <!-- =====================================================
+             BOW
+             ===================================================== -->
+
+        <path
+          class="ribbon-bow ribbon-bow--left"
+          d="
+            M470 88
+            C410 60, 360 42, 338 68
+            C318 93, 370 119, 466 121
+            Z
+          "
+          fill="url(#ribbonRed)"
+          stroke="#ff7077"
+          stroke-width="2"
+        />
+
+        <path
+          class="ribbon-bow ribbon-bow--right"
+          d="
+            M530 88
+            C590 60, 640 42, 662 68
+            C682 93, 630 119, 534 121
+            Z
+          "
+          fill="url(#ribbonRed)"
+          stroke="#ff7077"
+          stroke-width="2"
+        />
+
+        <path
+          class="bow-tail bow-tail--left"
+          d="
+            M450 112
+            L390 155
+            L421 174
+            L466 129
+            Z
+          "
+          fill="url(#ribbonRed)"
+        />
+
+        <path
+          class="bow-tail bow-tail--right"
+          d="
+            M550 112
+            L610 155
+            L579 174
+            L534 129
+            Z
+          "
+          fill="url(#ribbonRed)"
+        />
+
+        <circle cx="500" cy="105" r="20" fill="url(#goldMetal)" stroke="#fff1a0" stroke-width="3" />
+
+        <circle cx="494" cy="99" r="5" fill="#ffffff" opacity=".55" />
+      </svg>
+
+      <!-- CUT TARGET -->
+      <div class="cut-target" [class.cut-target--active]="isDragging()">
+        <span></span>
+        <small>RELEASE TO CUT</small>
+        <span></span>
+      </div>
+
+      <!-- CUT FLASH -->
+      <div class="cut-flash" aria-hidden="true"></div>
+    </div>
+
+    <!-- =======================================================
+         REALISTIC SCISSORS
+         ======================================================= -->
+
+    <button
+      type="button"
+      class="scissors"
+      [class.scissors--visible]="
+        phase() === 'scissors' || phase() === 'ready' || phase() === 'cutting'
+      "
+      [class.scissors--dragging]="isDragging()"
+      [class.scissors--cut]="hasCut()"
+      [style.left.px]="scissorX()"
+      [style.top.px]="scissorY()"
+      [attr.aria-label]="hasCut() ? 'Ribbon cut' : 'Drag the scissors to the ribbon'"
+      (pointerdown)="startDragging($event)"
+      (pointermove)="dragScissors($event)"
+      (pointerup)="stopDragging()"
+      (pointercancel)="stopDragging()"
+      (lostpointercapture)="stopDragging()"
+      (keydown.enter)="keyboardCut()"
+      (keydown.space)="keyboardCut(); $event.preventDefault()"
+    >
+      <span class="scissors__glow"></span>
+
+      <svg class="scissors__svg" viewBox="0 0 220 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="bladeSilver" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="20%" stop-color="#aeb9c3" />
+            <stop offset="40%" stop-color="#f8fbfd" />
+            <stop offset="62%" stop-color="#77848f" />
+            <stop offset="82%" stop-color="#ffffff" />
+            <stop offset="100%" stop-color="#9ca8b1" />
+          </linearGradient>
+
+          <linearGradient id="handleRed" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#ff6d75" />
+            <stop offset="25%" stop-color="#e4212d" />
+            <stop offset="60%" stop-color="#9c0712" />
+            <stop offset="100%" stop-color="#55030a" />
+          </linearGradient>
+
+          <radialGradient id="pivotGold">
+            <stop offset="0%" stop-color="#fffbd7" />
+            <stop offset="35%" stop-color="#f5d25b" />
+            <stop offset="70%" stop-color="#b37b10" />
+            <stop offset="100%" stop-color="#674306" />
+          </radialGradient>
+
+          <filter id="metalShadow" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity=".4" />
+          </filter>
+        </defs>
+
+        <!-- =========================
+             TOP BLADE
+             ========================= -->
+
+        <g class="scissor-blade scissor-blade--top" transform="rotate(0 82 110)">
+          <path
+            d="M82 102L192 27"
+            stroke="url(#bladeSilver)"
+            stroke-width="17"
+            stroke-linecap="round"
+            filter="url(#metalShadow)"
+          />
+
+          <path
+            d="M89 98L190 30"
+            stroke="#ffffff"
+            stroke-width="2.8"
+            stroke-linecap="round"
+            opacity=".78"
+          />
+        </g>
+
+        <!-- =========================
+             BOTTOM BLADE
+             ========================= -->
+
+        <g class="scissor-blade scissor-blade--bottom" transform="rotate(0 82 110)">
+          <path
+            d="M82 118L192 193"
+            stroke="url(#bladeSilver)"
+            stroke-width="17"
+            stroke-linecap="round"
+            filter="url(#metalShadow)"
+          />
+
+          <path
+            d="M89 122L190 190"
+            stroke="#ffffff"
+            stroke-width="2.8"
+            stroke-linecap="round"
+            opacity=".72"
+          />
+        </g>
+
+        <!-- =========================
+             HANDLES
+             ========================= -->
+
+        <circle
+          cx="54"
+          cy="58"
+          r="33"
+          fill="url(#handleRed)"
+          stroke="#ff737b"
+          stroke-width="4"
+          filter="url(#metalShadow)"
+        />
+
+        <circle cx="54" cy="58" r="15" fill="#09192b" stroke="#f3cf5b" stroke-width="3" />
+
+        <circle
+          cx="54"
+          cy="162"
+          r="33"
+          fill="url(#handleRed)"
+          stroke="#ff737b"
+          stroke-width="4"
+          filter="url(#metalShadow)"
+        />
+
+        <circle cx="54" cy="162" r="15" fill="#09192b" stroke="#f3cf5b" stroke-width="3" />
+
+        <!-- =========================
+             PIVOT
+             ========================= -->
+
+        <circle cx="82" cy="110" r="16" fill="url(#pivotGold)" stroke="#73500b" stroke-width="3" />
+
+        <circle cx="77" cy="105" r="5" fill="#ffffff" opacity=".55" />
+
+        <!-- HANDLE HIGHLIGHTS -->
+
+        <path
+          d="M39 41C46 32 58 29 68 33"
+          stroke="#ffffff"
+          stroke-width="4"
+          stroke-linecap="round"
+          opacity=".5"
+        />
+
+        <path
+          d="M39 145C46 136 58 133 68 137"
+          stroke="#ffffff"
+          stroke-width="4"
+          stroke-linecap="round"
+          opacity=".5"
+        />
+      </svg>
+
+      <span class="scissors__label"> DRAG </span>
+    </button>
+
+    <!-- =======================================================
+         INSTRUCTION
+         ======================================================= -->
+
+    @if (phase() === 'ready' || isDragging()) {
+      <div class="ceremony-hint" [class.ceremony-hint--active]="isDragging()">
+        <span class="ceremony-hint__icon"> ✂ </span>
+
+        <div class="ceremony-hint__copy">
+          <strong>
+            {{ isDragging() ? 'Bring the scissors to the ribbon' : 'The ribbon awaits' }}
+          </strong>
+
+          <small>
+            {{ isDragging() ? 'Release at the centre' : 'Drag the scissors to begin' }}
+          </small>
+        </div>
+
+        <span class="ceremony-hint__arrow"> → </span>
+      </div>
+    }
+
+    <!-- =======================================================
+         SUCCESS
+         ======================================================= -->
+
+    @if (hasCut()) {
+      <div class="success-message">
+        <span class="success-message__check"> ✓ </span>
+
+        <div class="success-message__copy">
+          <strong> We are now officially open </strong>
+
+          <small> The new website of VCare Education is live. </small>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- =========================================================
+       CONFETTI
+       ========================================================= -->
+
+  @if (showConfetti()) {
+    <!-- <div class="confetti" aria-hidden="true">
+      @for (piece of confettiPieces; track piece.id) {
+        <span
+          class="confetti__piece"
+          [style.left.%]="piece.left"
+          [style.background]="piece.color"
+          [style.animation-delay.ms]="piece.delay"
+          [style.animation-duration.ms]="piece.duration"
+          [style.--drift]="piece.drift"
+          [style.--rotation]="piece.rotation"
+        ></span>
+      }
+    </div> -->
+    <div class="grand-confetti" aria-hidden="true">
+      @for (piece of confettiPieces; track piece.id) {
+        <span
+          class="grand-confetti__piece"
+          [style.left.%]="piece.left"
+          [style.top.%]="piece.top"
+          [style.width.px]="piece.width"
+          [style.height.px]="piece.height"
+          [style.background]="piece.color"
+          [style.animation-delay.ms]="piece.delay"
+          [style.animation-duration.ms]="piece.duration"
+          [style.--drift]="piece.drift"
+          [style.--rotation]="piece.rotation"
+          [style.--scale]="piece.scale"
+          [style.--spin]="piece.spin"
+          [class.grand-confetti__piece--side-left]="piece.side === 'left'"
+          [class.grand-confetti__piece--side-right]="piece.side === 'right'"
+        ></span>
+      }
+    </div>
+  }
+
+  <!-- =========================================================
+       ENTER WEBSITE
+       ========================================================= -->
+
+  @if (showSkip()) {
+    <button type="button" class="enter-button" (click)="skip()">
+      <span>Enter Website</span>
+      <span>→</span>
+    </button>
+  }
+</section>

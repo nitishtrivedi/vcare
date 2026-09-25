@@ -1,0 +1,1957 @@
+.inauguration {
+  position: fixed;
+  inset: 0;
+
+  z-index: 5000;
+
+  width: 100%;
+  height: 100dvh;
+
+  min-height: 560px;
+
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #fff;
+
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(18, 89, 145, 0.44), transparent 48%),
+    linear-gradient(180deg, #06111e 0%, #082b4b 48%, #041421 100%);
+
+  isolation: isolate;
+
+  transition:
+    opacity 1s ease,
+    visibility 1s ease;
+
+  &--done {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+/* ============================================================
+   STAGE
+   ============================================================ */
+
+.stage {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+.stage__glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(18px);
+
+  &--main {
+    width: 58vw;
+    height: 58vw;
+
+    left: 50%;
+    top: 43%;
+
+    transform: translate(-50%, -50%);
+
+    background: radial-gradient(circle, rgba(29, 124, 189, 0.28), transparent 70%);
+  }
+
+  &--gold {
+    width: 46vw;
+    height: 20vw;
+
+    left: 50%;
+    bottom: -8vw;
+
+    transform: translateX(-50%);
+
+    background: radial-gradient(ellipse, rgba(246, 146, 32, 0.17), transparent 70%);
+  }
+}
+
+.stage__stars {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.18;
+
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+
+  background-size:
+    150px 150px,
+    230px 230px;
+}
+
+/* ============================================================
+   SPOTLIGHTS
+   ============================================================ */
+
+.spotlight {
+  position: absolute;
+
+  top: -25vh;
+
+  width: 30vw;
+  height: 100vh;
+
+  opacity: 0.13;
+
+  filter: blur(4px);
+
+  mix-blend-mode: screen;
+
+  pointer-events: none;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0));
+
+    clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  }
+
+  &--left {
+    left: -8vw;
+
+    background: rgba(251, 237, 33, 0.65);
+
+    animation: spotlightLeft 12s ease-in-out infinite alternate;
+  }
+
+  &--right {
+    right: -8vw;
+
+    background: rgba(59, 180, 74, 0.55);
+
+    animation: spotlightRight 14s ease-in-out infinite alternate;
+  }
+
+  &--centre {
+    left: 50%;
+
+    width: 22vw;
+
+    transform: translateX(-50%);
+
+    background: rgba(255, 255, 255, 0.28);
+
+    opacity: 0.08;
+
+    animation: spotlightCentre 10s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes spotlightLeft {
+  from {
+    transform: rotate(-25deg);
+  }
+
+  to {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes spotlightRight {
+  from {
+    transform: rotate(25deg);
+  }
+
+  to {
+    transform: rotate(-20deg);
+  }
+}
+
+@keyframes spotlightCentre {
+  from {
+    transform: translateX(-50%) rotate(-8deg);
+  }
+
+  to {
+    transform: translateX(-50%) rotate(8deg);
+  }
+}
+
+/* ============================================================
+   SMALL STAGE LIGHTS
+   ============================================================ */
+
+.stage-light {
+  position: absolute;
+
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: #fff1a0;
+
+  box-shadow:
+    0 0 10px #fff1a0,
+    0 0 24px rgba(251, 237, 33, 0.55);
+
+  animation: stageLightPulse 4.5s ease-in-out infinite alternate;
+
+  &--one {
+    top: 21%;
+    left: 32%;
+  }
+
+  &--two {
+    top: 18%;
+    right: 33%;
+
+    animation-delay: 1.4s;
+  }
+
+  &--three {
+    top: 34%;
+    left: 50%;
+
+    animation-delay: 2.8s;
+  }
+
+  &--four {
+    top: 29%;
+    left: 68%;
+
+    animation-delay: 0.8s;
+  }
+}
+
+@keyframes stageLightPulse {
+  from {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 0.95;
+    transform: scale(1.35);
+  }
+}
+
+.stage__floor {
+  position: absolute;
+
+  left: -15%;
+  right: -15%;
+  bottom: -28%;
+
+  height: 42%;
+
+  border-radius: 50% 50% 0 0;
+
+  background:
+    radial-gradient(ellipse at center, rgba(255, 255, 255, 0.08), transparent 50%),
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.42));
+
+  transform: perspective(700px) rotateX(54deg);
+}
+
+/* ============================================================
+   THEATRE CURTAINS
+   ============================================================ */
+
+.theatre-curtain {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  z-index: 40;
+
+  width: 50vw;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+.theatre-curtain--left {
+  left: 0;
+}
+
+.theatre-curtain--right {
+  right: 0;
+}
+
+.theatre-curtain__fabric {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  background: linear-gradient(
+    90deg,
+    #2c0106 0%,
+    #5b040c 9%,
+    #a80f1b 20%,
+    #67050d 34%,
+    #ce1c28 48%,
+    #66050d 62%,
+    #a80e1a 77%,
+    #5a040b 89%,
+    #300106 100%
+  );
+
+  box-shadow:
+    inset 0 0 45px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(255, 255, 255, 0.05),
+    0 0 45px rgba(0, 0, 0, 0.38);
+
+  transform-origin: center center;
+
+  transition: transform 3.4s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* ------------------------------------------------------------
+   SHEEN
+   ------------------------------------------------------------ */
+
+.theatre-curtain__fabric-sheen {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.08) 15%,
+    rgba(255, 255, 255, 0) 28%,
+    rgba(255, 255, 255, 0.08) 44%,
+    rgba(255, 255, 255, 0) 58%,
+    rgba(255, 255, 255, 0.09) 74%,
+    rgba(255, 255, 255, 0)
+  );
+
+  mix-blend-mode: screen;
+
+  opacity: 0.75;
+
+  animation: curtainSheen 8s ease-in-out infinite alternate;
+}
+
+@keyframes curtainSheen {
+  from {
+    transform: translateX(-3%);
+  }
+
+  to {
+    transform: translateX(3%);
+  }
+}
+
+/* ------------------------------------------------------------
+   FABRIC FOLDS
+   ------------------------------------------------------------ */
+
+.theatre-curtain__fold {
+  position: absolute;
+
+  top: -2%;
+
+  width: 58px;
+  height: 104%;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.07) 20%,
+    rgba(50, 0, 5, 0.32) 48%,
+    rgba(255, 255, 255, 0.06) 72%,
+    transparent 100%
+  );
+
+  filter: blur(0.5px);
+
+  opacity: 0.95;
+
+  pointer-events: none;
+}
+
+.fold--1 {
+  left: 5%;
+}
+.fold--2 {
+  left: 20%;
+}
+.fold--3 {
+  left: 36%;
+}
+.fold--4 {
+  left: 52%;
+}
+.fold--5 {
+  left: 68%;
+}
+.fold--6 {
+  left: 84%;
+}
+
+.theatre-curtain__fabric::after {
+  content: '';
+
+  position: absolute;
+
+  inset: 0;
+
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 0,
+    rgba(255, 255, 255, 0.02) 6px,
+    rgba(23, 0, 3, 0.2) 13px,
+    rgba(255, 255, 255, 0.02) 22px
+  );
+
+  opacity: 0.9;
+
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------
+   INNER SHADOW
+   ------------------------------------------------------------ */
+
+.theatre-curtain__inner-shadow {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  width: 130px;
+
+  pointer-events: none;
+
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.2), rgba(255, 235, 140, 0.1));
+
+  filter: blur(3px);
+}
+
+.theatre-curtain--left .theatre-curtain__inner-shadow {
+  right: 0;
+}
+
+.theatre-curtain--right .theatre-curtain__inner-shadow {
+  left: 0;
+
+  transform: scaleX(-1);
+}
+
+/* ------------------------------------------------------------
+   GOLD EDGE
+   ------------------------------------------------------------ */
+
+.theatre-curtain__gold-trim {
+  position: absolute;
+
+  top: 0;
+  bottom: 0;
+
+  width: 7px;
+
+  background: linear-gradient(180deg, #704a08, #f9e07c 20%, #b67d10 48%, #ffea96 76%, #79530a);
+
+  box-shadow: 0 0 18px rgba(255, 226, 125, 0.3);
+
+  z-index: 4;
+}
+
+.theatre-curtain--left .theatre-curtain__gold-trim {
+  right: 0;
+}
+
+.theatre-curtain--right .theatre-curtain__gold-trim {
+  left: 0;
+}
+
+/* ------------------------------------------------------------
+   VALANCE
+   ------------------------------------------------------------ */
+
+.theatre-curtain__valance {
+  position: absolute;
+
+  left: -2%;
+  right: -2%;
+
+  top: 0;
+
+  height: 84px;
+
+  border-radius: 0 0 48% 48%;
+
+  background: radial-gradient(ellipse at center, #d72b37 0, #8a1019 46%, #43040a 100%);
+
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.36);
+
+  z-index: 5;
+}
+
+/* ------------------------------------------------------------
+   CURTAIN OPEN
+   PURE HORIZONTAL MOTION
+   ------------------------------------------------------------ */
+
+.inauguration--open {
+  .theatre-curtain--left .theatre-curtain__fabric {
+    transform: translateX(-100%) scaleX(0.82);
+  }
+
+  .theatre-curtain--right .theatre-curtain__fabric {
+    transform: translateX(100%) scaleX(0.82);
+  }
+}
+
+/* ============================================================
+   INTRO
+   ============================================================ */
+
+.inauguration__intro {
+  position: absolute;
+
+  z-index: 12;
+
+  top: 5vh;
+  left: 50%;
+
+  width: min(900px, calc(100% - 40px));
+
+  transform: translateX(-50%) translateY(28px);
+
+  text-align: center;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 2s ease,
+    transform 2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inauguration--text {
+  .inauguration__intro {
+    opacity: 1;
+
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* ============================================================
+   INTRO BADGE
+   ============================================================ */
+
+.intro-badge {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.55rem;
+
+  padding: 0.45rem 0.85rem;
+
+  border: 1px solid rgba(251, 237, 33, 0.35);
+
+  border-radius: 999px;
+
+  background: rgba(251, 237, 33, 0.055);
+
+  color: #fbed21;
+
+  font-size: 0.6rem;
+
+  font-weight: 900;
+
+  letter-spacing: 0.17em;
+}
+
+.intro-badge span {
+  width: 15px;
+
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, #fbed21);
+}
+
+.intro-badge span:last-child {
+  transform: scaleX(-1);
+}
+
+/* ============================================================
+   LOGO
+   ============================================================ */
+
+.inauguration__logo-wrap {
+  position: relative;
+
+  width: 80px;
+
+  height: 80px;
+
+  margin: 13px auto 0;
+
+  display: grid;
+
+  place-items: center;
+}
+
+.inauguration__logo-glow {
+  position: absolute;
+
+  inset: -18px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 246, 181, 0.22),
+    rgba(251, 237, 33, 0.06) 45%,
+    transparent 72%
+  );
+
+  animation: logoGlow 5s ease-in-out infinite alternate;
+}
+
+@keyframes logoGlow {
+  from {
+    transform: scale(0.94);
+
+    opacity: 0.55;
+  }
+
+  to {
+    transform: scale(1.06);
+
+    opacity: 1;
+  }
+}
+
+.inauguration__logo {
+  position: relative;
+
+  width: 74px;
+
+  height: 74px;
+
+  object-fit: contain;
+
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.3));
+}
+
+/* ============================================================
+   TITLE
+   ============================================================ */
+
+.inauguration__eyebrow {
+  margin: 10px 0 0;
+
+  color: #fbed21;
+
+  font-size: 0.62rem;
+
+  font-weight: 900;
+
+  letter-spacing: 0.19em;
+
+  text-transform: uppercase;
+}
+
+.inauguration__title {
+  margin: 6px 0 0;
+
+  font-family: 'Paytone One', cursive;
+
+  font-size: clamp(1.85rem, 4.2vw, 2.5rem);
+
+  line-height: 1.04;
+
+  letter-spacing: -0.035em;
+
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.inauguration__title span {
+  display: block;
+
+  max-width: 900px;
+
+  margin: 4px auto 0;
+
+  background: linear-gradient(90deg, #fff7bd, #fbed21, #ffffff, #fbed21, #f69220);
+
+  background-size: 200% auto;
+
+  -webkit-background-clip: text;
+
+  background-clip: text;
+
+  color: transparent;
+  font-size: clamp(1.85rem, 4.2vw, 4rem);
+  animation: goldSweep 7s linear infinite;
+}
+
+@keyframes goldSweep {
+  from {
+    background-position: 200% center;
+  }
+
+  to {
+    background-position: -200% center;
+  }
+}
+
+.inauguration__subtitle {
+  margin: 10px auto 0;
+
+  color: rgba(255, 255, 255, 0.67);
+
+  font-size: clamp(0.68rem, 1vw, 0.84rem);
+
+  line-height: 1.55;
+}
+
+.inauguration__ornament {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0.45rem;
+
+  margin-top: 8px;
+}
+
+.inauguration__ornament i {
+  width: 26px;
+
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(255, 230, 145, 0.65));
+}
+
+.inauguration__ornament i:last-of-type {
+  transform: scaleX(-1);
+}
+
+.inauguration__ornament b {
+  color: #fbed21;
+
+  font-size: 0.65rem;
+
+  font-weight: 400;
+}
+
+/* ============================================================
+   CEREMONY
+   ============================================================ */
+
+.ceremony {
+  position: absolute;
+
+  z-index: 18;
+
+  left: 50%;
+
+  top: 60%;
+
+  width: min(980px, calc(100vw - 36px));
+
+  height: clamp(250px, 31vh, 340px);
+
+  transform: translate(-50%, -50%);
+
+  pointer-events: none;
+}
+
+/* ============================================================
+   POSTS
+   ============================================================ */
+
+.ceremony-post {
+  position: absolute;
+
+  top: 50%;
+
+  width: 44px;
+
+  transform: translateY(-50%);
+
+  z-index: 3;
+}
+
+.ceremony-post--left {
+  left: 2%;
+}
+
+.ceremony-post--right {
+  right: 2%;
+}
+
+.ceremony-post__cap {
+  width: 43px;
+
+  height: 15px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(180deg, #fff6ae, #d8a62a 40%, #865d0a 72%, #fff09c);
+
+  box-shadow: 0 5px 9px rgba(0, 0, 0, 0.3);
+}
+
+.ceremony-post__pole {
+  width: 13px;
+
+  height: 112px;
+
+  margin: -2px auto 0;
+
+  background: linear-gradient(90deg, #79510a, #dcae2f 20%, #fff0a0 43%, #c58d16 67%, #6d4707);
+
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
+}
+
+.ceremony-post__base {
+  width: 66px;
+
+  height: 17px;
+
+  margin-left: -11px;
+
+  border-radius: 50%;
+
+  background: linear-gradient(180deg, #fff2a0, #c7921c 52%, #79540a);
+
+  box-shadow: 0 10px 13px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================================
+   RIBBON
+   ============================================================ */
+
+.ribbon-stage {
+  position: absolute;
+
+  left: 50%;
+
+  top: 51%;
+
+  width: 84%;
+
+  height: 145px;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 4;
+
+  pointer-events: none;
+}
+
+.ribbon-svg {
+  width: 100%;
+
+  height: 100%;
+
+  overflow: visible;
+
+  opacity: 0;
+
+  transform: translateY(40px) scale(0.98);
+
+  transition:
+    opacity 1.8s ease,
+    transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inauguration--ribbon {
+  .ribbon-svg {
+    opacity: 1;
+
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ribbon-part {
+  transform-box: fill-box;
+
+  transition: transform 1.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.inauguration--cutting {
+  .ribbon-part--left {
+    transform: translateX(-95px) rotate(-4deg);
+  }
+
+  .ribbon-part--right {
+    transform: translateX(95px) rotate(4deg);
+  }
+}
+
+/* ============================================================
+   BOW
+   ============================================================ */
+
+.ribbon-bow {
+  transform-box: fill-box;
+
+  transform-origin: center;
+
+  transition:
+    transform 1.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.9s ease;
+}
+
+.inauguration--cutting {
+  .ribbon-bow {
+    transform: translateY(84px) rotate(16deg) scale(0.18);
+
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   CUT TARGET
+   ============================================================ */
+
+.cut-target {
+  position: absolute;
+
+  left: 50%;
+
+  top: 49%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  transform: translate(-50%, -50%) translateY(-58px);
+
+  opacity: 0;
+
+  color: rgba(255, 234, 140, 0.55);
+
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+
+  pointer-events: none;
+}
+
+.cut-target span {
+  width: 28px;
+
+  height: 1px;
+
+  background: linear-gradient(90deg, transparent, rgba(255, 234, 140, 0.7));
+}
+
+.cut-target span:last-child {
+  transform: scaleX(-1);
+}
+
+.cut-target small {
+  font-size: 0.48rem;
+
+  font-weight: 900;
+
+  letter-spacing: 0.14em;
+}
+
+.cut-target--active {
+  opacity: 1;
+
+  transform: translate(-50%, -50%) translateY(-65px);
+}
+
+/* ============================================================
+   CUT FLASH
+   ============================================================ */
+
+.cut-flash {
+  position: absolute;
+
+  left: 50%;
+
+  top: 50%;
+
+  width: 3px;
+
+  height: 88px;
+
+  transform: translate(-50%, -50%) rotate(6deg) scaleY(0.15);
+
+  transform-origin: center;
+
+  border-radius: 999px;
+
+  background: linear-gradient(180deg, transparent, #fff, #ffe985, #fff, transparent);
+
+  box-shadow:
+    0 0 18px rgba(255, 242, 148, 0.95),
+    0 0 35px rgba(255, 214, 64, 0.55);
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.inauguration--cutting {
+  .cut-flash {
+    animation: cutFlash 0.55s ease-out 0.18s both;
+  }
+}
+
+@keyframes cutFlash {
+  0% {
+    opacity: 0;
+
+    transform: translate(-50%, -50%) rotate(6deg) scaleY(0.15);
+  }
+
+  25% {
+    opacity: 1;
+
+    transform: translate(-50%, -50%) rotate(6deg) scaleY(1);
+  }
+
+  65% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform: translate(-50%, -50%) rotate(6deg) scaleY(1.12);
+  }
+}
+
+/* ============================================================
+   SCISSORS
+   ============================================================ */
+
+.scissors {
+  position: absolute;
+
+  z-index: 100;
+
+  width: clamp(130px, 10vw, 190px);
+
+  height: clamp(130px, 10vw, 190px);
+
+  padding: 0;
+
+  margin: 0;
+
+  border: 0;
+
+  outline: none;
+
+  background: transparent;
+
+  pointer-events: auto;
+
+  cursor: grab;
+
+  touch-action: none;
+
+  user-select: none;
+
+  -webkit-user-select: none;
+
+  opacity: 0;
+
+  transform: translate(-50%, -50%) rotate(-13deg) scale(0.75);
+
+  transition:
+    opacity 1.8s ease,
+    transform 0.28s ease,
+    filter 0.28s ease;
+}
+
+.scissors--visible {
+  opacity: 1;
+
+  transform: translate(-50%, -50%) rotate(-13deg) scale(1);
+}
+
+.scissors--dragging {
+  cursor: grabbing;
+
+  transform: translate(-50%, -50%) rotate(-5deg) scale(1.04);
+
+  filter: drop-shadow(0 0 20px rgba(251, 237, 33, 0.5)) drop-shadow(0 15px 25px rgba(0, 0, 0, 0.35));
+}
+
+.scissors--cut {
+  cursor: default;
+
+  filter: drop-shadow(0 0 26px rgba(251, 237, 33, 0.65));
+}
+
+.scissors:focus-visible {
+  outline: 3px solid rgba(251, 237, 33, 0.75);
+
+  outline-offset: 7px;
+
+  border-radius: 50%;
+}
+
+.scissors__svg {
+  display: block;
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+.scissors__glow {
+  position: absolute;
+
+  inset: 10%;
+
+  border-radius: 50%;
+
+  background: radial-gradient(circle, rgba(251, 237, 33, 0.15), transparent 68%);
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition: opacity 0.25s ease;
+}
+
+.scissors--dragging .scissors__glow,
+.scissors:hover .scissors__glow {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------------
+   SCISSOR BLADE CLOSING ANIMATION
+   ------------------------------------------------------------ */
+
+.scissor-blade {
+  transform-box: fill-box;
+
+  transform-origin: 82px 110px;
+
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.scissors--cut {
+  .scissor-blade--top {
+    animation: bladeCloseTop 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+
+  .scissor-blade--bottom {
+    animation: bladeCloseBottom 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+}
+
+@keyframes bladeCloseTop {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  32% {
+    transform: rotate(6deg);
+  }
+
+  52% {
+    transform: rotate(2deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes bladeCloseBottom {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  32% {
+    transform: rotate(-6deg);
+  }
+
+  52% {
+    transform: rotate(-2deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.scissors__label {
+  position: absolute;
+
+  left: 50%;
+
+  bottom: -4px;
+
+  transform: translateX(-50%);
+
+  padding: 0.18rem 0.45rem;
+
+  border-radius: 999px;
+
+  background: rgba(7, 28, 47, 0.9);
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  color: rgba(255, 255, 255, 0.72);
+
+  font-size: 0.46rem;
+
+  font-weight: 900;
+
+  letter-spacing: 0.15em;
+
+  pointer-events: none;
+}
+
+/* ============================================================
+   INSTRUCTION
+   ============================================================ */
+
+.ceremony-hint {
+  position: absolute;
+
+  /*
+   * IMPORTANT:
+   * This is now centred in the lower portion
+   * of the ceremony rather than sitting beneath
+   * the scissors.
+   */
+  left: 50%;
+
+  bottom: -60px;
+
+  z-index: 25;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.7rem;
+
+  min-width: 310px;
+
+  padding: 0.85rem 1.05rem;
+
+  transform: translateX(-50%);
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+
+  border-radius: 999px;
+
+  background: rgba(7, 27, 46, 0.82);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+
+  pointer-events: none;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
+}
+
+.ceremony-hint--active {
+  transform: translateX(-50%) translateY(-3px);
+
+  border-color: rgba(251, 237, 33, 0.35);
+
+  background: rgba(11, 34, 53, 0.9);
+}
+
+.ceremony-hint__icon {
+  width: 39px;
+
+  height: 39px;
+
+  flex: 0 0 39px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #fbed21;
+
+  background: rgba(251, 237, 33, 0.09);
+
+  font-size: 1.2rem;
+
+  box-shadow: inset 0 0 0 1px rgba(251, 237, 33, 0.08);
+}
+
+.ceremony-hint__copy {
+  flex: 1;
+}
+
+.ceremony-hint strong,
+.ceremony-hint small {
+  display: block;
+
+  text-align: left;
+}
+
+.ceremony-hint strong {
+  color: rgba(255, 255, 255, 0.96);
+
+  font-size: 0.82rem;
+
+  font-weight: 800;
+
+  line-height: 1.2;
+}
+
+.ceremony-hint small {
+  margin-top: 0.18rem;
+
+  color: rgba(255, 255, 255, 0.56);
+
+  font-size: 0.63rem;
+
+  line-height: 1.3;
+}
+
+.ceremony-hint__arrow {
+  flex: 0 0 auto;
+
+  color: #fbed21;
+
+  font-size: 1.25rem;
+
+  animation: hintArrow 1.7s ease-in-out infinite;
+}
+
+@keyframes hintArrow {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+/* ============================================================
+   SUCCESS MESSAGE
+   ============================================================ */
+
+.success-message {
+  position: absolute;
+
+  left: 50%;
+
+  bottom: -60px;
+
+  z-index: 30;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  min-width: 340px;
+
+  padding: 0.9rem 1.1rem;
+
+  transform: translateX(-50%);
+
+  border: 1px solid rgba(251, 237, 33, 0.28);
+
+  border-radius: 999px;
+
+  background: rgba(7, 30, 49, 0.88);
+
+  backdrop-filter: blur(16px);
+
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.3);
+
+  pointer-events: none;
+
+  animation: successIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.success-message__check {
+  width: 40px;
+
+  height: 40px;
+
+  flex: 0 0 40px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #3bb44a;
+
+  color: #fff;
+
+  font-size: 1.05rem;
+
+  font-weight: 900;
+
+  box-shadow: 0 0 22px rgba(59, 180, 74, 0.38);
+}
+
+.success-message__copy {
+  flex: 1;
+}
+
+.success-message strong,
+.success-message small {
+  display: block;
+
+  text-align: left;
+}
+
+.success-message strong {
+  color: #fff;
+
+  font-size: 0.94rem;
+
+  font-weight: 850;
+
+  line-height: 1.2;
+}
+
+.success-message small {
+  margin-top: 0.2rem;
+
+  color: rgba(255, 255, 255, 0.58);
+
+  font-size: 0.64rem;
+
+  line-height: 1.3;
+}
+
+@keyframes successIn {
+  from {
+    opacity: 0;
+
+    transform: translateX(-50%) translateY(15px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+/* ============================================================
+   CONFETTI
+   ============================================================ */
+
+// .confetti {
+//   position: absolute;
+
+//   inset: 0;
+
+//   z-index: 60;
+
+//   pointer-events: none;
+// }
+
+// .confetti__piece {
+//   position: absolute;
+
+//   top: 44%;
+
+//   width: 8px;
+
+//   height: 15px;
+
+//   border-radius: 2px;
+
+//   opacity: 0;
+
+//   animation: confettiDrop 3.2s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+// }
+
+// @keyframes confettiDrop {
+//   0% {
+//     opacity: 0;
+
+//     transform: translate3d(0, 0, 0) rotate(0deg);
+//   }
+
+//   12% {
+//     opacity: 1;
+//   }
+
+//   100% {
+//     opacity: 0;
+
+//     transform: translate3d(var(--drift), 42vh, 0) rotate(var(--rotation));
+//   }
+// }
+
+/* ============================================================
+   GRAND FULL-SCREEN CONFETTI
+   ============================================================ */
+
+.grand-confetti {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 4900;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  pointer-events: none;
+}
+
+/*
+ * Main falling confetti.
+ *
+ * Pieces begin from different horizontal positions
+ * across the COMPLETE viewport and fall all the way
+ * to the bottom.
+ */
+
+.grand-confetti__piece {
+  position: absolute;
+
+  top: -8vh;
+
+  display: block;
+
+  border-radius: 2px;
+
+  opacity: 0;
+
+  will-change: transform, opacity;
+
+  animation: fullScreenConfetti 3000ms cubic-bezier(0.18, 0.72, 0.28, 1) forwards;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+/*
+ * Some pieces are deliberately made longer,
+ * like ribbons rather than paper squares.
+ */
+
+.grand-confetti__piece:nth-child(3n) {
+  border-radius: 1px;
+
+  transform-origin: center center;
+}
+
+.grand-confetti__piece:nth-child(5n) {
+  border-radius: 50%;
+}
+
+/*
+ * LEFT-SIDE BURST
+ */
+
+.grand-confetti__piece--side-left {
+  left: -3vw !important;
+
+  animation-name: confettiSideLeft;
+}
+
+/*
+ * RIGHT-SIDE BURST
+ */
+
+.grand-confetti__piece--side-right {
+  left: 103vw !important;
+
+  animation-name: confettiSideRight;
+}
+
+/* ============================================================
+   MAIN TOP -> BOTTOM SHOWER
+   ============================================================ */
+
+@keyframes fullScreenConfetti {
+  0% {
+    opacity: 0;
+
+    transform: translate3d(0, -8vh, 0) rotate(0deg) scale(0.55);
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  25% {
+    transform: translate3d(calc(var(--drift) * 0.18), 20vh, 0) rotate(calc(var(--rotation) * 0.25))
+      scale(var(--scale));
+  }
+
+  50% {
+    transform: translate3d(calc(var(--drift) * 0.55), 48vh, 0) rotate(calc(var(--rotation) * 0.55))
+      scale(var(--scale));
+  }
+
+  75% {
+    transform: translate3d(var(--drift), 76vh, 0) rotate(calc(var(--rotation) * 0.8))
+      scale(var(--scale));
+  }
+
+  100% {
+    opacity: 0.12;
+
+    transform: translate3d(calc(var(--drift) * 1.12), 112vh, 0) rotate(var(--rotation))
+      scale(var(--scale));
+  }
+}
+
+/* ============================================================
+   LEFT CANNON
+   ============================================================ */
+
+@keyframes confettiSideLeft {
+  0% {
+    opacity: 0;
+
+    transform: translate3d(-4vw, 0, 0) rotate(0deg) scale(0.45);
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  35% {
+    transform: translate3d(22vw, 12vh, 0) rotate(calc(var(--rotation) * 0.3)) scale(var(--scale));
+  }
+
+  62% {
+    transform: translate3d(48vw, 48vh, 0) rotate(calc(var(--rotation) * 0.65)) scale(var(--scale));
+  }
+
+  100% {
+    opacity: 0.05;
+
+    transform: translate3d(72vw, 100vh, 0) rotate(var(--rotation)) scale(var(--scale));
+  }
+}
+
+/* ============================================================
+   RIGHT CANNON
+   ============================================================ */
+
+@keyframes confettiSideRight {
+  0% {
+    opacity: 0;
+
+    transform: translate3d(4vw, 0, 0) rotate(0deg) scale(0.45);
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  35% {
+    transform: translate3d(-22vw, 12vh, 0) rotate(calc(var(--rotation) * 0.3)) scale(var(--scale));
+  }
+
+  62% {
+    transform: translate3d(-48vw, 48vh, 0) rotate(calc(var(--rotation) * 0.65)) scale(var(--scale));
+  }
+
+  100% {
+    opacity: 0.05;
+
+    transform: translate3d(-72vw, 100vh, 0) rotate(var(--rotation)) scale(var(--scale));
+  }
+}
+
+/* ============================================================
+   ENTER WEBSITE
+   ============================================================ */
+
+.enter-button {
+  position: absolute;
+
+  right: 24px;
+
+  bottom: 20px;
+
+  z-index: 80;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 0.5rem;
+
+  padding: 0.62rem 0.9rem;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.055);
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 0.62rem;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(12px);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.enter-button:hover {
+  transform: translateY(-2px);
+
+  background: rgba(255, 255, 255, 0.1);
+
+  border-color: rgba(255, 255, 255, 0.3);
+
+  color: #fff;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .inauguration__intro {
+    top: 4vh;
+  }
+
+  .inauguration__title {
+    font-size: clamp(1.7rem, 5vw, 3rem);
+  }
+
+  .ceremony {
+    top: 60%;
+
+    width: calc(100vw - 26px);
+  }
+
+  .ribbon-stage {
+    width: 78%;
+  }
+
+  .ceremony-post--left {
+    left: 0;
+  }
+
+  .ceremony-post--right {
+    right: 0;
+  }
+
+  .ceremony-hint {
+    min-width: 290px;
+  }
+}
+
+@media (max-width: 650px) {
+  .inauguration__intro {
+    top: 3vh;
+  }
+
+  .intro-badge {
+    font-size: 0.5rem;
+  }
+
+  .inauguration__logo-wrap {
+    width: 66px;
+
+    height: 66px;
+  }
+
+  .inauguration__logo {
+    width: 61px;
+
+    height: 61px;
+  }
+
+  .inauguration__title {
+    font-size: clamp(1.4rem, 7.8vw, 2.15rem);
+  }
+
+  .inauguration__title span {
+    font-size: 0.9em;
+  }
+
+  .inauguration__subtitle {
+    font-size: 0.62rem;
+  }
+
+  .ceremony {
+    top: 62%;
+
+    width: calc(100vw - 8px);
+
+    height: 230px;
+  }
+
+  .ribbon-stage {
+    width: 74%;
+
+    height: 105px;
+  }
+
+  .ceremony-post {
+    transform: translateY(-50%) scale(0.7);
+  }
+
+  .scissors {
+    width: 108px;
+
+    height: 108px;
+  }
+
+  .ceremony-hint {
+    min-width: 245px;
+
+    max-width: 78vw;
+
+    padding: 0.68rem 0.78rem;
+
+    bottom: 2px;
+  }
+
+  .ceremony-hint__icon {
+    width: 33px;
+
+    height: 33px;
+
+    flex: 0 0 33px;
+  }
+
+  .ceremony-hint strong {
+    font-size: 0.7rem;
+  }
+
+  .ceremony-hint small {
+    font-size: 0.56rem;
+  }
+
+  .success-message {
+    min-width: 245px;
+
+    max-width: 84vw;
+
+    padding: 0.72rem 0.8rem;
+  }
+
+  .success-message__check {
+    width: 34px;
+
+    height: 34px;
+
+    flex: 0 0 34px;
+  }
+
+  .success-message strong {
+    font-size: 0.78rem;
+  }
+
+  .success-message small {
+    font-size: 0.56rem;
+  }
+
+  .enter-button {
+    right: 12px;
+
+    bottom: 12px;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 651px) {
+  .inauguration__intro {
+    top: 2vh;
+  }
+
+  .inauguration__logo-wrap {
+    width: 62px;
+
+    height: 62px;
+
+    margin-top: 7px;
+  }
+
+  .inauguration__logo {
+    width: 58px;
+
+    height: 58px;
+  }
+
+  .inauguration__eyebrow {
+    margin-top: 5px;
+  }
+
+  .inauguration__subtitle {
+    margin-top: 5px;
+  }
+
+  .ceremony {
+    top: 61%;
+
+    height: 225px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inauguration *,
+  .inauguration *::before,
+  .inauguration *::after {
+    animation-duration: 1ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 1ms !important;
+  }
+}

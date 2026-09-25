@@ -3,6 +3,9 @@
 } @else if (siteUnderMaintenance) {
   <app-under-maintenance />
 } @else {
+  @if (showInauguration()) {
+    <app-site-inauguration (finished)="onInaugurationFinished()" />
+  }
   @if (isAdminArea()) {
     <!-- =====================================================
          ADMIN APPLICATION
