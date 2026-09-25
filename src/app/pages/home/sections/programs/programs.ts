@@ -39,7 +39,7 @@ export class Programs {
       age: '2 – 6 years',
       copy: 'A joyful, thoughtfully designed learning journey where children grow through play, discovery, creativity and confident exploration.',
       accent: 'red',
-      image: 'assets/images/programs/mother-toddler.png',
+      image: 'assets/images/programs/preschool-program.jpg',
       routerLink: '/programs/preschool-program',
     },
     // {
@@ -86,7 +86,7 @@ export class Programs {
       age: '2 – 10 years',
       copy: 'A safe, engaging space after school hours — sports, art and homework support.',
       accent: 'tan',
-      image: 'assets/images/programs/after-school.png',
+      image: 'assets/images/programs/after-school.jpg',
       routerLink: '/programs/after-school-program',
     },
     {
@@ -95,7 +95,7 @@ export class Programs {
       age: '6 Months – 10 years',
       copy: 'A safe, engaging space for your toddler, with safe and hygenic environment',
       accent: 'tan',
-      image: 'assets/images/programs/after-school.png',
+      image: 'assets/images/programs/activity-center.jpg',
       routerLink: '/programs/daycare-program',
     },
   ];
