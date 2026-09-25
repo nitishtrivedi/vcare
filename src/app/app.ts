@@ -5,16 +5,19 @@ import { Footer } from './components/footer/footer';
 import { siteConfig } from './site-config';
 import { UnderDevelopment } from './pages/under-development/under-development';
 import { filter } from 'rxjs';
+import { ScrollToTop } from './components/scroll-to-top/scroll-to-top';
+import { UnderMaintenance } from './pages/under-maintenance/under-maintenance';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Footer, UnderDevelopment],
+  imports: [RouterOutlet, Navbar, Footer, UnderDevelopment, ScrollToTop, UnderMaintenance],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   //protected readonly title = signal('vcare');
   readonly siteUnderDevelopment = siteConfig.siteUnderDevelopment;
+  readonly siteUnderMaintenance = siteConfig.siteUnderMaintenance;
 
   /**
    * True when the current route belongs

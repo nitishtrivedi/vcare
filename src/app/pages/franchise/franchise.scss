@@ -250,6 +250,256 @@
 }
 
 // =========================================================
+// PARTNERSHIP MODELS
+// =========================================================
+
+.fr-models {
+  padding: 7rem 1.5rem;
+  background: #fff;
+
+  &__heading {
+    max-width: 680px;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+
+    h2 {
+      margin-top: 0.75rem;
+      color: var(--navy-deep);
+      font-family: 'Paytone One', cursive;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+
+      span {
+        display: block;
+        color: var(--red);
+      }
+    }
+
+    p {
+      max-width: 56ch;
+      margin: 1rem auto 0;
+      color: #6f7d8d;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+  }
+
+  &__grid {
+    position: relative;
+    max-width: 1050px;
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  &__or {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 3;
+
+    transform: translate(-50%, -50%);
+
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid rgba(8, 42, 80, 0.1);
+    box-shadow: 0 10px 24px rgba(8, 42, 80, 0.1);
+
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: 0.7rem;
+
+    @media (max-width: 860px) {
+      display: none;
+    }
+  }
+
+  &__note {
+    max-width: 800px;
+    margin: 2.5rem auto 0;
+
+    color: #9ba4af;
+    font-size: 0.68rem;
+    line-height: 1.7;
+    text-align: center;
+  }
+}
+
+.model-card {
+  position: relative;
+
+  padding: 2.4rem 2rem;
+  border-radius: 28px;
+
+  background: #fffdf7;
+  border: 2px solid rgba(8, 42, 80, 0.08);
+  box-shadow: 0 18px 40px rgba(8, 42, 80, 0.06);
+
+  display: flex;
+  flex-direction: column;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 26px 52px rgba(8, 42, 80, 0.1);
+  }
+
+  &__tag {
+    display: inline-block;
+    align-self: flex-start;
+
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+
+    color: #fff;
+    background: var(--accent);
+
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin-top: 1rem;
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: 1.5rem;
+    line-height: 1.15;
+  }
+
+  &__pitch {
+    margin-top: 0.85rem;
+    color: #566374;
+    font-size: 0.86rem;
+    line-height: 1.75;
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+
+    margin-top: 1.4rem;
+  }
+
+  &__stat {
+    padding: 0.9rem 0.85rem;
+    border-radius: 16px;
+
+    background: color-mix(in srgb, var(--accent) 8%, #fff);
+
+    strong {
+      display: block;
+      color: var(--accent);
+      font-family: 'Paytone One', cursive;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    span {
+      display: block;
+      margin-top: 0.3rem;
+      color: #64717f;
+      font-size: 0.65rem;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+  }
+
+  &__points {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+
+    border-top: 1px solid rgba(8, 42, 80, 0.08);
+
+    flex: 1;
+
+    li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+
+      color: #566374;
+      font-size: 0.78rem;
+      line-height: 1.55;
+
+      svg {
+        flex: 0 0 auto;
+        width: 15px;
+        height: 15px;
+        margin-top: 2px;
+        color: var(--accent);
+      }
+    }
+  }
+
+  &__fit {
+    margin-top: 1.3rem;
+
+    color: #647285;
+    font-size: 0.76rem;
+    line-height: 1.6;
+
+    strong {
+      color: var(--navy-deep);
+    }
+  }
+
+  &__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    margin-top: 1.6rem;
+    padding: 0.9rem 1rem;
+
+    border-radius: 999px;
+
+    color: #fff;
+    background: var(--accent);
+
+    font-size: 0.8rem;
+    font-weight: 800;
+
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px color-mix(in srgb, var(--accent) 35%, transparent);
+    }
+  }
+}
+
+@media (max-width: 860px) {
+  .fr-models__grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+}
+
+// =========================================================
 // INVESTMENT TIERS
 // =========================================================
 

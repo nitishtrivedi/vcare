@@ -26,7 +26,7 @@
       </p>
 
       <div class="fr-hero__actions">
-        <a routerLink="/contact" fragment="franchise-enquiry" class="fr-btn fr-btn--primary">
+        <a href="#franchise-enquiry" class="fr-btn fr-btn--primary">
           Enquire About Franchise
           <span>↗</span>
         </a>
@@ -65,8 +65,9 @@
     </h2>
 
     <p>
-      Every tier runs on the same trusted VCare curriculum, brand and support system — pick the
-      investment level that fits your ambition.
+      The tiers below apply to the Owner-Operated Franchise Model above — every one runs on the same
+      trusted VCare curriculum, brand and support system. Pick the investment level that fits your
+      ambition.
     </p>
   </div>
 
@@ -116,7 +117,7 @@
           }
         </ul>
 
-        <a routerLink="/contact" fragment="franchise-enquiry" class="tier-card__cta">
+        <a href="#franchise-enquiry" class="fr-btn fr-btn--primary">
           Enquire for {{ tier.name }}
           <span>→</span>
         </a>
@@ -129,6 +130,78 @@
     operating costs at each tier. Actual returns vary by location, admissions and centre
     performance.
   </p>
+</section>
+
+<!-- =========================================================
+     PARTNERSHIP MODELS
+     ========================================================= -->
+<section class="fr-models">
+  <div class="fr-models__heading" vcReveal="fade-up">
+    <span class="fr-kicker">Two ways to partner</span>
+
+    <h2>
+      Choose how involved
+      <span>you want to be.</span>
+    </h2>
+
+    <p>
+      Every VCare partner invests in the same trusted brand and Zero Fee Model — the only difference
+      is who runs the day-to-day. Pick the track that matches how hands-on you want to be.
+    </p>
+  </div>
+
+  <div class="fr-models__grid">
+    <span class="fr-models__or">OR</span>
+
+    @for (model of partnershipModels; track model.name; let i = $index) {
+      <article
+        class="model-card"
+        [style.--accent]="model.accent"
+        vcReveal="fade-up"
+        [vcRevealDelay]="i * 110"
+      >
+        <span class="model-card__tag">{{ model.tag }}</span>
+
+        <h3>{{ model.name }}</h3>
+        <p class="model-card__pitch">{{ model.pitch }}</p>
+
+        <div class="model-card__stats">
+          @for (stat of model.stats; track stat.label) {
+            <div class="model-card__stat">
+              <strong>{{ stat.value }}</strong>
+              <span>{{ stat.label }}</span>
+            </div>
+          }
+        </div>
+
+        <ul class="model-card__points">
+          @for (point of model.points; track point) {
+            <li>
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M5 13l4 4 10-10"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              {{ point }}
+            </li>
+          }
+        </ul>
+
+        <p class="model-card__fit"><strong>Best for:</strong> {{ model.bestFor }}</p>
+
+        <a href="#franchise-enquiry" class="fr-btn fr-btn--primary">
+          Enquire about {{ model.name }}
+          <span>→</span>
+        </a>
+      </article>
+    }
+  </div>
+
+  <p class="fr-models__note">{{ modelsNote }}</p>
 </section>
 
 <!-- =========================================================

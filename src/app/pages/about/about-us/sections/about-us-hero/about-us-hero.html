@@ -22,11 +22,13 @@
       </p>
 
       <div class="about-hero__actions" vcReveal="fade-up" [vcRevealDelay]="240">
-        <a href="tel:+919765076513" class="about-hero__btn about-hero__btn--primary">
-          Book a Visit
-        </a>
+        <a routerLink="/contact" class="about-hero__btn about-hero__btn--primary"> Book a Visit </a>
 
-        <a href="#our-story" class="about-hero__btn about-hero__btn--ghost">
+        <a
+          [routerLink]="['/about-us']"
+          fragment="our-story"
+          class="about-hero__btn about-hero__btn--ghost"
+        >
           Our Story
           <span>↓</span>
         </a>

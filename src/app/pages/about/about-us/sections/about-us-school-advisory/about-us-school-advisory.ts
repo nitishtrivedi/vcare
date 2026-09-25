@@ -36,7 +36,7 @@ export class AboutUsSchoolAdvisory {
       name: 'Mr. Deepak Shah',
       role: 'Advisory Board Member',
       initials: 'DS',
-      image: 'assets/images/about-us/advisory/deepak-shah.jpg',
+      image: 'assets/images/about-us/deepak-shah.jpeg',
       accent: '#006FB9', // blue
       description:
         'Distinguished entrepreneur, industrialist, and philanthropist with 40+ years of societal service. Postgraduate in science; MBA. Education: Secretary, Kamala Education Society; founded/managed Pratibha Group of Institutes and CBSE-pattern residential schools (primary to professional levels) serving 6,000+ students. Awards: G.S. Parkhe Industrial Award; Best Small Industrialist Award; Udyog Excellence Gold Medal. Social welfare: 30+ years with Lions Club of Talegaon; established computer labs in schools; helped set up two eye hospitals in Chakan and Shrirampur (Lions Club International Foundation support). Leadership: Unanimously elected District Governor, Lions Clubs International, District 323-D2 (1999–2000). Community impact: Key contributor to Jain Tirth – Shri Parshva Pradnyalay',
@@ -47,7 +47,7 @@ export class AboutUsSchoolAdvisory {
       name: 'Mr. Shailesh Shah',
       role: 'Advisory Board Member',
       initials: 'SS',
-      image: 'assets/images/about-us/advisory/shailesh-shah.jpg',
+      image: 'assets/images/about-us/shailesh-shah.jpeg',
       accent: '#2c8d38', // darkened green — WCAG-safe with white text, per mission.scss precedent
       description:
         'A community-driven stalwart behind the success story of the Namrata Group. From beginning with a small cloth shop to shaping impactful real estate developments and initiating meaningful social programs, the journey reflects unwavering dedication to excellence and empathy. With a strong blend of business acumen and social responsibility, the group continues to set benchmarks by creating spaces rooted in care, trust, and progress. Beyond real estate, Mr. Shailesh Shah actively contributes to the education sector and is associated with initiatives at Choksey School, reflecting the group’s long-standing commitment to community development and holistic growth.',
