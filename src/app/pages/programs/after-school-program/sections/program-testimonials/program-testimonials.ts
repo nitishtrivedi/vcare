@@ -26,32 +26,33 @@ export class ProgramTestimonials {
   readonly testimonials: ParentTestimonial[] = [
     {
       quote:
-        '[Placeholder — a parent quote about how their child settled into the After School Program.]',
-      name: '[Parent Name]',
-      relation: 'Parent of [Child]',
+        'Finding a safe and caring place for Aarav after school was always a concern for us, especially with both of us working. VCare has made that worry disappear. He gets time to relax, play, complete his homework and still participate in different activities. What touches us most is how warmly the teachers treat him. He looks forward to going there every day, and as parents, that means everything to us.',
+      name: 'Amruta Deshmukh',
+      relation: 'Parent of Aarav',
       initials: 'PN',
       accent: '#EB2027',
     },
     {
       quote:
-        '[Placeholder — a parent quote about a specific skill or habit their child picked up.]',
-      name: '[Parent Name]',
-      relation: 'Parent of [Child]',
+        'We were initially looking for a simple after-school care option, but VCare turned out to be much more than that. Anaya gets individual attention, completes her homework with guidance and enjoys creative activities and playtime. We have noticed a big change in her confidence and independence. It feels reassuring to know that she is spending her afternoons in an environment where she is genuinely cared for',
+      name: 'Rohit Bapat',
+      relation: 'Parent of Anaya',
       initials: 'PN',
       accent: '#F69220',
     },
     {
-      quote: '[Placeholder — a parent quote about the educators or a memorable activity/event.]',
-      name: '[Parent Name]',
-      relation: 'Parent of [Child]',
+      quote:
+        'After school, children need more than just a place to stay, and that is exactly what we found at VCare. Ved gets a good balance of studies, play and activities, without feeling pressured. The teachers are patient and understanding, and they know when to encourage him and when to simply let him be a child. He comes home happy and talks about his day with so much excitement. That itself is the biggest testimonial for us.',
+      name: 'Neha Kulkarni',
+      relation: 'Parent of Ved',
       initials: 'PN',
       accent: '#3BB44A',
     },
     {
       quote:
-        '[Placeholder — a parent quote about how convenient the program is for working parents.]',
-      name: '[Parent Name]',
-      relation: 'Parent of [Child]',
+        'VCare has been a wonderful support for our family. With our work schedules, we wanted a place where Ira would be safe, engaged and looked after with genuine care. The after-school team has been incredibly warm and attentive. She gets her homework done, enjoys activities and has made some lovely friendships. More importantly, she feels at home there. We are truly grateful to have found a place where our child is cared for beyond just academics.',
+      name: 'Siddharth Joshi',
+      relation: 'Parent of Ira',
       initials: 'PN',
       accent: '#006FB9',
     },
