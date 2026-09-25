@@ -1,0 +1,385 @@
+.advisory {
+  padding: 2.5rem 1.5rem 3rem;
+  text-align: center;
+
+  &__heading {
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  }
+
+  &__row {
+    max-width: 1150px;
+    margin: 1.75rem auto 0;
+
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    // align-items: flex-start;
+    // gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: row dense; // fills gaps left by colSpan/rowSpan instead of leaving holes
+    align-items: start;
+    gap: 1.5rem;
+  }
+}
+
+// .advisory-capsule {
+//   position: relative;
+//   width: 100%;
+//   max-width: 280px;
+//   height: 72px;
+
+//   border-radius: 999px;
+//   background: #fff;
+//   overflow: hidden;
+//   cursor: pointer;
+
+//   // floating look — no section card/background behind it, just the shadow
+//   box-shadow: 0 14px 30px -14px rgba(8, 42, 80, 0.28);
+
+//   transition:
+//     height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+//     border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+//     box-shadow 0.3s ease,
+//     transform 0.3s ease;
+
+//   &:hover,
+//   &:focus-within {
+//     height: 350px;
+//     border-radius: 22px;
+//     box-shadow: 0 26px 50px -18px rgba(8, 42, 80, 0.32);
+//     transform: translateY(-4px);
+//   }
+
+//   &:hover &__collapsed,
+//   &:focus-within &__collapsed {
+//     opacity: 0;
+//     transform: translateY(-8px);
+//     pointer-events: none;
+//   }
+
+//   &:hover &__expanded,
+//   &:focus-within &__expanded {
+//     opacity: 1;
+//     transform: translateY(0);
+//     pointer-events: auto;
+//   }
+
+//   &__collapsed {
+//     position: absolute;
+//     inset: 0;
+//     z-index: 2;
+
+//     display: flex;
+//     align-items: center;
+//     gap: 0.7rem;
+
+//     padding: 0 1.2rem;
+
+//     text-align: left;
+
+//     opacity: 1;
+//     transition:
+//       opacity 0.3s ease,
+//       transform 0.35s ease;
+//   }
+
+//   &__avatar {
+//     flex: 0 0 auto;
+//     width: 36px;
+//     height: 36px;
+
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+
+//     border-radius: 50%;
+
+//     color: #fff;
+//     font-family: 'Paytone One', cursive;
+//     font-size: 0.78rem;
+//   }
+
+//   &__name {
+//     color: var(--navy-deep);
+//     font-size: 0.82rem;
+//     font-weight: 700;
+//     line-height: 1.25;
+//   }
+
+//   &__expanded {
+//     position: absolute;
+//     inset: 0;
+//     z-index: 1;
+
+//     display: flex;
+//     flex-direction: column;
+
+//     opacity: 0;
+//     transform: translateY(10px);
+//     transition:
+//       opacity 0.3s ease 0.05s,
+//       transform 0.4s ease;
+//   }
+
+//   &__photo {
+//     position: relative;
+//     flex: 0 0 auto;
+//     height: 145px;
+
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+
+//     overflow: hidden;
+
+//     img {
+//       position: absolute;
+//       inset: 0;
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//     }
+//   }
+
+//   &__initials {
+//     color: #fff;
+//     font-family: 'Paytone One', cursive;
+//     font-size: 1.9rem;
+//     opacity: 0.92;
+//   }
+
+//   &__body {
+//     flex: 1;
+//     padding: 0.85rem 1rem 1rem;
+//     text-align: left;
+
+//     display: flex;
+//     flex-direction: column;
+//     gap: 0.3rem;
+//   }
+
+//   &__title {
+//     color: var(--navy-deep);
+//     font-family: 'Paytone One', cursive;
+//     font-size: 0.94rem;
+//     line-height: 1.25;
+//   }
+
+//   &__role {
+//     display: inline-block;
+//     align-self: flex-start;
+//     padding: 0.2rem 0.55rem;
+//     border-radius: 999px;
+//     color: #fff;
+//     font-size: 0.6rem;
+//     font-weight: 800;
+//     text-transform: uppercase;
+//     letter-spacing: 0.05em;
+//   }
+
+//   &__desc {
+//     margin-top: 0.25rem;
+//     color: #5b6878;
+//     font-size: 0.74rem;
+//     line-height: 1.5;
+//     overflow-y: auto;
+//   }
+// }
+
+.advisory-capsule {
+  position: relative;
+  width: 100%;
+  //max-width: 280px;
+  min-height: 72px;
+
+  border-radius: 999px;
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+
+  box-shadow: 0 14px 30px -14px rgba(8, 42, 80, 0.28);
+
+  transition:
+    border-radius 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+
+  &:hover,
+  &:focus-within {
+    border-radius: 22px;
+    box-shadow: 0 26px 50px -18px rgba(8, 42, 80, 0.32);
+    transform: translateY(-4px);
+  }
+
+  &:hover &__collapsed,
+  &:focus-within &__collapsed {
+    opacity: 0;
+    transform: translateY(-8px);
+    pointer-events: none;
+  }
+
+  &:hover &__expand-wrap,
+  &:focus-within &__expand-wrap {
+    grid-template-rows: 1fr;
+  }
+
+  &:hover &__expanded,
+  &:focus-within &__expanded {
+    opacity: 1;
+  }
+
+  &__collapsed {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    height: 72px;
+    padding: 0 1.2rem;
+
+    text-align: left;
+
+    opacity: 1;
+    transition:
+      opacity 0.3s ease,
+      transform 0.35s ease;
+  }
+
+  &__avatar {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: #fff;
+    font-family: 'Paytone One', cursive;
+    font-size: 0.78rem;
+  }
+
+  &__name {
+    color: var(--navy-deep);
+    font-size: 0.82rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  // The grid 0fr→1fr trick: this wrapper's row-track animates from
+  // zero height to the natural (content-driven) height of its child.
+  &__expand-wrap {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &__expanded {
+    min-height: 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    opacity: 0;
+    transition: opacity 0.3s ease 0.05s;
+  }
+
+  &__photo {
+    position: relative;
+    flex: 0 0 auto;
+    height: 145px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__initials {
+    color: #fff;
+    font-family: 'Paytone One', cursive;
+    font-size: 1.9rem;
+    opacity: 0.92;
+  }
+
+  &__body {
+    padding: 0.85rem 1rem 1.1rem;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  &__title {
+    color: var(--navy-deep);
+    font-family: 'Paytone One', cursive;
+    font-size: 0.94rem;
+    line-height: 1.25;
+  }
+
+  &__role {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__desc {
+    margin-top: 0.25rem;
+    color: #5b6878;
+    font-size: 0.74rem;
+    line-height: 1.5;
+    // no more overflow-y: auto — the card now grows to fit this fully
+  }
+}
+
+@media (max-width: 1000px) {
+  .advisory__row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  .advisory {
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  // .advisory-capsule {
+  //   max-width: 100%;
+  // }
+  .advisory__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .advisory-capsule,
+  .advisory-capsule__collapsed,
+  .advisory-capsule__expanded {
+    transition: none;
+  }
+}

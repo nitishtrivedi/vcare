@@ -6,6 +6,7 @@ import { AboutUsStory } from './sections/about-us-story/about-us-story';
 import { AboutUsGallery } from './sections/about-us-gallery/about-us-gallery';
 import { AboutUsMission } from './sections/about-us-mission/about-us-mission';
 import { AboutUsTrust } from './sections/about-us-trust/about-us-trust';
+import { AboutUsSchoolAdvisory } from './sections/about-us-school-advisory/about-us-school-advisory';
 
 @Component({
   selector: 'app-about-us',
@@ -17,6 +18,7 @@ import { AboutUsTrust } from './sections/about-us-trust/about-us-trust';
     AboutUsGallery,
     AboutUsMission,
     AboutUsTrust,
+    AboutUsSchoolAdvisory,
   ],
   templateUrl: './about-us.html',
   styleUrl: './about-us.scss',

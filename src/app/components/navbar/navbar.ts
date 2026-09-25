@@ -40,6 +40,8 @@ export class Navbar {
         { label: 'Daycare', route: '/programs/daycare-program' },
       ],
     },
+    { label: 'Zero Fees Model', route: '/about/zero-fee-model' },
+
     { label: 'Franchise', route: '/franchise' },
     {
       label: 'About V Care',
@@ -48,12 +50,11 @@ export class Navbar {
         // { label: 'Our Team', route: '/about/team' },
         // { label: 'Achievements', route: '/about/achievements' },
         // { label: 'Teaching Methodology', route: '/about/methodology' },
-        { label: 'Zero Fees Model', route: '/about/zero-fee-model' },
+        { label: 'Blog', route: '/blog' },
         { label: 'FAQ', route: '/about/faq' },
       ],
     },
     { label: 'Gallery', route: '/gallery' },
-    { label: 'Blog', route: '/blog' },
     { label: 'Contact', route: '/contact' },
   ];
 

@@ -1,0 +1,72 @@
+<section class="advisory">
+  <h2 class="advisory__heading">Advisory Board</h2>
+
+  <div class="advisory__row">
+    @for (member of advisors; track member.name; let i = $index) {
+      <div
+        class="advisory-capsule"
+        tabindex="0"
+        vcReveal="fade-up"
+        [vcRevealDelay]="i * 80"
+        role="group"
+        [attr.aria-label]="member.name + ', ' + member.role"
+        [style.grid-column]="'span ' + (member.colSpan ?? 1)"
+        [style.grid-row]="'span ' + (member.rowSpan ?? 1)"
+      >
+        <div class="advisory-capsule__collapsed">
+          <span class="advisory-capsule__avatar" [style.background]="member.accent">
+            {{ member.initials }}
+          </span>
+          <span class="advisory-capsule__name">{{ member.name }}</span>
+        </div>
+
+        <!-- <div class="advisory-capsule__expanded">
+          <div class="advisory-capsule__photo" [style.background]="member.accent">
+            @if (!brokenImages.has(i)) {
+              <img
+                [src]="member.image"
+                [alt]="member.name"
+                (error)="onImageError(i)"
+                loading="lazy"
+              />
+            } @else {
+              <span class="advisory-capsule__initials">{{ member.initials }}</span>
+            }
+          </div>
+
+          <div class="advisory-capsule__body">
+            <strong class="advisory-capsule__title">{{ member.name }}</strong>
+            <span class="advisory-capsule__role" [style.background]="member.accent">{{
+              member.role
+            }}</span>
+            <p class="advisory-capsule__desc">{{ member.description }}</p>
+          </div>
+        </div> -->
+        <div class="advisory-capsule__expand-wrap">
+          <div class="advisory-capsule__expanded">
+            <div class="advisory-capsule__photo" [style.background]="member.accent">
+              @if (!brokenImages.has(i)) {
+                <img
+                  [src]="member.image"
+                  [alt]="member.name"
+                  (error)="onImageError(i)"
+                  loading="lazy"
+                />
+              } @else {
+                <span class="advisory-capsule__initials">{{ member.initials }}</span>
+              }
+            </div>
+
+            <div class="advisory-capsule__body">
+              <strong class="advisory-capsule__title">{{ member.name }}</strong>
+              <span class="advisory-capsule__role" [style.background]="member.accent">{{
+                member.role
+              }}</span>
+              <p class="advisory-capsule__desc">{{ member.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</section>
