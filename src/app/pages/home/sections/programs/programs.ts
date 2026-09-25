@@ -40,7 +40,7 @@ export class Programs {
       copy: 'A joyful, thoughtfully designed learning journey where children grow through play, discovery, creativity and confident exploration.',
       accent: 'red',
       image: 'assets/images/programs/mother-toddler.png',
-      routerLink: '/programs/parent-toddler-program',
+      routerLink: '/programs/preschool-program',
     },
     // {
     //   name: 'Playgroup',
@@ -96,7 +96,7 @@ export class Programs {
       copy: 'A safe, engaging space for your toddler, with safe and hygenic environment',
       accent: 'tan',
       image: 'assets/images/programs/after-school.png',
-      routerLink: '/programs/after-school-program',
+      routerLink: '/programs/daycare-program',
     },
   ];
 

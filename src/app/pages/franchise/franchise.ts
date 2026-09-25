@@ -10,6 +10,21 @@ interface HeroStat {
   label: string;
 }
 
+interface PartnershipStat {
+  value: string;
+  label: string;
+}
+
+interface PartnershipModel {
+  tag: string;
+  name: string;
+  pitch: string;
+  accent: string;
+  stats: PartnershipStat[];
+  points: string[];
+  bestFor: string;
+}
+
 interface InvestmentTier {
   name: string;
   badge: string;
@@ -74,6 +89,54 @@ export class Franchise {
     { value: '₹1L+', label: 'Monthly Earning Potential' },
     { value: '3–6 Mo', label: 'To Launch Your Centre' },
   ];
+
+  // ============================================================
+  // PARTNERSHIP MODELS
+  // ============================================================
+
+  readonly partnershipModels: PartnershipModel[] = [
+    {
+      tag: 'Track 01 · Fully Managed',
+      name: 'Managed Campus Model',
+      pitch:
+        'Invest in a VCare centre and let our team run it end-to-end — staffing, admissions, curriculum delivery and daily operations — while you receive a fixed monthly payout.',
+      accent: '#006FB9',
+      stats: [
+        { value: '₹1,00,000+', label: 'Guaranteed minimum monthly payout' },
+        { value: 'Fully Managed', label: 'Staffing & operations by VCare' },
+      ],
+      points: [
+        'VCare recruits, trains and manages your centre\u2019s entire staff',
+        'Admissions, marketing and enrolment handled entirely by VCare',
+        'Compliance, safety protocols and quality audits taken care of for you',
+        'A fixed monthly payout, independent of your day-to-day involvement',
+      ],
+      bestFor:
+        'Investors, NRIs and busy professionals who want a stake in early education without taking on operational responsibility.',
+    },
+    {
+      tag: 'Track 02 · Owner-Operated',
+      name: 'Owner-Operated Franchise Model',
+      pitch:
+        'Invest in a VCare centre and run it yourself — hire your own team, drive local admissions and keep the profit your centre earns, with a share going back to VCare as royalty.',
+      accent: '#EB2027',
+      stats: [
+        { value: '15% + GST', label: 'Royalty on centre revenue' },
+        { value: '~63%*', label: 'Indicative ROI by Year 2' },
+      ],
+      points: [
+        'You keep the profit your centre generates, after royalty and running costs',
+        'Full access to VCare curriculum, teacher training and brand systems',
+        'Launch playbook, marketing toolkit and admissions support included',
+        'Ongoing quality audits and continued access to the VCare operations team',
+      ],
+      bestFor:
+        'Hands-on entrepreneurs and educators who want to actively build, manage and grow their own centre.',
+    },
+  ];
+
+  readonly modelsNote =
+    'Payout and return figures are indicative, based on VCare\u2019s own operating centre performance and standard cost assumptions at the time of publishing. Actual figures vary by location, footfall, staffing and management quality.';
 
   // ============================================================
   // INVESTMENT TIERS

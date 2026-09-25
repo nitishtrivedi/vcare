@@ -1,5 +1,5 @@
 .advisory {
-  padding: 2.5rem 1.5rem 3rem;
+  padding: 2.5rem 1.5rem 0.5rem;
   text-align: center;
 
   &__heading {
@@ -296,7 +296,7 @@
   &__photo {
     position: relative;
     flex: 0 0 auto;
-    height: 145px;
+    height: 300px;
 
     display: flex;
     align-items: center;

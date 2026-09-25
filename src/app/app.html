@@ -1,25 +1,7 @@
-<!-- <app-navbar></app-navbar>
-<main>
-  <router-outlet></router-outlet>
-</main>
-<app-footer></app-footer> -->
-
-<!-- @if (siteUnderDevelopment) {
-  <app-under-development />
-} @else {
-  <app-navbar />
-
-  <main>
-    <router-outlet></router-outlet>
-  </main>
-
-  <app-footer />
-} -->
-
-<!-- NEW -->
-
 @if (siteUnderDevelopment) {
   <app-under-development />
+} @else if (siteUnderMaintenance) {
+  <app-under-maintenance />
 } @else {
   @if (isAdminArea()) {
     <!-- =====================================================
@@ -43,5 +25,6 @@
     </main>
 
     <app-footer />
+    <app-scroll-to-top />
   }
 }

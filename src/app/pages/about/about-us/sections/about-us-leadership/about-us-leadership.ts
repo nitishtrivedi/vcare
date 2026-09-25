@@ -44,15 +44,15 @@ export class AboutUsLeadership {
         'Mr. Bharat Vora plays a pivotal role in ensuring the smooth, thoughtful and day-to-day functioning of the centre. His leadership and organizational vision support a strong educational environment while ensuring that every aspect of the school remains focused on children, educators and families.',
     },
     {
-      sectionLabel: 'School Advisor',
-      role: 'School Advisor',
+      sectionLabel: 'Functional Head',
+      role: 'Functional Head',
       name: 'Mr. Rohit Nartekar',
       initials: 'RN',
       image: '',
       accent: '#3BB44A',
       imageSide: 'right',
       description:
-        'With a rich background as an educator and school leader, our School Advisor brings valuable experience and perspective to V Care. Her guidance supports curriculum development, educational systems and the continuous growth of our teaching team.',
+        'With a rich background as an educator and school leader, our Functional Head brings valuable experience and perspective to V Care. His guidance supports curriculum development, educational systems and the continuous growth of our teaching team.',
     },
   ];
 }
