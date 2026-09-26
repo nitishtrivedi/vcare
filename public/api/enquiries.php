@@ -6,14 +6,18 @@ declare(strict_types=1);
 |--------------------------------------------------------------------------
 | VCare Enquiries API
 |--------------------------------------------------------------------------
-| Receives enquiry submissions from the Angular contact form
-| and stores them in the MySQL "enquiries" table.
+| Receives enquiry submissions from the Angular contact form, stores them
+| in the MySQL "enquiries" table, and — once the record is safely saved —
+| sends a thank-you email to the enquirer and a notification email to
+| enquiries@vcarepreschool.in via mailer.php.
 |--------------------------------------------------------------------------
 */
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
+
+require_once __DIR__ . '/mailer.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -324,6 +328,23 @@ try {
         ':phone' => $phone,
         ':program' => $program,
         ':message' => $message,
+    ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Send emails — ONLY after the record is safely in the database.
+    |--------------------------------------------------------------------------
+    | This never throws: any mail failure is logged internally and does not
+    | affect the success response below.
+    |--------------------------------------------------------------------------
+    */
+
+    vcare_send_enquiry_emails('contact', [
+        'name' => $name,
+        'email' => $email,
+        'phone' => $phone,
+        'program' => $program,
+        'message' => $message,
     ]);
 
     sendResponse(

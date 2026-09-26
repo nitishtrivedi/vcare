@@ -21,3 +21,39 @@ return [
     'password' => '{{DB_PASSWORD}}',
     'charset' => 'utf8mb4',
 ];
+
+/*
+|----------------------------------------------------------------------
+| Outgoing mail (SMTP via Hostinger)
+|----------------------------------------------------------------------
+| Create the support@vcarepreschool.in mailbox in hPanel > Emails first,
+| then fill in its SMTP credentials below. Hostinger's SMTP host is
+| typically "smtp.hostinger.com" on port 465 (SSL) or 587 (TLS) — the
+| exact host/port is also shown in hPanel > Emails > Connect Apps &
+| Devices > Manual configuration.
+|----------------------------------------------------------------------
+*/
+
+'mail_smtp_host'       => 'smtp.hostinger.com',
+'mail_smtp_port'       => 465,
+'mail_smtp_encryption' => 'ssl', // 'ssl' for port 465, 'tls' for port 587
+'mail_smtp_username'   => 'support@vcarepreschool.in',
+'mail_smtp_password'   => '{{SUPPORT_MAILBOX_PASSWORD}}',
+
+/*
+|----------------------------------------------------------------------
+| Mail identities
+|----------------------------------------------------------------------
+*/
+
+// Every outgoing email (customer + admin) is sent FROM this address.
+'mail_from_email' => 'support@vcarepreschool.in',
+'mail_from_name'  => 'V Care Education',
+
+// Internal notification copies land here. Create this mailbox in
+// hPanel too (it can simply forward to whoever should see enquiries).
+'mail_admin_to' => 'enquiries@vcarepreschool.in',
+
+// Absolute URL to the logo shown in the customer-facing email header.
+// Must be a public https:// URL — email clients cannot load local files.
+'mail_logo_url' => 'https://vcarepreschool.in/assets/images/logo.png',

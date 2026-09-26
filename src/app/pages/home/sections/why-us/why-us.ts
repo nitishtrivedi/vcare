@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
+import { RouterLink } from '@angular/router';
 
 interface Point {
   title: string;
@@ -8,7 +9,7 @@ interface Point {
 
 @Component({
   selector: 'app-why-us',
-  imports: [ScrollReveal],
+  imports: [ScrollReveal, RouterLink],
   templateUrl: './why-us.html',
   styleUrl: './why-us.scss',
 })
