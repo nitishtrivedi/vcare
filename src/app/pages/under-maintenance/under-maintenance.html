@@ -47,14 +47,33 @@
         We'll be back shortly with an even better experience for you and your little learners.
       </p>
 
-      <div class="maintenance-message">
-        <div class="maintenance-message__icon">
-          <i class="fa-solid fa-screwdriver-wrench"></i>
+      <!-- Maintenance Countdown -->
+      <div class="maintenance-countdown">
+        <div class="maintenance-countdown__heading">
+          <i class="fa-solid fa-clock"></i>
+          <span>We'll be back in</span>
         </div>
 
-        <div>
-          <strong>We're currently updating our website.</strong>
-          <span> Please check back soon. Thank you for your patience! </span>
+        <div class="maintenance-countdown__grid">
+          <div class="maintenance-countdown__item">
+            <strong>{{ countdown().days }}</strong>
+            <span>Days</span>
+          </div>
+
+          <div class="maintenance-countdown__item">
+            <strong>{{ countdown().hours }}</strong>
+            <span>Hours</span>
+          </div>
+
+          <div class="maintenance-countdown__item">
+            <strong>{{ countdown().minutes }}</strong>
+            <span>Minutes</span>
+          </div>
+
+          <div class="maintenance-countdown__item">
+            <strong>{{ countdown().seconds }}</strong>
+            <span>Seconds</span>
+          </div>
         </div>
       </div>
 
@@ -88,7 +107,7 @@
       <div class="maintenance-visual__circle maintenance-visual__circle--outer"></div>
       <div class="maintenance-visual__circle maintenance-visual__circle--middle"></div>
 
-      <div class="maintenance-card">
+      <!-- <div class="maintenance-card">
         <div class="maintenance-card__sun">
           <span>☀</span>
         </div>
@@ -124,6 +143,85 @@
           <span>✦</span>
           <span>✦</span>
           <span>✦</span>
+        </div>
+      </div> -->
+
+      <div class="maintenance-card">
+        <div class="maintenance-card__coding">
+          <!-- Floating gears -->
+          <div class="maintenance-gear maintenance-gear--large">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+
+          <div class="maintenance-gear maintenance-gear--small">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+
+          <div class="maintenance-gear maintenance-gear--green">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+
+          <!-- Light bulb -->
+          <div class="maintenance-bulb">
+            <i class="fa-solid fa-lightbulb"></i>
+          </div>
+
+          <!-- Code window -->
+          <div class="maintenance-code-window">
+            <div class="maintenance-code-window__top">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+
+            <div class="maintenance-code-window__body">
+              <span class="code-line code-line--blue"></span>
+              <span class="code-line code-line--white"></span>
+              <span class="code-line code-line--yellow"></span>
+              <span class="code-line code-line--blue short"></span>
+              <span class="code-line code-line--white medium"></span>
+
+              <i class="fa-solid fa-code"></i>
+            </div>
+          </div>
+
+          <!-- Wrench -->
+          <div class="maintenance-wrench">
+            <i class="fa-solid fa-wrench"></i>
+          </div>
+
+          <!-- Safety cone -->
+          <div class="maintenance-cone">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Plant -->
+          <div class="maintenance-plant">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Barricade -->
+          <div class="maintenance-barricade">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Small sparkles -->
+          <div class="maintenance-card__stars">
+            <span>✦</span>
+            <span>✦</span>
+            <span>✦</span>
+          </div>
+        </div>
+
+        <div class="maintenance-card__label">
+          <i class="fa-solid fa-code"></i>
+          <span>Making things better behind the scenes</span>
         </div>
       </div>
 
