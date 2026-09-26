@@ -8,6 +8,7 @@ import { filter } from 'rxjs';
 import { ScrollToTop } from './components/scroll-to-top/scroll-to-top';
 import { UnderMaintenance } from './pages/under-maintenance/under-maintenance';
 import { VCareGenie } from './components/vcare-genie/vcare-genie';
+import { SiteInauguration } from './components/site-inauguration/site-inauguration';
 
 @Component({
   selector: 'app-root',
