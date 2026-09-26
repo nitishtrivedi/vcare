@@ -677,7 +677,7 @@ if (
     genie_response(
         502,
         false,
-        'VCare Genie is temporarily unavailable.'
+        'Gemini connection error: ' . $curlError
     );
 }
 
@@ -720,7 +720,7 @@ if (
     genie_response(
         502,
         false,
-        'VCare Genie is temporarily unavailable.'
+        'Gemini API error (' . $httpStatus . '): ' . $errorMessage
     );
 }
 
