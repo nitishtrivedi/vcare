@@ -44,6 +44,24 @@ jobs:
       - name: Build Angular
         run: npm run build
 
+        # ---------------------------------------
+      # Configure Database
+      # ---------------------------------------
+
+      - name: Generate config.php from secrets
+        env:
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          sed \
+            -e "s|{{DB_HOST}}|$DB_HOST|g" \
+            -e "s|{{DB_DATABASE}}|$DB_DATABASE|g" \
+            -e "s|{{DB_USERNAME}}|$DB_USERNAME|g" \
+            -e "s|{{DB_PASSWORD}}|$DB_PASSWORD|g" \
+            public/api/config.php.template > dist/vcare/browser/api/config.php
+
       # ---------------------------------------
       # 5. Deploy Angular build to Hostinger
       # ---------------------------------------
