@@ -56,6 +56,13 @@ return [
     // Absolute URL to the logo shown in the customer-facing email header.
     // Must be a public https:// URL — email clients cannot load local files.
     'mail_logo_url' => 'https://vcarepreschool.in/assets/images/logo.png',
+
+    /*
+    |----------------------------------------------------------------------
+    | CHATBOT
+    |----------------------------------------------------------------------
+    */
+    'gemini_api_key' => '{{GEMINI_API_KEY}}',
 ];
 
 
