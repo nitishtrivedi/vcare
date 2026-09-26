@@ -1,0 +1,152 @@
+<div class="genie">
+  @if (isOpen()) {
+    <section class="genie__panel" aria-label="VCare Genie chat">
+      <header class="genie__header">
+        <div class="genie__identity">
+          <div class="genie__avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 3.5a8.5 8.5 0 1 0 8.5 8.5A8.51 8.51 0 0 0 12 3.5Z"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+
+              <path
+                d="M8.5 13.2c.9 1.1 2.05 1.65 3.5 1.65s2.6-.55 3.5-1.65"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+
+              <circle cx="9" cy="10" r="1" fill="currentColor" />
+
+              <circle cx="15" cy="10" r="1" fill="currentColor" />
+            </svg>
+          </div>
+
+          <div>
+            <strong>VCare Genie</strong>
+            <span>Ask me about V Care</span>
+          </div>
+        </div>
+
+        <button type="button" class="genie__close" aria-label="Close VCare Genie" (click)="close()">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M6 6l12 12M18 6 6 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <div #messagesContainer class="genie__messages" aria-live="polite">
+        @for (message of messages(); track message.id) {
+          <div
+            class="genie__message-row"
+            [class.genie__message-row--user]="message.role === 'user'"
+          >
+            <div
+              class="genie__message"
+              [class.genie__message--user]="message.role === 'user'"
+              [class.genie__message--error]="message.error"
+            >
+              {{ message.content }}
+            </div>
+
+            @if (message.needsContact) {
+              <a routerLink="/contact" class="genie__contact-link" (click)="close()">
+                Go to Contact Page
+                <span>↗</span>
+              </a>
+            }
+          </div>
+        }
+
+        @if (isSending()) {
+          <div class="genie__message-row">
+            <div class="genie__message genie__message--typing" aria-label="VCare Genie is typing">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        }
+
+        @if (messages().length === 1 && !isSending()) {
+          <div class="genie__quick">
+            <span>Try asking:</span>
+
+            @for (question of quickQuestions; track question) {
+              <button type="button" (click)="useQuickQuestion(question)">
+                {{ question }}
+              </button>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="genie__composer">
+        <textarea
+          rows="1"
+          [value]="draft()"
+          (input)="onInput($event)"
+          (keydown)="onComposerKeydown($event)"
+          [disabled]="isSending()"
+          placeholder="Ask V Care Genie..."
+          aria-label="Message VCare Genie"
+        ></textarea>
+
+        <button
+          type="button"
+          class="genie__send"
+          aria-label="Send message"
+          [disabled]="!draft().trim() || isSending()"
+          (click)="send()"
+        >
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="m4 4 16 8-16 8 3-8-3-8Zm3 8h13"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
+    </section>
+  }
+
+  <button
+    type="button"
+    class="genie__trigger"
+    [class.genie__trigger--open]="isOpen()"
+    [attr.aria-expanded]="isOpen()"
+    aria-label="Open VCare Genie"
+    (click)="toggle()"
+  >
+    <span class="genie__sparkle" aria-hidden="true"> ✦ </span>
+
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M7.5 18.5h9a4.5 4.5 0 0 0 0-9H16A5 5 0 0 0 6.6 8.2 3.5 3.5 0 0 0 7.5 18.5Z"
+        stroke="currentColor"
+        stroke-width="1.7"
+      />
+
+      <path
+        d="M12 7.1V4.5M10.7 5.8h2.6"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"
+      />
+    </svg>
+  </button>
+
+  @if (!isOpen()) {
+    <span class="genie__label" aria-hidden="true"> VCare Genie </span>
+  }
+</div>
