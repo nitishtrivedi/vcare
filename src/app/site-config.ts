@@ -1,6 +1,6 @@
 export const siteConfig = {
   siteUnderDevelopment: false,
-  siteUnderMaintenance: true,
+  siteUnderMaintenance: false,
   /**
    * One-time "Grand Inauguration" ribbon-cutting animation, shown once per
    * visitor's browser right after the site goes live (tracked via
