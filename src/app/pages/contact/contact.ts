@@ -44,7 +44,7 @@ export class Contact {
   ];
 
   readonly directionsUrl =
-    'https://www.google.com/maps/dir/?api=1&destination=Survey+No+20%2F2%2B3%2C+Jayshree+Nivas%2C+Shivshahi+Colony%2C+Canal+Rd%2C+Karvenagar%2C+Pune%2C+Maharashtra+411052';
+    'https://www.google.com/maps/dir/?api=1&destination=Jayshree+House%2C+Canal+Road%2C+Shivshahi+Colony+Rd%2C+Karvenagar%2C+Pune%2C+Maharashtra+411052';
 
   readonly formStatus = signal<FormStatus>('idle');
   readonly form;
@@ -66,7 +66,7 @@ export class Contact {
     //   'https://www.google.com/maps?q=Survey+No+20%2F2%2B3%2C+Jayshree+Nivas%2C+Shivshahi+Colony%2C+Canal+Rd%2C+Karvenagar%2C+Pune%2C+Maharashtra+411052&output=embed',
     // );
     this.mapEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      'https://www.google.com/maps?q=VCare+Education,+Survey+No+20%2F2%2B3,+Jayshree+Nivas,+Shivshahi+Colony,+Canal+Rd,+Karvenagar,+Pune,+Maharashtra+411052&output=embed&z=18',
+      'https://www.google.com/maps?q=Jayshree+House%2C+Canal+Road%2C+Shivshahi+Colony+Rd%2C+Karvenagar%2C+Pune%2C+Maharashtra+411052&output=embed&z=18',
     );
   }
 

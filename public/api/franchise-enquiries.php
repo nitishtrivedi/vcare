@@ -6,14 +6,18 @@ declare(strict_types=1);
 |--------------------------------------------------------------------------
 | VCare Franchise Enquiries API
 |--------------------------------------------------------------------------
-| Receives franchise enquiry submissions from the Angular franchise page
-| and stores them in the MySQL "franchise_enquiries" table.
+| Receives franchise enquiry submissions from the Angular franchise page,
+| stores them in the MySQL "franchise_enquiries" table, and — once the
+| record is safely saved — sends a thank-you email to the enquirer and a
+| notification email to enquiries@vcarepreschool.in via mailer.php.
 |--------------------------------------------------------------------------
 */
 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
+
+require_once __DIR__ . '/mailer.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -337,6 +341,24 @@ try {
                 ? $message
                 : null
         ),
+    ]);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Send emails — ONLY after the record is safely in the database.
+    |--------------------------------------------------------------------------
+    | This never throws: any mail failure is logged internally and does not
+    | affect the success response below.
+    |--------------------------------------------------------------------------
+    */
+
+    vcare_send_enquiry_emails('franchise', [
+        'name' => $name,
+        'email' => $email,
+        'phone' => $phone,
+        'city' => $city,
+        'budget' => $budget,
+        'message' => $message,
     ]);
 
     sendResponse(
