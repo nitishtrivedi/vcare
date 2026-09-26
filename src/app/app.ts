@@ -7,9 +7,7 @@ import { UnderDevelopment } from './pages/under-development/under-development';
 import { filter } from 'rxjs';
 import { ScrollToTop } from './components/scroll-to-top/scroll-to-top';
 import { UnderMaintenance } from './pages/under-maintenance/under-maintenance';
-import { SiteInauguration } from './components/site-inauguration/site-inauguration';
-
-const INAUGURATION_SEEN_KEY = 'vcare-inauguration-seen';
+import { VCareGenie } from './components/vcare-genie/vcare-genie';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +18,7 @@ const INAUGURATION_SEEN_KEY = 'vcare-inauguration-seen';
     UnderDevelopment,
     ScrollToTop,
     UnderMaintenance,
-    SiteInauguration,
+    VCareGenie,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -35,7 +33,6 @@ export class App {
    * to the private administration area.
    */
   readonly isAdminArea = signal(false);
-  readonly showInauguration = signal(this.shouldShowInauguration());
 
   constructor(private readonly router: Router) {
     /*
@@ -59,21 +56,7 @@ export class App {
         this.isAdminArea.set(this.isAdminUrl(navigation.urlAfterRedirects));
       });
   }
-  onInaugurationFinished(): void {
-    this.showInauguration.set(false);
 
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem(INAUGURATION_SEEN_KEY, '1');
-    }
-  }
-
-  private shouldShowInauguration(): boolean {
-    if (!siteConfig.showInaugurationAnimation || typeof window === 'undefined') {
-      return false;
-    }
-
-    return window.localStorage.getItem(INAUGURATION_SEEN_KEY) !== '1';
-  }
   private isAdminUrl(url: string): boolean {
     return url === '/admin' || url.startsWith('/admin/');
   }
