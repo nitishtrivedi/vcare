@@ -7,5 +7,5 @@ export const siteConfig = {
    * localStorage). Safe to leave on long-term, or flip off a few days
    * after launch.
    */
-  showInaugurationAnimation: true,
+  showInaugurationAnimation: false,
 };

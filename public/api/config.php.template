@@ -15,13 +15,9 @@ declare(strict_types=1);
 */
 
 return [
-    'host' => 'localhost',
-
-    'database' => 'u877446794_vcare_db',
-
-    'username' => 'u877446794_vcaredb',
-
-    'password' => 'Vcaredatabase123',
-
+    'host'     => '{{DB_HOST}}',
+    'database' => '{{DB_DATABASE}}',
+    'username' => '{{DB_USERNAME}}',
+    'password' => '{{DB_PASSWORD}}',
     'charset' => 'utf8mb4',
 ];
