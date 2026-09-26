@@ -54,12 +54,16 @@ jobs:
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+          #Configure Gemini for AI Bot
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           sed \
             -e "s|{{DB_HOST}}|$DB_HOST|g" \
             -e "s|{{DB_DATABASE}}|$DB_DATABASE|g" \
             -e "s|{{DB_USERNAME}}|$DB_USERNAME|g" \
             -e "s|{{DB_PASSWORD}}|$DB_PASSWORD|g" \
+            -e "s|{{GEMINI_API_KEY}}|$GEMINI_API_KEY|g" \
             public/api/config.php.template > dist/vcare/browser/api/config.php
 
       # ---------------------------------------
