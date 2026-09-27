@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, signal } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { GenieConversationMessage, VCareGenieService } from '../../services/vcare-genie';
@@ -13,7 +14,7 @@ interface GenieMessage {
 
 @Component({
   selector: 'app-vcare-genie',
-  imports: [RouterLink],
+  imports: [RouterLink, NgTemplateOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './vcare-genie.html',
   styleUrl: './vcare-genie.scss',
@@ -24,6 +25,9 @@ export class VCareGenie {
   readonly isSending = signal(false);
 
   readonly draft = signal('');
+
+  /** Toggled briefly on send to play a one-shot "spell cast" burst on the send button. */
+  readonly justCast = signal(false);
 
   readonly quickQuestions = [
     'What programs do you offer?',
@@ -96,6 +100,8 @@ export class VCareGenie {
       return;
     }
 
+    this.playCastBurst();
+
     this.messages.update((current) => [
       ...current,
       {
@@ -147,6 +153,12 @@ export class VCareGenie {
 
       this.scrollToBottom();
     }
+  }
+
+  private playCastBurst(): void {
+    this.justCast.set(true);
+
+    setTimeout(() => this.justCast.set(false), 500);
   }
 
   private scrollToBottom(): void {
