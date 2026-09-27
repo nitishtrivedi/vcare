@@ -566,7 +566,7 @@ $requestBody = [
         'responseFormat' => [
             'text' => [
                 'mimeType' =>
-                    'application/json',
+                    'APPLICATION_JSON',
 
                 'schema' => [
                     'type' => 'object',
