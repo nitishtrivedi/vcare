@@ -55,12 +55,12 @@ export class AboutUsSchoolAdvisory {
       rowSpan: 3,
     },
     {
-      name: 'Mr. Anil Satpute',
-      role: 'Advisory Board Member',
-      initials: 'AS',
-      image: 'assets/images/about-us/advisory/anil-satpute.jpg',
+      name: 'Mrs. Kajal Vora',
+      role: 'Franchise Model Expert',
+      initials: 'KV',
+      image: 'assets/images/about-us/kajal-vora.jpeg',
       accent: '#2c8d38', // darkened green — WCAG-safe with white text, per mission.scss precedent
-      description: 'Anil Satpute',
+      description: 'Kajal Vora',
       colSpan: 1,
       rowSpan: 4,
     },
