@@ -1,0 +1,56 @@
+{
+  "albums": [
+    {
+      "id": "ganesh-chaturthi-2026",
+      "title": "Ganesh Chaturthi 2026",
+      "description": "Celebrating the birth of Lord Ganesha with prayers and festivities.",
+      "date": "2026-09-11",
+      "category": "festivals",
+      "thumbnail": "/assets/images/events/ganesh-chaturthi-2026/thumb.png",
+      "images": [
+        {
+          "src": "/assets/images/events/ganesh-chaturthi-2026/img1.jpg",
+          "alt": "Designing Lord Ganesha",
+          "caption": "Unleashing creativity"
+        },
+        {
+          "src": "/assets/images/events/ganesh-chaturthi-2026/img2.jpg",
+          "alt": "Drawings of Lord Ganesha",
+          "caption": "Fun in colors"
+        },
+        {
+          "src": "/assets/images/events/ganesh-chaturthi-2026/img3.jpg",
+          "alt": "Traditional dance",
+          "caption": "Cultural celebration"
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "celebrations",
+      "name": "Celebrations",
+      "icon": "🎉"
+    },
+    {
+      "id": "sports",
+      "name": "Sports",
+      "icon": "⚽"
+    },
+    {
+      "id": "workshops",
+      "name": "Workshops",
+      "icon": "🎨"
+    },
+    {
+      "id": "learning",
+      "name": "Learning",
+      "icon": "📚"
+    },
+    {
+      "id": "festivals",
+      "name": "Festivals",
+      "icon": "🎊"
+    }
+  ]
+}

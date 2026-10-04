@@ -1,0 +1,409 @@
+.events {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--cream-deep) 100%);
+  padding: 4rem 1.5rem;
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ============ Header ============ */
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  &__title {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--navy-deep);
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  &__subtitle {
+    font-size: 1.05rem;
+    color: var(--navy);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ============ Filters ============ */
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  &__filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: white;
+    color: var(--navy);
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      border-color: var(--blue);
+    }
+
+    &--active {
+      background: var(--blue);
+      color: white;
+      box-shadow: 0 4px 14px rgba(0, 111, 185, 0.4);
+    }
+  }
+
+  &__filter-icon {
+    font-size: 1.1rem;
+  }
+
+  /* ============ Grid ============ */
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  &__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--navy);
+    font-size: 1.05rem;
+  }
+
+  /* ============ Card ============ */
+  &__card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 4px;
+    }
+  }
+
+  &__card-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  &__card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+
+    .events__card:hover & {
+      transform: scale(1.08);
+    }
+  }
+
+  &__card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(8, 42, 80, 0.85) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    .events__card:hover & {
+      opacity: 1;
+    }
+  }
+
+  &__card-play-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 0.5rem;
+    animation: float-y 2s ease-in-out infinite;
+  }
+
+  &__card-count {
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  &__card-content {
+    padding: 1.5rem;
+  }
+
+  &__card-title {
+    font-size: 1.3rem;
+    color: var(--navy-deep);
+    margin-bottom: 0.5rem;
+  }
+
+  &__card-description {
+    font-size: 0.92rem;
+    color: var(--navy);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+  }
+
+  &__card-date {
+    font-size: 0.85rem;
+    color: var(--orange);
+    font-weight: 600;
+  }
+
+  /* ============ Lightbox ============ */
+  &__lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 42, 80, 0.96);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: lightbox-fade-in 0.3s ease;
+  }
+
+  @keyframes lightbox-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  &__lightbox-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10002;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: rotate(90deg);
+    }
+  }
+
+  &__lightbox-content {
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+
+  &__lightbox-image-wrap {
+    position: relative;
+    width: 100%;
+    max-height: 65vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 768px) {
+      max-height: 50vh;
+    }
+  }
+
+  &__lightbox-image {
+    max-width: 100%;
+    max-height: 65vh;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: lightbox-zoom-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    @media (max-width: 768px) {
+      max-height: 50vh;
+    }
+  }
+
+  @keyframes lightbox-zoom-in {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  &__lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.35);
+      transform: translateY(-50%) scale(1.15);
+    }
+
+    &--prev {
+      left: -60px;
+
+      @media (max-width: 768px) {
+        left: 0.5rem;
+      }
+    }
+
+    &--next {
+      right: -60px;
+
+      @media (max-width: 768px) {
+        right: 0.5rem;
+      }
+    }
+  }
+
+  &__lightbox-info {
+    text-align: center;
+    color: white;
+  }
+
+  &__lightbox-title {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  &__lightbox-caption {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+  }
+
+  &__lightbox-counter {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-weight: 600;
+  }
+
+  &__lightbox-thumbs {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 0.5rem;
+
+    /* Custom scrollbar */
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+    }
+  }
+
+  &__lightbox-thumb {
+    flex-shrink: 0;
+    width: 80px;
+    height: 60px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    background: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-4px);
+    }
+
+    &--active {
+      border-color: var(--yellow);
+      box-shadow: 0 0 0 2px rgba(251, 237, 33, 0.3);
+    }
+
+    @media (max-width: 640px) {
+      width: 60px;
+      height: 45px;
+    }
+  }
+}
