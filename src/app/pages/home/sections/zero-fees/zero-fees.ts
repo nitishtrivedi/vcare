@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 
 interface Promise {
   text: string;
+  number: number;
 }
 
 interface Step {
@@ -25,9 +26,9 @@ interface ComparisonRow {
 })
 export class ZeroFees {
   readonly promises: Promise[] = [
-    { text: 'ZERO tuition fees' },
-    { text: 'Your money remains your asset' },
-    { text: '100% safe and worry-free education' },
+    { number: 3, text: 'ZERO tuition fees' },
+    { number: 100, text: 'Your money remains your asset' },
+    { number: 100, text: '100% safe and worry-free education' },
   ];
 
   readonly steps: Step[] = [
@@ -56,10 +57,4 @@ export class ZeroFees {
     { traditional: 'Monthly stress', vcare: 'One-time clarity' },
     { traditional: 'No financial return', vcare: 'Capital preserved' },
   ];
-
-  // readonly trustPoints: string[] = [
-  //   'Legally documented deposit agreement',
-  //   'Refund never depends on school performance or profits',
-  //   'Asset-backed, with transparent early-exit terms',
-  // ];
 }

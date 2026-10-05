@@ -20,7 +20,7 @@
     background: var(--red);
     color: #fff;
     font-weight: 700;
-    font-size: 0.78rem;
+    font-size: 0.85rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     padding: 0.4rem 1rem;
@@ -35,9 +35,10 @@
   }
 
   &__lead {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.75;
-    color: #5a6478;
+    color: var(--navy);
+    opacity: 0.8;
   }
 
   &__promises {
@@ -93,10 +94,44 @@
   padding: 0.6rem 1.1rem;
   border-radius: 999px;
   box-shadow: 0 6px 16px -12px rgba(8, 42, 80, 0.4);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: pillEnter 0.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 
   svg {
     color: var(--green);
     flex-shrink: 0;
+  }
+
+  .promise-pill__count {
+    display: block;
+    font-family: 'Paytone One', sans-serif;
+    font-size: 1.5rem;
+    color: var(--red);
+    margin-right: 0.5rem;
+    min-width: 2.5rem;
+    text-align: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .promise-pill__text {
+    display: block;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  &:nth-child(1) { animation-delay: 0.1s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.3s; }
+}
+
+@keyframes pillEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -134,9 +169,10 @@
   }
 
   &__desc {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     line-height: 1.65;
-    color: #5a6478;
+    color: var(--navy);
+    opacity: 0.8;
   }
 }
 
@@ -175,12 +211,13 @@
   &__cell {
     text-align: center;
     padding: 0.9rem 0.75rem;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: 600;
 
     &--against {
-      color: #9ca3af;
-      background: #fafafa;
+      color: var(--navy);
+      opacity: 0.5;
+      background: var(--cream);
     }
 
     &--for {

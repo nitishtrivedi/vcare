@@ -11,7 +11,7 @@
 
     <ul class="zero-fee__promises" vcReveal="zoom-in">
       @for (p of promises; track p.text) {
-        <li class="promise-pill">
+        <li class="promise-pill" #promisePill>
           <svg
             viewBox="0 0 24 24"
             width="18"
@@ -24,7 +24,8 @@
           >
             <path d="M4 12l5 5L20 6" />
           </svg>
-          <span>{{ p.text }}</span>
+          <span class="promise-pill__count">{{ p.number }}</span>
+          <span class="promise-pill__text">{{ p.text }}</span>
         </li>
       }
     </ul>
