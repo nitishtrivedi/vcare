@@ -1,8 +1,50 @@
 .voices {
   padding: 6rem 1.5rem;
-  background: linear-gradient(180deg, var(--cream) 0%, rgba(255, 250, 240, 0.92) 100%);
+  background: linear-gradient(180deg, rgba(240, 248, 255, 0.8) 0%, rgba(224, 242, 255, 0.9) 100%);
   position: relative;
   overflow: hidden;
+  isolation: isolate;
+
+  // =========================================================
+  // BACKGROUND DECORATION
+  // =========================================================
+
+  &__deco {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+
+    // Each shape drifts on its own cycle so the group never pulses in unison.
+    &--heart {
+      width: 80px;
+      height: 80px;
+      left: 10%;
+      top: 15%;
+      color: var(--red);
+      opacity: 0.15;
+      animation: voicesDrift 14s ease-in-out infinite;
+    }
+
+    &--star {
+      width: 60px;
+      height: 60px;
+      right: 15%;
+      top: 10%;
+      color: var(--yellow);
+      opacity: 0.12;
+      animation: voicesDrift 17s ease-in-out 3s infinite;
+    }
+
+    &--bubble {
+      width: 100px;
+      height: 100px;
+      left: 5%;
+      bottom: 10%;
+      color: var(--blue);
+      opacity: 0.13;
+      animation: voicesDrift 19s ease-in-out 6s infinite;
+    }
+  }
 
   &__inner {
     max-width: 1200px;
@@ -20,51 +62,12 @@
     display: inline-block;
     font-family: 'Paytone One', cursive;
     letter-spacing: -0.02em;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 50px;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f69220"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.54 4.92.42-3.73 3.23L16.23 18z"/></svg>') no-repeat center;
-      background-size: contain;
-      opacity: 0.15;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 140px;
-      height: 5px;
-      background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow));
-      border-radius: 3px;
-      box-shadow: 0 4px 8px rgba(251, 237, 33, 0.2);
-    }
   }
 
+  // The rainbow arc is the brand's signature divider — it sits directly under
+  // the title. No second gradient rule competing with it.
   .rainbow-arc {
     margin: 0 auto 4.5rem;
-    display: inline-block;
-    position: relative;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 180px;
-      height: 6px;
-      background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green), var(--blue));
-      border-radius: 3px;
-      opacity: 0.7;
-    }
   }
 
   &__grid {
@@ -116,16 +119,17 @@
     position: absolute;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) scaleX(1);
+    transform-origin: center;
     width: 100px;
     height: 3px;
     background: linear-gradient(90deg, var(--orange), var(--yellow));
     border-radius: 0 0 2px 2px;
-    transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   &:hover::before {
-    width: 140px;
+    transform: translateX(-50%) scaleX(1.4);
   }
 
   &__quote {
@@ -135,26 +139,6 @@
     position: relative;
     margin-bottom: 2rem;
     font-style: italic;
-
-    &::before, &::after {
-      font-size: 2rem;
-      opacity: 0.3;
-      font-family: 'Times New Roman', serif;
-    }
-
-    &::before {
-      content: "❝";
-      position: absolute;
-      top: -8px;
-      left: -10px;
-    }
-
-    &::after {
-      content: "❞";
-      position: absolute;
-      bottom: -24px;
-      right: -10px;
-    }
   }
 
   &__pointer {
@@ -186,19 +170,6 @@
       0 8px 20px rgba(0, 111, 185, 0.3),
       inset 0 2px 4px rgba(255, 255, 255, 0.3);
     position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
-      transform: rotate(45deg);
-      animation: shine 3s ease-in-out infinite;
-    }
   }
 
   &__name {
@@ -230,15 +201,6 @@
   }
 }
 
-@keyframes shine {
-  0% {
-    transform: translateX(-100%) translateY(-100%) rotate(45deg);
-  }
-  100% {
-    transform: translateX(100%) translateY(100%) rotate(45deg);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .voice-card {
     transition: none;
@@ -247,8 +209,22 @@
       transform: none;
     }
   }
+}
 
-  .voice-card__avatar::before {
-    animation: none;
+// ===========================================================
+// FLOATING ANIMATION
+// ===========================================================
+
+@keyframes voicesDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(8px, -8px) rotate(5deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
   }
 }

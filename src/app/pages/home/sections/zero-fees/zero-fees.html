@@ -11,7 +11,7 @@
 
     <ul class="zero-fee__promises" vcReveal="zoom-in">
       @for (p of promises; track p.text) {
-        <li class="promise-pill" #promisePill>
+        <li class="promise-pill">
           <svg
             viewBox="0 0 24 24"
             width="18"
@@ -24,15 +24,15 @@
           >
             <path d="M4 12l5 5L20 6" />
           </svg>
-          <span class="promise-pill__count">{{ p.number }}</span>
-          <span class="promise-pill__text">{{ p.text }}</span>
+          <span>{{ p.text }}</span>
         </li>
       }
     </ul>
 
+    <!-- Staggered entrance animations with organic timing curve -->
     <div class="zero-fee__steps">
       @for (step of steps; track step.number; let i = $index) {
-        <div class="step-card" vcReveal="fade-up" [vcRevealDelay]="i * 100">
+        <div class="step-card" vcReveal="fade-up" [vcRevealDelay]="i * i * 9">
           <span class="step-card__number">{{ step.number }}</span>
           <h3 class="step-card__title">{{ step.title }}</h3>
           <p class="step-card__desc">{{ step.description }}</p>

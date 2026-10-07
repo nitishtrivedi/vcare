@@ -64,9 +64,10 @@
   }
 
   &__para {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.75;
-    color: #5a6478;
+    color: var(--navy);
+    opacity: 0.8;
     margin-bottom: 1.1rem;
     max-width: 46ch;
   }
@@ -109,8 +110,9 @@
     align-items: center;
     justify-content: center;
     transition:
-      background 0.15s ease,
-      color 0.15s ease;
+      background 0.15s ease-out,
+      color 0.15s ease-out,
+      transform 0.1s ease-out;
 
     svg {
       width: 20px;
@@ -120,6 +122,11 @@
     &:hover {
       background: var(--orange);
       color: #fff;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
     }
   }
 
@@ -155,7 +162,7 @@
   flex-direction: column;
   text-align: center;
   box-shadow: 0 16px 34px -26px rgba(11, 59, 111, 0.4);
-  animation: card-pop-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: card-pop-in 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
 
   &__image {
     flex: 1 1 auto;
@@ -215,9 +222,10 @@
   }
 
   &__age {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: #7a8399;
+    color: var(--navy);
+    opacity: 0.75;
     margin-bottom: 1.4rem;
   }
 
@@ -229,10 +237,15 @@
     font-weight: 700;
     padding: 0.65rem 1.5rem;
     border-radius: 999px;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
 
     &:hover {
       transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    &:active {
+      transform: scale(0.95);
     }
   }
 
@@ -288,7 +301,7 @@
 @keyframes card-pop-in {
   from {
     opacity: 0;
-    transform: translateY(14px) scale(0.97);
+    transform: translateY(16px) scale(0.95);
   }
   to {
     opacity: 1;

@@ -22,7 +22,17 @@
     justify-content: center;
     text-align: center;
     padding: 1rem;
-    box-shadow: 0 14px 26px -16px rgba(11, 59, 111, 0.4);
+    box-shadow: 0 14px 26px -16px rgba(8, 42, 80, 0.15);
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 40px -16px rgba(8, 42, 80, 0.2);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   &__value {
@@ -33,9 +43,16 @@
 
   &__label {
     margin-top: 0.35rem;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: var(--navy-deep);
     line-height: 1.3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stats-band__circle {
+    transition: none;
+    transform: none !important;
   }
 }

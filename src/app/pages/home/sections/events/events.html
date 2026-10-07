@@ -1,4 +1,31 @@
 <section class="events" id="events">
+  <!-- Decorative background elements -->
+  <div class="events__deco events__deco--calendar" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="8" y="8" width="48" height="48" rx="6" />
+      <path d="M16 12h32" />
+      <path d="M16 20h16" />
+      <path d="M16 28h16" />
+      <path d="M16 36h16" />
+    </svg>
+  </div>
+
+  <div class="events__deco events__deco--camera" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="14" y="14" width="36" height="36" rx="4" />
+      <circle cx="32" cy="32" r="8" />
+      <path d="M22 16h20" />
+    </svg>
+  </div>
+
+  <div class="events__deco events__deco--balloon" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <ellipse cx="32" cy="25" rx="18" ry="22" />
+      <path d="M32 47v6M28 55h8" />
+      <path d="M32 59c0 5-3 7-3 9M32 59c0 5 3 7 3 9" />
+    </svg>
+  </div>
+
   <div class="events__inner">
     <!-- Section Header -->
     <div class="events__header" vcReveal="fade-up">
@@ -42,7 +69,7 @@
         <div
           class="events__card"
           vcReveal="pop"
-          [vcRevealDelay]="i * 100"
+          [vcRevealDelay]="i * 80"
           (click)="openAlbum(album)"
           (keydown.enter)="openAlbum(album)"
           (keydown.space)="openAlbum(album)"
@@ -65,7 +92,7 @@
                 aria-hidden="true"
               >
                 <circle cx="12" cy="12" r="10" fill="white" />
-                <path d="M10 8l6 4-6 4V8z" fill="#0B3B6F" />
+                <path d="M10 8l6 4-6 4V8z" fill="currentColor" class="events__card-play-fill" />
               </svg>
               <span class="events__card-count">{{ album.images.length }} Photos</span>
             </div>

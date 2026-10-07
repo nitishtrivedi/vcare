@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 
 interface Promise {
   text: string;
-  number: number;
 }
 
 interface Step {
@@ -26,9 +25,9 @@ interface ComparisonRow {
 })
 export class ZeroFees {
   readonly promises: Promise[] = [
-    { number: 3, text: 'ZERO tuition fees' },
-    { number: 100, text: 'Your money remains your asset' },
-    { number: 100, text: '100% safe and worry-free education' },
+    { text: 'ZERO tuition fees' },
+    { text: 'Your money remains your asset' },
+    { text: '100% safe and worry-free education' },
   ];
 
   readonly steps: Step[] = [

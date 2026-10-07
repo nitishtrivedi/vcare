@@ -1,11 +1,30 @@
 <section class="voices" id="voices">
+  <!-- Decorative background elements -->
+  <div class="voices__deco voices__deco--heart" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M32 19l5 7 11-6-9 10 5 7-10-8-10 8-5-7 9-10 11 6-5-7z"/>
+    </svg>
+  </div>
+  <div class="voices__deco voices__deco--star" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M32 4l4 8h13l-9 7 4 13-10-6-10 6 4-13-9-7h13z"/>
+    </svg>
+  </div>
+  <div class="voices__deco voices__deco--bubble" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="32" cy="32" r="24"/>
+      <circle cx="24" cy="26" r="4"/>
+      <circle cx="40" cy="28" r="3"/>
+    </svg>
+  </div>
+
   <div class="voices__inner">
     <h2 class="voices__title">What Parents Have To Say</h2>
     <span class="rainbow-arc"></span>
 
     <div class="voices__grid">
       @for (t of testimonials; track t.name; let i = $index) {
-        <div class="voice-card" vcReveal="fade-up" [vcRevealDelay]="i * 120">
+        <div class="voice-card" vcReveal="fade-up" [vcRevealDelay]="(i / 5) * (i / 5) * 100">
           <p class="voice-card__quote">&ldquo;{{ t.quote }}&rdquo;</p>
           <div class="voice-card__pointer"></div>
           <div class="voice-card__avatar">{{ t.initials }}</div>

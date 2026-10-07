@@ -1,6 +1,60 @@
 .events {
   background: linear-gradient(135deg, var(--cream) 0%, var(--cream-deep) 100%);
   padding: 4rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 720px;
+  isolation: isolate;
+
+  // =========================================================
+  // BACKGROUND DECORATION
+  // =========================================================
+
+  &__deco {
+    position: absolute;
+    pointer-events: none;
+
+    svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    // Each shape drifts on its own cycle so the group never pulses in unison.
+    &--calendar {
+      width: 110px;
+      height: 110px;
+      left: 5%;
+      top: 10%;
+      color: var(--blue);
+      opacity: 0.13;
+      animation: heroDrift 13s ease-in-out infinite;
+    }
+
+    &--camera {
+      width: 90px;
+      height: 90px;
+      right: 5%;
+      top: 15%;
+      color: var(--red);
+      opacity: 0.12;
+      animation: heroDrift 16s ease-in-out 2s infinite;
+    }
+
+    &--balloon {
+      width: 100px;
+      height: 100px;
+      left: 10%;
+      bottom: 10%;
+      color: var(--orange);
+      opacity: 0.13;
+      animation: heroDrift 18s ease-in-out 4s infinite;
+    }
+  }
+
+  // =========================================================
+  // MAIN LAYOUT
+  // =========================================================
 
   &__inner {
     max-width: 1200px;
@@ -21,7 +75,7 @@
   }
 
   &__subtitle {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     color: var(--navy);
     max-width: 600px;
     margin: 0 auto;
@@ -149,6 +203,10 @@
     height: 56px;
     margin-bottom: 0.5rem;
     animation: float-y 2s ease-in-out infinite;
+
+    .events__card-play-fill {
+      fill: var(--navy);
+    }
   }
 
   &__card-count {
@@ -163,20 +221,20 @@
   }
 
   &__card-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: var(--navy-deep);
     margin-bottom: 0.5rem;
   }
 
   &__card-description {
-    font-size: 0.92rem;
+    font-size: 0.95rem;
     color: var(--navy);
-    line-height: 1.5;
+    line-height: 1.6;
     margin-bottom: 0.75rem;
   }
 
   &__card-date {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: var(--orange);
     font-weight: 600;
   }
@@ -328,18 +386,18 @@
   }
 
   &__lightbox-title {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     margin-bottom: 0.5rem;
   }
 
   &__lightbox-caption {
-    font-size: 1rem;
+    font-size: 1.1rem;
     opacity: 0.9;
     margin-bottom: 0.5rem;
   }
 
   &__lightbox-counter {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     opacity: 0.7;
     font-weight: 600;
   }
@@ -405,5 +463,23 @@
       width: 60px;
       height: 45px;
     }
+  }
+}
+
+// ===========================================================
+// FLOATING ANIMATION
+// ===========================================================
+
+@keyframes heroDrift {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(10px, -16px) rotate(7deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
   }
 }

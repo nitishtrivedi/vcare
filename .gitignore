@@ -44,3 +44,16 @@ __screenshots__/
 Thumbs.db
 readme.txt
 public/api/config.php
+.vscode/settings.json
+EVENTS_IMPLEMENTATION.md
+QUICK_START.md
+public/assets/images/events/PLACEHOLDER_GUIDE.md
+public/assets/images/events/README.md
+AUDIT_REPORT.md
+DESIGN.md
+PRODUCT.md
+.impeccable/design.json
+plans/001-modern-scroll-reveal-easing.md
+plans/002-optimized-scroll-reveal-timing.md
+plans/003-modern-stagger-pattern.md
+plans/README.md
