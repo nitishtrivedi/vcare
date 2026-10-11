@@ -1,10 +1,11 @@
 .vo {
   position: relative;
-  padding: 7rem 1.5rem;
-  background: var(--v-bg);
+  padding: clamp(4.75rem, 8vw, 7.25rem) 1.5rem;
+  background:
+    radial-gradient(ellipse at 100% 8%, rgba(241, 180, 94, 0.1), transparent 28%), #fffdf9;
 
   &__inner {
-    max-width: 1200px;
+    max-width: 1220px;
     margin: 0 auto;
   }
 
@@ -12,29 +13,36 @@
     display: grid;
     justify-items: center;
     gap: 1rem;
+    margin-bottom: 3rem;
     text-align: center;
-    margin-bottom: 3.5rem;
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
   }
 
   &__card {
-    margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 1.1rem;
-    padding: 2rem 1.8rem 1.8rem;
+    gap: 1rem;
+    min-width: 0;
+    margin: 0;
+    padding: 1.8rem 1.65rem 1.55rem;
+    border: 1px solid rgba(23, 58, 91, 0.1);
+    border-radius: 24px;
+    background: #fff;
+    box-shadow: 0 20px 45px -38px rgba(19, 54, 85, 0.45);
     transition:
-      transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 0.4s;
+      transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 0.28s ease,
+      box-shadow 0.32s ease;
 
     &:hover {
-      transform: translateY(-6px);
-      border-color: rgba(56, 224, 138, 0.35);
+      transform: translateY(-5px);
+      border-color: rgba(33, 135, 104, 0.23);
+      box-shadow: 0 28px 48px -38px rgba(19, 54, 85, 0.52);
     }
 
     blockquote {
@@ -42,21 +50,18 @@
     }
 
     p {
-      font-size: 0.92rem;
-      line-height: 1.75;
-      color: #cdd5ea;
+      color: #5e7286;
+      font-size: 0.91rem;
+      line-height: 1.82;
     }
   }
 
   &__mark {
-    height: 1.4rem;
-    font-family: var(--v-font-display);
-    font-size: 4rem;
-    line-height: 0.6;
-    background: var(--v-grad);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    height: 1.35rem;
+    color: #176fae;
+    font-family: Georgia, serif;
+    font-size: 4.2rem;
+    line-height: 0.62;
   }
 
   &__person {
@@ -64,44 +69,56 @@
     align-items: center;
     gap: 0.85rem;
     margin-top: auto;
-    padding-top: 1.1rem;
-    border-top: 1px solid var(--v-border);
+    padding-top: 1rem;
+    border-top: 1px solid rgba(23, 58, 91, 0.09);
 
     strong {
       display: block;
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--v-text);
+      color: #27455f;
+      font-size: 0.87rem;
+      font-weight: 750;
     }
 
     small {
-      font-size: 0.78rem;
-      color: var(--v-muted);
+      display: block;
+      margin-top: 0.15rem;
+      color: #7a8a9a;
+      font-size: 0.75rem;
     }
   }
 
   &__avatar {
     display: grid;
     place-items: center;
-    width: 46px;
-    height: 46px;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(23, 111, 174, 0.08);
     border-radius: 50%;
-    background: var(--v-grad);
-    color: #05070f;
+    color: #176fae;
+    background: #e9f4fc;
     font-family: var(--v-font-display);
-    font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 800;
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .vo__grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 640px) {
+  .vo {
+    padding: 4.5rem 1rem;
+  }
+
   .vo__grid {
     grid-template-columns: 1fr;
+  }
+
+  .vo__card {
+    padding: 1.5rem 1.25rem;
   }
 }
