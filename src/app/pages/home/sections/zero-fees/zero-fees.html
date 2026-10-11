@@ -1,83 +1,51 @@
-<section class="zero-fee" id="zero-fee">
-  <div class="zero-fee__inner">
-    <div class="zero-fee__header" vcReveal="fade-up">
-      <span class="zero-fee__badge">A V Care Promise</span>
-      <h2 class="zero-fee__title">Introducing V Care's ZERO Fee Model</h2>
-      <p class="zero-fee__lead">
+<section class="zf" id="zero-fee">
+  <div class="zf__glow" aria-hidden="true"></div>
+
+  <div class="zf__inner">
+    <header class="zf__header" gsapReveal="fade-up">
+      <span class="v-eyebrow">A V Care Promise</span>
+      <h2 class="v-h2">Introducing V Care's <span class="v-gradient-text">ZERO Fee Model</span></h2>
+      <p class="zf__lead">
         What if quality education didn't mean losing your hard-earned money? Education is a right,
         not an expense - and your child's learning journey should be a financially secure one too.
       </p>
-    </div>
+    </header>
 
-    <ul class="zero-fee__promises" vcReveal="zoom-in">
+    <ul class="zf__promises" gsapReveal="zoom-in">
       @for (p of promises; track p.text) {
-        <li class="promise-pill">
-          <svg
-            viewBox="0 0 24 24"
-            width="18"
-            height="18"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.4"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M4 12l5 5L20 6" />
-          </svg>
-          <span>{{ p.text }}</span>
+        <li class="zf__pill v-glass">
+          <span class="zf__check" aria-hidden="true">✓</span>
+          {{ p.text }}
         </li>
       }
     </ul>
 
-    <!-- Staggered entrance animations with organic timing curve -->
-    <div class="zero-fee__steps">
+    <ol class="zf__timeline">
       @for (step of steps; track step.number; let i = $index) {
-        <div class="step-card" vcReveal="fade-up" [vcRevealDelay]="i * i * 9">
-          <span class="step-card__number">{{ step.number }}</span>
-          <h3 class="step-card__title">{{ step.title }}</h3>
-          <p class="step-card__desc">{{ step.description }}</p>
-        </div>
+        <li class="zf__step v-glass" gsapReveal="fade-up" [gsapRevealDelay]="i * 120">
+          <span class="zf__node">{{ step.number }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+        </li>
       }
-    </div>
+    </ol>
 
-    <div class="zero-fee__compare" vcReveal="fade-up">
-      <div class="compare-table">
-        <div class="compare-table__head">
-          <span>Traditional Preschools</span>
-          <span>V Care ZERO Fee Model</span>
-        </div>
-        @for (row of comparisonRows; track row.traditional) {
-          <div class="compare-table__row">
-            <span class="compare-table__cell compare-table__cell--against">{{
-              row.traditional
-            }}</span>
-            <span class="compare-table__cell compare-table__cell--for">{{ row.vcare }}</span>
-          </div>
-        }
+    <div class="zf__table v-glass" gsapReveal="fade-up">
+      <div class="zf__row zf__row--head">
+        <span>Traditional Preschools</span>
+        <span>V Care ZERO Fee Model</span>
       </div>
-    </div>
-
-    <!-- <div class="zero-fee__trust" vcReveal="fade-up">
-      @for (point of trustPoints; track point) {
-        <div class="trust-chip">
-          <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke-linejoin="round" />
-          </svg>
-          <span>{{ point }}</span>
+      @for (row of comparisonRows; track row.traditional) {
+        <div class="zf__row">
+          <span class="zf__old">{{ row.traditional }}</span>
+          <span class="zf__new">{{ row.vcare }}</span>
         </div>
       }
-    </div> -->
+    </div>
 
-    <div class="zero-fee__cta" vcReveal="fade-up">
-      <a routerLink="/about/zero-fee-model" class="btn btn--primary">Learn How It Works</a>
-      <a [routerLink]="'/about/faq'" class="btn btn--ghost">Ask Us a Question</a>
+    <div class="zf__actions" gsapReveal="fade-up">
+      <a routerLink="/about/zero-fee-model" class="v-btn v-btn--primary">Learn How It Works</a>
+      <a routerLink="/about/faq" class="v-btn v-btn--ghost">Ask Us a Question</a>
     </div>
   </div>
 </section>

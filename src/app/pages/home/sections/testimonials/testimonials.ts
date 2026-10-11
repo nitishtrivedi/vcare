@@ -1,5 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../../directives/gsap-reveal';
 interface Testimonial {
   quote: string;
   name: string;
@@ -8,7 +9,7 @@ interface Testimonial {
 }
 @Component({
   selector: 'app-testimonials',
-  imports: [ScrollReveal],
+  imports: [GsapReveal],
   templateUrl: './testimonials.html',
   styleUrl: './testimonials.scss',
 })

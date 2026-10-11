@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
 import { RouterLink } from '@angular/router';
+import { GsapReveal } from '../../../../directives/gsap-reveal';
 
 @Component({
   selector: 'app-cta-banner',
-  imports: [ScrollReveal, RouterLink],
+  imports: [GsapReveal, RouterLink],
   templateUrl: './cta-banner.html',
   styleUrl: './cta-banner.scss',
 })

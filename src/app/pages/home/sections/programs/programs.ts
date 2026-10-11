@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
 import { RouterLink } from '@angular/router';
+import { GsapReveal } from '../../../../directives/gsap-reveal';
 
 interface Program {
   name: string;
@@ -18,7 +19,7 @@ const WINDOW_SIZE = 3;
 
 @Component({
   selector: 'app-programs',
-  imports: [ScrollReveal, RouterLink],
+  imports: [GsapReveal, RouterLink],
   templateUrl: './programs.html',
   styleUrl: './programs.scss',
 })

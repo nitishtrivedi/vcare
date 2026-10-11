@@ -1,213 +1,71 @@
-<section class="hero" id="home">
-  <!-- Decorative background elements -->
-  <div class="hero__blob hero__blob--top" aria-hidden="true"></div>
-  <div class="hero__blob hero__blob--bottom" aria-hidden="true"></div>
-
-  <!-- Floating line art, edge-biased into the negative space around the hero -->
-  <div class="hero__deco hero__deco--book" aria-hidden="true">
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M32 18c-5-4-11-6-18-6v34c7 0 13 2 18 6 5-4 11-6 18-6V12c-7 0-13 2-18 6z" />
-      <path d="M32 18v34" />
-    </svg>
-  </div>
-
-  <div class="hero__deco hero__deco--balloon" aria-hidden="true">
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <ellipse cx="32" cy="25" rx="15" ry="18" />
-      <path d="M32 43v6M28 49h8" />
-      <path d="M32 53c0 4-3 6-3 8M32 53c0 4 3 6 3 8" />
-    </svg>
-  </div>
-
-  <div class="hero__deco hero__deco--pencil" aria-hidden="true">
-    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 46l-4 8 8-4" />
-      <path d="M18 46L42 14l8 8-24 24z" />
-      <path d="M38 18l8 8" />
-    </svg>
-  </div>
+<section class="hero" #root id="home">
+  <div class="hero__mesh" aria-hidden="true"></div>
+  <div class="hero__grid-bg" aria-hidden="true"></div>
+  <span class="hero__orb hero__orb--blue" aria-hidden="true"></span>
+  <span class="hero__orb hero__orb--red" aria-hidden="true"></span>
+  <span class="hero__orb hero__orb--green" aria-hidden="true"></span>
 
   <div class="hero__inner">
-    <!-- ================= LEFT CONTENT ================= -->
     <div class="hero__content">
-      <p class="hero__kicker">
-        Preschool &amp; Activity Centre
-        <span>·</span>
-        Karvenagar, Pune
+      <p class="hero__kicker v-glass">
+        <span class="hero__pulse" aria-hidden="true"></span>
+        Preschool &amp; Activity Centre · Karvenagar, Pune
       </p>
 
       <h1 class="hero__headline">
-        Smart Learning.
-        <span class="hero__highlight">Global</span>
-        thinking.
+        @for (w of words; track $index) {
+          <span class="hero__word-wrap">
+            <span class="hero__word" [class.hero__word--accent]="w.accent">{{ w.text }}</span>
+          </span>
+        }
       </h1>
 
-      <p class="hero__description">
+      <p class="hero__lead">
         At V Care, learning goes beyond the classroom. Inspired by an Australian-based curriculum,
         our modern facilities, experienced teachers and play-based approach create engaging
         experiences that encourage children to think, explore, communicate and grow with confidence.
       </p>
 
-      <!-- CTA -->
       <div class="hero__actions">
-        <a [routerLink]="'/contact'" class="hero__btn hero__btn--primary">
-          Book a Visit
-          <span class="hero__btn-arrow">→</span>
-        </a>
-
-        <a href="#programs" class="hero__btn hero__btn--secondary"> Explore Programs </a>
+        <a routerLink="/contact" class="v-btn v-btn--primary">Book a Visit →</a>
+        <a href="#programs" class="v-btn v-btn--ghost">Explore Programs</a>
       </div>
 
-      <!-- Benefits -->
-      <div class="hero__benefits">
-        <div class="hero__benefit">
-          <div class="hero__benefit-icon hero__benefit-icon--red">
-            <svg viewBox="0 0 48 48" aria-hidden="true">
-              <path
-                d="M8 30a16 16 0 0 1 32 0"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-              />
-              <path
-                d="M14 30a10 10 0 0 1 20 0"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-              />
-              <path
-                d="M20 30a4 4 0 0 1 8 0"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="4"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-
-          <div>
-            <strong>Australian curriculum</strong>
-            <span>Inspired Learning</span>
-          </div>
+      <div class="hero__chips">
+        <div class="hero__chip v-glass">
+          <strong class="hero__chip-title">Australian curriculum</strong>
+          <span class="hero__chip-sub">Inspired Learning</span>
         </div>
-
-        <div class="hero__benefit">
-          <div class="hero__benefit-icon hero__benefit-icon--blue">
-            <svg viewBox="0 0 48 48" aria-hidden="true">
-              <circle cx="24" cy="15" r="6" fill="none" stroke="currentColor" stroke-width="3" />
-              <path
-                d="M13 36c0-7 5-11 11-11s11 4 11 11"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-              />
-              <circle cx="10" cy="20" r="4" fill="none" stroke="currentColor" stroke-width="3" />
-              <circle cx="38" cy="20" r="4" fill="none" stroke="currentColor" stroke-width="3" />
-            </svg>
-          </div>
-
-          <div>
-            <strong>ZERO Fees</strong>
-            <span>Zero barriers to learning</span>
-          </div>
+        <div class="hero__chip v-glass">
+          <strong class="hero__chip-title">ZERO Fees</strong>
+          <span class="hero__chip-sub">Zero barriers to learning</span>
         </div>
-
-        <div class="hero__benefit">
-          <div class="hero__benefit-icon hero__benefit-icon--green">
-            <svg viewBox="0 0 48 48" aria-hidden="true">
-              <path
-                d="M8 22L24 9l16 13"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M12 20v19h24V20"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="3"
-                stroke-linejoin="round"
-              />
-              <path d="M20 39V28h8v11" fill="none" stroke="currentColor" stroke-width="3" />
-            </svg>
-          </div>
-
-          <div>
-            <strong>Safe, Nurturing</strong>
-            <span>Child-first Environment</span>
-          </div>
+        <div class="hero__chip v-glass">
+          <strong class="hero__chip-title">Safe, Nurturing</strong>
+          <span class="hero__chip-sub">Child-first Environment</span>
         </div>
       </div>
     </div>
 
-    <!-- ================= RIGHT VISUAL ================= -->
     <div class="hero__visual" aria-hidden="true">
-      <!-- Large background circle -->
-      <div class="hero__sun"></div>
+      <div class="hero__ring"></div>
 
-      <!-- Rainbow -->
-      <div class="hero__rainbow">
-        <span class="hero__rainbow-arc hero__rainbow-arc--red"></span>
-        <span class="hero__rainbow-arc hero__rainbow-arc--orange"></span>
-        <span class="hero__rainbow-arc hero__rainbow-arc--yellow"></span>
-        <span class="hero__rainbow-arc hero__rainbow-arc--green"></span>
-        <span class="hero__rainbow-arc hero__rainbow-arc--blue"></span>
+      <div class="hero__frame v-glass">
+        <img
+          src="assets/images/homepage/vcare-hero-image.png"
+          alt="Happy child at V Care Preschool"
+        />
       </div>
 
-      <!-- Decorative circles -->
-      <div class="hero__circle hero__circle--green"></div>
-      <div class="hero__circle hero__circle--red"></div>
-      <div class="hero__circle hero__circle--orange"></div>
-
-      <!-- Main visual -->
-      <div class="hero__photo">
-        <div class="hero__photo-placeholder">
-          <img
-            src="assets/images/homepage/vcare-hero-image.png"
-            alt="Happy child at V Care Preschool"
-          />
-        </div>
-      </div>
-
-      <!-- Floating card -->
-      <div class="hero__floating-card hero__floating-card--top">
-        <span class="hero__floating-heart">♥</span>
+      <div class="hero__float hero__float--top v-glass">
         <strong>A home away</strong>
         <span>from home</span>
       </div>
 
-      <!-- Floating card -->
-      <div class="hero__floating-card hero__floating-card--right">
-        <div class="hero__mini-rainbow">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <strong>Happy</strong>
-        <strong>Confident</strong>
-        <strong>Brighter</strong>
+      <div class="hero__float hero__float--bottom v-glass">
+        <strong>Happy · Confident</strong>
+        <span>Brighter every day</span>
       </div>
-
-      <!-- Sun -->
-      <div class="hero__sun-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-
-      <!-- Decorative dashed circles -->
-      <div class="hero__dashed hero__dashed--one"></div>
-      <div class="hero__dashed hero__dashed--two"></div>
     </div>
   </div>
 </section>

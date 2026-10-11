@@ -1,14 +1,9 @@
-<section class="stats-band">
-  <div class="stats-band__grid">
+<section class="stats">
+  <div class="stats__grid">
     @for (stat of stats; track stat.label; let i = $index) {
-      <div class="stats-band__circle" vcReveal="pop" [vcRevealDelay]="i * 12.5">
-        <span class="stats-band__value" [countUp]="stat.value">
-          {{ stat.value }}
-        </span>
-
-        <span class="stats-band__label">
-          {{ stat.label }}
-        </span>
+      <div class="stat" gsapReveal="fade-up" [gsapRevealDelay]="i * 90">
+        <span class="stat__value" [countUp]="stat.value">{{ stat.value }}</span>
+        <span class="stat__label">{{ stat.label }}</span>
       </div>
     }
   </div>

@@ -1,58 +1,70 @@
-.stats-band {
-  background: var(--yellow);
-  padding: 1rem 1.5rem 3rem;
+.stats {
+  position: relative;
+  padding: 1rem 1.5rem 5rem;
+  background: var(--v-bg);
 
   &__grid {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-  }
-
-  &__circle {
-    width: 168px;
-    height: 168px;
-    border-radius: 50%;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 1rem;
-    box-shadow: 0 14px 26px -16px rgba(8, 42, 80, 0.15);
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-
-    &:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 24px 40px -16px rgba(8, 42, 80, 0.2);
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-
-  &__value {
-    font-family: 'Paytone One', cursive;
-    font-size: 2rem;
-    color: var(--red);
-  }
-
-  &__label {
-    margin-top: 0.35rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--navy-deep);
-    line-height: 1.3;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .stats-band__circle {
-    transition: none;
-    transform: none !important;
+.stat {
+  position: relative;
+  overflow: hidden;
+  padding: 1.75rem 1rem;
+  border-radius: 22px;
+  text-align: center;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--v-border);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.4s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: var(--v-grad);
+    opacity: 0.6;
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba(61, 165, 255, 0.4);
+  }
+
+  &__value {
+    display: block;
+    font-family: var(--v-font-display);
+    font-size: clamp(1.9rem, 3vw, 2.4rem);
+    font-weight: 700;
+    background: var(--v-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  &__label {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--v-muted);
+  }
+}
+
+@media (max-width: 900px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat:last-child {
+    grid-column: span 2;
   }
 }

@@ -1,10 +1,32 @@
-.media-banner {
+.media {
+  position: relative;
+  padding: 1rem 1.5rem 5rem;
+  background: var(--v-bg);
+
   &__frame {
     position: relative;
-    width: 100%;
+    max-width: 1200px;
     aspect-ratio: 16 / 7;
+    margin: 0 auto;
     overflow: hidden;
+    border-radius: 32px;
+    border: 1px solid var(--v-border);
     background: #000;
+    box-shadow: 0 40px 80px -30px rgba(61, 165, 255, 0.25);
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        180deg,
+        rgba(5, 7, 15, 0.6) 0%,
+        transparent 35%,
+        transparent 60%,
+        rgba(5, 7, 15, 0.7) 100%
+      );
+    }
   }
 
   &__video {
@@ -13,80 +35,66 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    // Native controls are never enabled, so there's no scrubber to seek from —
-    // but belt-and-braces in case a browser ever renders a fallback UI.
     pointer-events: none;
   }
 
-  &__caption {
+  &__header {
     position: absolute;
-    top: 1.25rem;
-    left: 1.5rem;
+    top: 1.5rem;
+    left: 1.75rem;
     z-index: 2;
-    color: #fff;
-    font-weight: 700;
-    font-size: 2.1rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    display: grid;
+    gap: 0.4rem;
+  }
 
-    small {
-      display: block;
-      font-weight: 500;
-      font-size: 0.85rem;
-      opacity: 0.85;
-    }
+  &__eyebrow {
+    color: #fff;
+  }
+
+  &__sub {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
   }
 
   &__controls {
     position: absolute;
-    bottom: 1.25rem;
     right: 1.5rem;
+    bottom: 1.25rem;
     z-index: 2;
     display: flex;
     gap: 0.6rem;
-    pointer-events: auto;
   }
 
   &__btn {
-    width: 44px;
-    height: 44px;
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
     border-radius: 50%;
-    background: rgba(8, 42, 80, 0.55);
-    backdrop-filter: blur(4px);
-    border: 1.5px solid rgba(255, 255, 255, 0.4);
     color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: auto;
+    background: rgba(5, 7, 15, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
     cursor: pointer;
     transition:
-      background 0.15s ease,
-      transform 0.15s ease;
+      background 0.3s,
+      transform 0.3s;
 
     &:hover {
-      background: var(--red);
-      transform: translateY(-1px);
+      background: rgba(61, 165, 255, 0.45);
+      transform: translateY(-2px);
     }
 
     &:focus-visible {
-      outline: 3px solid var(--yellow);
-      outline-offset: 2px;
+      outline: 2px solid var(--v-yellow);
+      outline-offset: 3px;
     }
   }
 }
 
-app-wave-divider {
-  display: block;
-  position: relative;
-  z-index: 2;
-  margin-top: -54px;
-
-  @media (max-width: 640px) {
-    margin-top: -60px;
+@media (max-width: 640px) {
+  .media__frame {
+    aspect-ratio: 4 / 5;
+    border-radius: 24px;
   }
-}
-.media-banner__controls {
-  position: absolute;
-  z-index: 99999;
 }

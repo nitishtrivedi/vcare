@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
 import { CountUpDirective } from '../../../../directives/count-up.directive';
+import { GsapReveal } from '../../../../directives/gsap-reveal';
 
 interface Stat {
   value: string;
@@ -9,7 +10,7 @@ interface Stat {
 
 @Component({
   selector: 'app-glance',
-  imports: [ScrollReveal, CountUpDirective],
+  imports: [GsapReveal, CountUpDirective],
   templateUrl: './glance.html',
   styleUrl: './glance.scss',
 })
