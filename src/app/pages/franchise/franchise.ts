@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { WaveDivider } from '../../components/wave-divider/wave-divider';
 import { ScrollReveal } from '../../directives/scroll-reveal';
 import { AuthService } from '../../services/auth';
@@ -73,7 +72,7 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 @Component({
   selector: 'app-franchise',
-  imports: [RouterLink, ReactiveFormsModule, ScrollReveal, WaveDivider],
+  imports: [ReactiveFormsModule, ScrollReveal, WaveDivider],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './franchise.html',
   styleUrl: './franchise.scss',

@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, signal, ViewChild } from '@angular/core';
-import { WaveDivider } from '../../../../components/wave-divider/wave-divider';
 
 @Component({
   selector: 'app-media-banner',
-  imports: [WaveDivider],
   templateUrl: './media-banner.html',
   styleUrl: './media-banner.scss',
 })
