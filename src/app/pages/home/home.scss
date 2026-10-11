@@ -1,0 +1,31 @@
+:host {
+  --v-bg: #fffdf9;
+  --v-bg-2: #f1f7fd;
+  --v-text: #19324b;
+  --v-muted: #62758a;
+  --v-border: rgba(23, 58, 91, 0.12);
+
+  /* Deep enough to remain readable on pale backgrounds. */
+  --v-red: #d94c51;
+  --v-orange: #e77b30;
+  --v-yellow: #c99219;
+  --v-green: #218768;
+  --v-blue: #176fae;
+  --v-grad: linear-gradient(120deg, #d94c51 0%, #e77b30 40%, #176fae 100%);
+
+  display: block;
+  position: relative;
+  color: var(--v-text);
+  background: var(--v-bg);
+  font-family: var(--v-font-body);
+}
+
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+:host ::selection {
+  color: #fff;
+  background: #176fae;
+}

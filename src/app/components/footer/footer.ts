@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { WaveDivider } from '../wave-divider/wave-divider';
 
 interface FooterLink {
   label: string;
@@ -14,13 +13,14 @@ interface ContactRow {
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, WaveDivider],
+  imports: [RouterLink],
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
 })
 export class Footer {
   readonly year = new Date().getFullYear();
   readonly tagline = 'A home away from home, for little learners.';
+
   readonly quickLinks: FooterLink[] = [
     { label: 'Home', fragment: 'home' },
     { label: 'Programs', fragment: 'programs' },

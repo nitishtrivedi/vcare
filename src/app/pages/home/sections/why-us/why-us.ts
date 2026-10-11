@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
 import { RouterLink } from '@angular/router';
+import { GsapReveal } from '../../../../directives/gsap-reveal';
 
 interface Point {
   title: string;
@@ -9,7 +10,7 @@ interface Point {
 
 @Component({
   selector: 'app-why-us',
-  imports: [ScrollReveal, RouterLink],
+  imports: [GsapReveal, RouterLink],
   templateUrl: './why-us.html',
   styleUrl: './why-us.scss',
 })

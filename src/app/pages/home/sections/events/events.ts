@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../../directives/gsap-reveal';
 
 interface EventImage {
   src: string;
@@ -32,7 +33,7 @@ interface EventManifest {
 
 @Component({
   selector: 'app-events',
-  imports: [CommonModule, ScrollReveal],
+  imports: [CommonModule, GsapReveal],
   templateUrl: './events.html',
   styleUrl: './events.scss',
 })
@@ -56,7 +57,7 @@ export class Events implements OnInit {
       next: (data) => {
         // Sort albums by date (newest first)
         const sortedAlbums = [...data.albums].sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
         );
         this.albums.set(sortedAlbums);
         this.categories.set(data.categories);

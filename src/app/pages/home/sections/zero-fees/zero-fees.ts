@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ScrollReveal } from '../../../../directives/scroll-reveal';
 import { RouterLink } from '@angular/router';
+import { GsapReveal } from '../../../../directives/gsap-reveal';
 
 interface Promise {
   text: string;
@@ -19,7 +20,7 @@ interface ComparisonRow {
 
 @Component({
   selector: 'app-zero-fees',
-  imports: [ScrollReveal, RouterLink],
+  imports: [GsapReveal, RouterLink],
   templateUrl: './zero-fees.html',
   styleUrl: './zero-fees.scss',
 })

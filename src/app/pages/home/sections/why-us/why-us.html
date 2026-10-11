@@ -1,121 +1,62 @@
-<section class="why-us" id="why-us">
-  <div class="why-us__inner">
-    <div class="why-us__intro" vcReveal="slide-right">
-      <h2 class="why-us__title">Why Choose<br />V Care?</h2>
-      <a routerLink="/contact" class="btn why-us__btn">Know More</a>
+<section class="wu" id="why-us">
+  <div class="wu__inner">
+    <div class="wu__intro" gsapReveal="slide-right">
+      <span class="v-eyebrow">Why families choose us</span>
+      <h2 class="v-h2">Why Choose <span class="v-gradient-text">V Care?</span></h2>
+      <a routerLink="/contact" class="v-btn v-btn--ghost wu__btn">Know More</a>
     </div>
 
-    <div class="why-us__grid">
+    <div class="wu__grid">
       @for (point of points; track point.title; let i = $index) {
-        <div class="why-us__item" vcReveal="pop" [vcRevealDelay]="i * 80">
-          <span class="why-us__icon-wrap icon-bounce">
+        <div class="wu__tile v-glass" gsapReveal="pop" [gsapRevealDelay]="i * 70">
+          <span class="wu__icon" aria-hidden="true">
             @switch (point.icon) {
               @case ('holistic') {
                 <svg viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="9" stroke="#0B3B6F" stroke-width="1.6" />
-                  <path
-                    d="M12 7v10M7 12h10"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M12 7v10M7 12h10" />
                 </svg>
               }
               @case ('hands-on') {
                 <svg viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M4 15l4-8 4 8M6.5 11h3M14 15V7h3.5a2.5 2.5 0 010 5H14"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
+                  <path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z" />
                 </svg>
               }
               @case ('feedback') {
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M4 5h16v10H8l-4 4V5z"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v10H9l-5 4z" /></svg>
               }
               @case ('partnership') {
                 <svg viewBox="0 0 24 24" fill="none">
-                  <circle cx="8" cy="9" r="2.6" stroke="#0B3B6F" stroke-width="1.6" />
-                  <circle cx="16" cy="9" r="2.6" stroke="#0B3B6F" stroke-width="1.6" />
-                  <path
-                    d="M3 19c.6-3 2.6-4.6 5-4.6s4.4 1.6 5 4.6M11 19c.6-3 2.6-4.6 5-4.6s4.4 1.6 5 4.6"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
+                  <circle cx="9" cy="12" r="5" />
+                  <circle cx="15" cy="12" r="5" />
                 </svg>
               }
               @case ('team') {
                 <svg viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="8" r="3.2" stroke="#0B3B6F" stroke-width="1.6" />
-                  <path
-                    d="M5 19c.8-4 3.4-6 7-6s6.2 2 7 6"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
+                  <circle cx="12" cy="8" r="3.5" />
+                  <path d="M5 20c1-4 4-6 7-6s6 2 7 6" />
                 </svg>
               }
               @case ('ratio') {
                 <svg viewBox="0 0 24 24" fill="none">
-                  <circle cx="8" cy="9" r="2.4" stroke="#0B3B6F" stroke-width="1.6" />
-                  <circle cx="16" cy="9" r="2.4" stroke="#0B3B6F" stroke-width="1.6" />
-                  <path
-                    d="M4 18c.5-2.6 2-4 4-4s3.5 1.4 4 4M12 18c.5-2.6 2-4 4-4s3.5 1.4 4 4"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                  />
+                  <rect x="4" y="4" width="7" height="7" rx="1.5" />
+                  <rect x="13" y="4" width="7" height="7" rx="1.5" />
+                  <rect x="4" y="13" width="7" height="7" rx="1.5" />
+                  <rect x="13" y="13" width="7" height="7" rx="1.5" />
                 </svg>
               }
               @case ('cctv') {
                 <svg viewBox="0 0 24 24" fill="none">
-                  <rect
-                    x="3"
-                    y="8"
-                    width="11"
-                    height="7"
-                    rx="1.5"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                  />
-                  <path
-                    d="M14 10l6-2v8l-6-2"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linejoin="round"
-                  />
+                  <rect x="3" y="7" width="11" height="8" rx="2" />
+                  <path d="M14 10l6-3v8l-6-3" />
                 </svg>
               }
               @case ('home') {
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M4 11l8-6 8 6"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                  <path
-                    d="M6 10v9h12v-9"
-                    stroke="#0B3B6F"
-                    stroke-width="1.6"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 11l8-7 8 7v9H4z" /></svg>
               }
             }
           </span>
-          <p class="why-us__item-title">{{ point.title }}</p>
+          <p>{{ point.title }}</p>
         </div>
       }
     </div>
