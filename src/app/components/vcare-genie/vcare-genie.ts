@@ -96,7 +96,7 @@ export class VCareGenie implements AfterViewInit, OnDestroy {
   // --------------------------------------------------------------------------
 
   constructor(private readonly genieService: VCareGenieService) {
-    registerGsap();
+    //registerGsap();
   }
 
   ngAfterViewInit(): void {

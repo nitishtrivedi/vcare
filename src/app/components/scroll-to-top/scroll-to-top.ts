@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, HostListener, OnDestroy, signal } from '@angular/core';
-import { gsap, prefersReducedMotion, registerGsap } from '../../shared/motion/gsap-setup';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  inject,
+  NgZone,
+  OnDestroy,
+  signal,
+} from '@angular/core';
+import { gsap, prefersReducedMotion } from '../../shared/motion/gsap-core';
 
 @Component({
   selector: 'app-scroll-to-top',
@@ -7,7 +16,7 @@ import { gsap, prefersReducedMotion, registerGsap } from '../../shared/motion/gs
   templateUrl: './scroll-to-top.html',
   styleUrl: './scroll-to-top.scss',
 })
-export class ScrollToTop implements OnDestroy {
+export class ScrollToTop implements AfterViewInit, OnDestroy {
   readonly isVisible = signal(false);
   readonly progress = signal(0);
 
@@ -17,9 +26,66 @@ export class ScrollToTop implements OnDestroy {
   private launchTl?: gsap.core.Timeline;
   private pageTween?: gsap.core.Tween;
 
+  private readonly zone = inject(NgZone);
+
+  private scrollRafId = 0;
+
   constructor() {
-    registerGsap();
+    //registerGsap();
   }
+  ngAfterViewInit(): void {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    this.zone.runOutsideAngular(() => {
+      window.addEventListener('scroll', this.onWindowScroll, {
+        passive: true,
+      });
+
+      this.onWindowScroll();
+    });
+  }
+  private readonly onWindowScroll = (): void => {
+    if (this.scrollRafId || typeof window === 'undefined') {
+      return;
+    }
+
+    this.scrollRafId = requestAnimationFrame(() => {
+      this.scrollRafId = 0;
+
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+
+      const shouldShow = y > 420;
+
+      // Keep scroll progress active while the button's launch animation runs.
+      const progressIsRelevant = shouldShow || this.launching;
+
+      const nextProgress = progressIsRelevant && max > 0 ? Math.min(1, y / max) : 0;
+
+      const visibilityChanged = !this.launching && this.isVisible() !== shouldShow;
+
+      const progressThreshold = this.launching ? 0.001 : 0.004;
+
+      const progressChanged = Math.abs(nextProgress - this.progress()) > progressThreshold;
+
+      // Avoid change detection if the visible state has not meaningfully changed.
+      if (!visibilityChanged && !progressChanged) {
+        return;
+      }
+
+      this.zone.run(() => {
+        if (visibilityChanged) {
+          this.isVisible.set(shouldShow);
+        }
+
+        if (progressChanged) {
+          this.progress.set(nextProgress);
+        }
+      });
+    });
+  };
 
   get dashOffset(): number {
     return this.circumference * (1 - this.progress());
@@ -86,6 +152,13 @@ export class ScrollToTop implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('scroll', this.onWindowScroll);
+    }
+
+    if (this.scrollRafId) {
+      cancelAnimationFrame(this.scrollRafId);
+    }
     this.launchTl?.kill();
     this.pageTween?.kill();
   }

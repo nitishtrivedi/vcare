@@ -121,3 +121,9 @@
     }
   }
 }
+@media (max-width: 768px), (pointer: coarse) {
+  .media__btn {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

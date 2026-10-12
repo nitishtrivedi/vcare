@@ -24,17 +24,17 @@ export class MediaBanner implements AfterViewInit, OnDestroy {
     video.playsInline = true;
 
     // Keep Angular state synced with the REAL video state
-    video.addEventListener('play', () => {
-      this.isPlaying.set(true);
-    });
+    // video.addEventListener('play', () => {
+    //   this.isPlaying.set(true);
+    // });
 
-    video.addEventListener('pause', () => {
-      this.isPlaying.set(false);
-    });
+    // video.addEventListener('pause', () => {
+    //   this.isPlaying.set(false);
+    // });
 
-    video.addEventListener('volumechange', () => {
-      this.isMuted.set(video.muted);
-    });
+    // video.addEventListener('volumechange', () => {
+    //   this.isMuted.set(video.muted);
+    // });
 
     this.observer = new IntersectionObserver(
       (entries) => {
@@ -99,5 +99,6 @@ export class MediaBanner implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    this.videoRef?.nativeElement.pause();
   }
 }

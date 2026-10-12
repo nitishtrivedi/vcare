@@ -456,3 +456,26 @@
     animation: none !important;
   }
 }
+@media (max-width: 768px), (pointer: coarse) {
+  .hero__mesh {
+    filter: none;
+    animation: none;
+  }
+
+  .hero__orb {
+    display: none;
+    filter: none;
+  }
+
+  .hero__ring,
+  .hero__word--accent,
+  .hero__pulse {
+    animation: none !important;
+  }
+
+  .hero__float,
+  .hero__chip {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

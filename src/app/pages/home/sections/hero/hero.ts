@@ -35,7 +35,13 @@ export class Hero implements AfterViewInit, OnDestroy {
   ];
 
   ngAfterViewInit(): void {
-    if (prefersReducedMotion()) return;
+    const useStaticHero =
+      typeof window === 'undefined' ||
+      window.matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+
+    if (prefersReducedMotion() || useStaticHero) {
+      return;
+    }
 
     this.zone.runOutsideAngular(() => {
       this.ctx = gsap.context(() => {
