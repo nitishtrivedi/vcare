@@ -7,6 +7,7 @@ import { ProgramTestimonials } from './sections/program-testimonials/program-tes
 import { ProgramCurriculum } from './sections/program-curriculum/program-curriculum';
 import { ProgramNutrition } from './sections/program-nutrition/program-nutrition';
 import { ProgramMission } from './sections/program-mission/program-mission';
+import { ProgramDay } from './sections/program-day/program-day';
 
 @Component({
   selector: 'app-daycare-program',
@@ -19,6 +20,7 @@ import { ProgramMission } from './sections/program-mission/program-mission';
     ProgramCurriculum,
     ProgramNutrition,
     ProgramMission,
+    ProgramDay,
   ],
   templateUrl: './daycare-program.html',
   styleUrl: './daycare-program.scss',

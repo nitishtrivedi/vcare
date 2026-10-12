@@ -1,0 +1,11 @@
+<div #root class="dcb-wrap" aria-hidden="true">
+  <span class="dcb__sun"></span>
+
+  <svg class="dcb" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <g class="dcb__rings">
+      @for (d of rings; track $index) {
+        <path class="dcb__ring" [attr.d]="d" />
+      }
+    </g>
+  </svg>
+</div>

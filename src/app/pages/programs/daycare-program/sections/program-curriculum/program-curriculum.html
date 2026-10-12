@@ -1,30 +1,47 @@
-<section class="curriculum">
-  <div class="curriculum__intro" vcReveal="fade-up">
-    <span class="daycare-kicker"> OUR HOLISTIC CURRICULUM </span>
-
-    <h2>
-      Explore the
-      <span>journey.</span>
-    </h2>
-
+<section class="dc-cur" id="curriculum">
+  <div class="dc-cur__head" gsapReveal="fade-up">
+    <p class="dc-eyebrow">Our holistic curriculum</p>
+    <h2>Ten learning tracks, <em>one joyful</em> journey.</h2>
     <p>
-      Ten interconnected learning tracks work together across the day, so every child grows
-      academically, physically, socially and emotionally.
+      They work together across the day, so every child grows academically, physically, socially and
+      emotionally.
     </p>
   </div>
 
-  <div class="curriculum__grid">
-    @for (category of categories; track category.title; let i = $index) {
+  <div class="dc-cur__grid">
+    @for (track of tracks; track track.no; let i = $index) {
       <article
-        class="curriculum-card"
-        [style.--accent]="category.accent"
-        vcReveal="fade-up"
-        [vcRevealDelay]="(i % 5) * 60"
+        class="dc-track dc-track--{{ track.tone }}"
+        gsapReveal="fade-up"
+        [gsapRevealDelay]="(i % 2) * 90"
       >
-        <h3>{{ category.title }}</h3>
+        <header class="dc-track__head">
+          <span class="dc-track__no">{{ track.no }}</span>
+          <h3>{{ track.title }}</h3>
+        </header>
+
+        <ul class="dc-track__items">
+          @for (item of track.items; track item) {
+            <li>{{ item }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+
+  <div class="dc-nut">
+    <div class="dc-nut__intro" gsapReveal="fade-up">
+      <p class="dc-eyebrow">Focus on nutrition</p>
+      <h3>Healthy habits, <em>one bite</em> at a time.</h3>
+      <p>Mindful eating routines, coordinated with parents for every child's dietary needs.</p>
+    </div>
+
+    @for (group of groups; track group.title; let i = $index) {
+      <article class="dc-nut__card" gsapReveal="fade-up" [gsapRevealDelay]="(i + 1) * 120">
+        <h4>{{ group.title }}</h4>
         <ul>
-          @for (item of category.items; track item) {
-            <li><span class="curriculum-card__diamond"></span>{{ item }}</li>
+          @for (point of group.points; track point) {
+            <li><span aria-hidden="true">✓</span>{{ point }}</li>
           }
         </ul>
       </article>

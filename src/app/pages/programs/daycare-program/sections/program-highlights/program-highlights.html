@@ -1,35 +1,76 @@
-<section class="daycare-highlights">
-  <div class="daycare-highlights__intro" vcReveal="fade-up">
-    <span class="daycare-kicker"> WHY FAMILIES CHOOSE V CARE </span>
-
-    <h2>
-      Care that feels
-      <span>personal.</span>
-    </h2>
-
-    <p>{{ intro }}</p>
+<section class="dc-hl" id="why">
+  <div class="dc-hl__head" gsapReveal="fade-up">
+    <p class="dc-eyebrow">Why families choose us</p>
+    <h2>Care that feels <em>personal.</em></h2>
+    <p>
+      Everything at our Activity Centre is designed around one idea: daycare should feel like a
+      second home, not a waiting room.
+    </p>
   </div>
 
-  <div class="daycare-highlights__grid">
-    @for (feature of features; track feature.title; let i = $index) {
-      <article
-        class="care-pillar"
-        [style.--accent]="feature.accent"
-        vcReveal="fade-up"
-        [vcRevealDelay]="i * 70"
-      >
-        <span class="care-pillar__index">0{{ i + 1 }}</span>
-        <h3>{{ feature.title }}</h3>
-        <p>{{ feature.description }}</p>
-
-        @if (feature.bullets) {
-          <ul class="care-pillar__list">
-            @for (item of feature.bullets; track item) {
-              <li>{{ item }}</li>
-            }
-          </ul>
+  <div class="dc-bento">
+    <article class="dc-card dc-card--a" (pointermove)="onPointerMove($event)" gsapReveal="fade-up">
+      <span class="dc-card__no">01</span>
+      <h3>Theme-based learning</h3>
+      <p>Each week opens a new world, explored through stories, art, music and hands-on play.</p>
+      <ul class="dc-chips">
+        @for (t of themes; track t) {
+          <li>{{ t }}</li>
         }
-      </article>
-    }
+      </ul>
+    </article>
+
+    <article
+      class="dc-card dc-card--b"
+      (pointermove)="onPointerMove($event)"
+      gsapReveal="fade-up"
+      [gsapRevealDelay]="120"
+    >
+      <span class="dc-card__no">02</span>
+      <h3>Safe &amp; stimulating</h3>
+      <p>Hygienic, child-friendly spaces with age-appropriate play corners that spark curiosity.</p>
+      <ul class="dc-list">
+        @for (s of safety; track s) {
+          <li><span aria-hidden="true">✓</span>{{ s }}</li>
+        }
+      </ul>
+    </article>
+
+    <article
+      class="dc-card dc-card--c"
+      (pointermove)="onPointerMove($event)"
+      gsapReveal="fade-up"
+      [gsapRevealDelay]="200"
+    >
+      <span class="dc-card__no">03</span>
+      <h3>Experienced &amp; caring staff</h3>
+      <p>
+        Trained caregivers and early-childhood educators who nurture every child with patience,
+        warmth and empathy.
+      </p>
+    </article>
+
+    <article
+      class="dc-card dc-card--d"
+      (pointermove)="onPointerMove($event)"
+      gsapReveal="fade-up"
+      [gsapRevealDelay]="280"
+    >
+      <span class="dc-card__no">04</span>
+      <h3>Fun + learning</h3>
+      <p>
+        Story time, music, creative art and outdoor play, balanced so every day feels exciting and
+        unforgettable.
+      </p>
+    </article>
+
+    <blockquote
+      class="dc-card dc-card--e"
+      (pointermove)="onPointerMove($event)"
+      gsapReveal="fade-up"
+    >
+      <p>“Daycare should feel like a second home. Not a waiting room.”</p>
+      <cite>V Care Daycare, our promise to every family</cite>
+    </blockquote>
   </div>
 </section>

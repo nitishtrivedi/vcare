@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollReveal } from '../../../../../directives/scroll-reveal';
 import { DetailRow, LearningChip } from '../../../../../models/program.model';
+import { GsapReveal } from '../../../../../directives/gsap-reveal';
 
 @Component({
   selector: 'app-program-learnings',
-  imports: [ScrollReveal],
+  imports: [GsapReveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './program-learnings.html',
   styleUrl: './program-learnings.scss',

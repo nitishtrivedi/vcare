@@ -1,90 +1,125 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ScrollReveal } from '../../../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../../../directives/gsap-reveal';
 
-interface CurriculumCategory {
+interface Track {
+  no: string;
   title: string;
   items: string[];
-  accent: string;
+  tone: 'blue' | 'green' | 'orange';
+}
+
+interface NutritionGroup {
+  title: string;
+  points: string[];
 }
 
 @Component({
   selector: 'app-program-curriculum',
-  imports: [ScrollReveal],
+  imports: [GsapReveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './program-curriculum.html',
   styleUrl: './program-curriculum.scss',
 })
 export class ProgramCurriculum {
-  readonly categories: CurriculumCategory[] = [
+  readonly tracks: Track[] = [
     {
+      no: '01',
       title: 'Literature',
       items: [
         'Jolly Phonics',
-        'Speech and Drama',
-        'Story Telling',
+        'Speech and drama',
+        'Storytelling',
         'Go Grammar',
-        'Explore Encyclopedia',
-        'Interview Training',
+        'Explore encyclopedia',
+        'Interview training',
       ],
-      accent: '#EB2027',
+      tone: 'blue',
     },
     {
-      title: 'Arty Crafty',
+      no: '02',
+      title: 'Arty crafty',
       items: [
         'Drawing',
-        'Fun with Papers',
+        'Paper craft',
         'Origami',
-        'Fun with Quilling',
-        'Writing Improvements',
+        'Quilling',
+        'Writing improvement',
         'Calligraphy',
       ],
-      accent: '#F69220',
+      tone: 'orange',
     },
     {
-      title: 'Fun with Maths',
-      items: ['Vedic Maths', 'Abacus', 'Mental Mathematics', 'Speed Maths', 'Math Labs'],
-      accent: '#FBED21',
+      no: '03',
+      title: 'Fun with maths',
+      items: ['Vedic maths', 'Abacus', 'Mental mathematics', 'Speed maths', 'Math labs'],
+      tone: 'green',
     },
     {
-      title: 'Physical Activities',
+      no: '04',
+      title: 'Physical activities',
       items: ['Zumba', 'Dance', 'Yoga', 'Meditation', 'Sports'],
-      accent: '#3BB44A',
+      tone: 'blue',
     },
     {
-      title: 'Brain Savvy',
+      no: '05',
+      title: 'Brain savvy',
       items: [
-        'Right and Left Brain Development',
-        'Motor Skills Development',
-        'Science Experiments and Programs',
+        'Left and right brain development',
+        'Motor skills',
+        'Science experiments',
         'Computers',
         'Chess',
       ],
-      accent: '#006FB9',
+      tone: 'green',
     },
     {
-      title: 'Music and Movements',
-      items: ['Musical Bounding', 'Imitating Dance', 'Karaoke Rhymes', 'Musical Chair & more'],
-      accent: '#874D3E',
+      no: '06',
+      title: 'Music & movement',
+      items: ['Musical bounding', 'Imitating dance', 'Karaoke rhymes', 'Musical chairs & more'],
+      tone: 'orange',
     },
     {
-      title: 'Moral Values',
-      items: ['Pray and Eat', 'Development of Helping Nature', 'Cultural and Religious Activities'],
-      accent: '#EB2027',
+      no: '07',
+      title: 'Moral values',
+      items: ['Pray and eat', 'Helping nature', 'Cultural and religious activities'],
+      tone: 'blue',
     },
     {
-      title: 'Experimental Learning',
-      items: ['Color Mixing Lab', 'Ice Painting', 'Field Visits', 'Gardening and more'],
-      accent: '#F69220',
+      no: '08',
+      title: 'Experimental learning',
+      items: ['Colour mixing lab', 'Ice painting', 'Field visits', 'Gardening & more'],
+      tone: 'green',
     },
     {
-      title: 'History Adventure',
-      items: ['Flash Cards', 'Act and Play', 'Historical and Informational Videos'],
-      accent: '#3BB44A',
+      no: '09',
+      title: 'History adventure',
+      items: ['Flash cards', 'Act and play', 'Historical and informational videos'],
+      tone: 'orange',
     },
     {
-      title: 'Life Skills',
-      items: ['Self Grooming', 'Personal Hygiene', 'Pretend Play Scenarios', 'Safety Education'],
-      accent: '#006FB9',
+      no: '10',
+      title: 'Life skills',
+      items: ['Self grooming', 'Personal hygiene', 'Pretend play scenarios', 'Safety education'],
+      tone: 'blue',
     },
+  ];
+
+  readonly nutrition = {
+    why: [
+      'Fuels active play and learning',
+      'Supports brain development and focus',
+      'Builds immunity and healthy growth',
+      'Encourages independence in eating and trying new foods',
+    ] as string[],
+    partner: [
+      'Share dietary needs and allergies with us',
+      'Reinforce healthy eating habits at home',
+      'Pack simple, wholesome foods if sending meals from home',
+    ] as string[],
+  };
+
+  readonly groups: NutritionGroup[] = [
+    { title: 'Why nutrition matters', points: this.nutrition.why },
+    { title: 'Parent partnership', points: this.nutrition.partner },
   ];
 }

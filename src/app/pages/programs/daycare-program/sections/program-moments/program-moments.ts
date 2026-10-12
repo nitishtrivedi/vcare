@@ -7,7 +7,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { ScrollReveal } from '../../../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../../../directives/gsap-reveal';
 
 export interface MomentVideo {
   index: number;
@@ -22,27 +22,15 @@ interface ManifestEntry {
 
 @Component({
   selector: 'app-program-moments',
-  imports: [ScrollReveal],
+  imports: [GsapReveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './program-moments.html',
   styleUrl: './program-moments.scss',
 })
 export class ProgramMoments implements OnInit, OnDestroy {
-  // ============================================================
-  // 🎛️  VIDEO SOURCE
-  // Add or remove videos by editing the manifest file below —
-  // no code changes needed.
-  //
+  // Videos are listed in:
   //   public/assets/videos/daycare-program/manifest.json
-  //   public/assets/videos/daycare-program/moment-1.mp4
-  //   public/assets/videos/daycare-program/moment-2.mp4  ...
-  //
-  // manifest.json looks like:
-  //   [
-  //     { "src": "moment-1.mp4", "poster": "moment-1-poster.jpg" },
-  //     { "src": "moment-2.mp4" }
-  //   ]
-  // ============================================================
+  // Example: [ { "src": "moment-1.mp4", "poster": "moment-1-poster.jpg" }, { "src": "moment-2.mp4" } ]
   private readonly FOLDER = 'assets/videos/daycare-program/';
   private readonly MANIFEST_URL = `${this.FOLDER}manifest.json`;
 
@@ -50,6 +38,13 @@ export class ProgramMoments implements OnInit, OnDestroy {
 
   readonly videos = signal<MomentVideo[]>([]);
   readonly isScanning = signal(true);
+  readonly loadedThumbs = signal<Set<number>>(new Set());
+  readonly lightboxIndex = signal<number | null>(null);
+
+  readonly lightboxVideo = computed(() => {
+    const idx = this.lightboxIndex();
+    return idx === null ? null : (this.videos()[idx] ?? null);
+  });
 
   ngOnInit(): void {
     this.loadManifest();
@@ -57,10 +52,7 @@ export class ProgramMoments implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyed = true;
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = '';
-      document.body.classList.remove('lightbox-open');
-    }
+    this.lockBody(false);
   }
 
   private async loadManifest(): Promise<void> {
@@ -68,7 +60,6 @@ export class ProgramMoments implements OnInit, OnDestroy {
       const response = await fetch(this.MANIFEST_URL);
 
       if (!response.ok) {
-        if (!this.destroyed) this.isScanning.set(false);
         return;
       }
 
@@ -84,7 +75,7 @@ export class ProgramMoments implements OnInit, OnDestroy {
         this.videos.set(list);
       }
     } catch {
-      // Manifest missing or malformed — fall back to empty state quietly.
+      // Missing or malformed manifest: show the empty state quietly.
     } finally {
       if (!this.destroyed) {
         this.isScanning.set(false);
@@ -92,17 +83,13 @@ export class ProgramMoments implements OnInit, OnDestroy {
     }
   }
 
-  // ---------------- THUMBNAIL RENDERING ----------------
-
-  readonly loadedThumbs = signal<Set<number>>(new Set());
-
   onThumbMetadata(event: Event): void {
     const video = event.target as HTMLVideoElement;
     try {
       const duration = video.duration || 0;
       video.currentTime = duration > 1 ? Math.min(1, duration / 4) : 0.1;
     } catch {
-      // Some browsers throw if the video isn't seekable yet — safe to ignore.
+      // Not seekable yet; safe to ignore.
     }
   }
 
@@ -114,30 +101,14 @@ export class ProgramMoments implements OnInit, OnDestroy {
     });
   }
 
-  // ---------------- LIGHTBOX ----------------
-
-  readonly lightboxIndex = signal<number | null>(null);
-
-  readonly lightboxVideo = computed(() => {
-    const idx = this.lightboxIndex();
-    const list = this.videos();
-    return idx === null ? null : (list[idx] ?? null);
-  });
-
   openLightbox(index: number): void {
     this.lightboxIndex.set(index);
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('lightbox-open');
-    }
+    this.lockBody(true);
   }
 
   closeLightbox(): void {
     this.lightboxIndex.set(null);
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = '';
-      document.body.classList.remove('lightbox-open');
-    }
+    this.lockBody(false);
   }
 
   next(event?: Event): void {
@@ -166,5 +137,10 @@ export class ProgramMoments implements OnInit, OnDestroy {
 
   trackByIndex(_: number, video: MomentVideo): number {
     return video.index;
+  }
+
+  private lockBody(locked: boolean): void {
+    document.body.style.overflow = locked ? 'hidden' : '';
+    document.body.classList.toggle('lightbox-open', locked);
   }
 }

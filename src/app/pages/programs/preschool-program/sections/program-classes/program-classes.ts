@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ScrollReveal } from '../../../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../../../directives/gsap-reveal';
 
 interface ProgramSchedule {
   label: string;
@@ -20,7 +21,7 @@ interface ProgramClass {
 
 @Component({
   selector: 'app-program-classes',
-  imports: [RouterLink, ScrollReveal],
+  imports: [RouterLink, GsapReveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './program-classes.html',
   styleUrl: './program-classes.scss',
