@@ -541,3 +541,188 @@ body.lightbox-open .nav {
     animation: none;
   }
 }
+
+/* =====================================================================
+   ABOUT · FAQ · FRANCHISE — shared light theme (Soft Aurora + Bento)
+   ===================================================================== */
+:root {
+  --ab-ink: #19324b;
+  --ab-body: #4f6378; /* ≈6.1:1 on white */
+  --ab-muted: #64768a; /* ≈4.6:1 on white */
+  --ab-line: rgba(23, 58, 91, 0.12);
+  --ab-red: #c93b41; /* white text ≈5:1 */
+  --ab-orange: #e77b30;
+  --ab-orange-ink: #9c4a14;
+  --ab-yellow: #f2b632;
+  --ab-green: #1f7a5f; /* white text ≈5:1 */
+  --ab-blue: #176fae; /* white text ≈5.3:1 */
+  --ab-grad: linear-gradient(120deg, #d94c51 0%, #e77b30 40%, #176fae 100%);
+}
+
+.ab-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  font: 700 0.72rem/1 var(--v-font-body, 'Inter', sans-serif);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ab-muted);
+
+  &::before {
+    content: '';
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ab-grad);
+  }
+}
+
+.ab-h2 {
+  margin: 0;
+  font-family: var(--v-font-display, 'Sora', sans-serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  color: var(--ab-ink);
+}
+
+.ab-grad-text {
+  background: var(--ab-grad);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ab-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(4.5rem, 8vw, 7rem) 1.5rem;
+}
+
+.ab-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* Soft, slowly drifting colour blobs (animated per component with GSAP) */
+.ab-aura {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ab-aura__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.6;
+  will-change: transform;
+
+  &--red {
+    background: rgba(217, 76, 81, 0.3);
+  }
+  &--orange {
+    background: rgba(231, 123, 48, 0.28);
+  }
+  &--yellow {
+    background: rgba(242, 182, 50, 0.36);
+  }
+  &--green {
+    background: rgba(33, 135, 104, 0.22);
+  }
+  &--blue {
+    background: rgba(23, 111, 174, 0.22);
+  }
+}
+
+/* Line mask used for GSAP text reveals */
+.ab-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+
+  > span {
+    display: block;
+  }
+}
+
+.ab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font: 700 0.92rem/1 var(--v-font-body, 'Inter', sans-serif);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--ab-blue) 60%, white);
+    outline-offset: 3px;
+  }
+
+  &--primary {
+    color: #fff;
+    background: var(--ab-blue);
+    box-shadow: 0 12px 26px -14px rgba(23, 111, 174, 0.75);
+
+    &:hover {
+      background: #115a8e;
+    }
+  }
+
+  &--ghost {
+    color: var(--ab-ink);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--ab-line);
+
+    &:hover {
+      background: #fff;
+      border-color: rgba(23, 111, 174, 0.35);
+    }
+  }
+}
+
+.ab-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--ab-line);
+  border-radius: 24px;
+  box-shadow: 0 18px 44px -36px rgba(20, 56, 88, 0.4);
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 28px 50px -36px rgba(20, 56, 88, 0.45);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-card,
+  .ab-btn {
+    transition: none;
+  }
+}

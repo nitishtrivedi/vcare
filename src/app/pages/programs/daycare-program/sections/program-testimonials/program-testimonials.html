@@ -1,6 +1,6 @@
 <section class="dc-voices" id="voices">
   <div class="dc-voices__inner">
-    <div class="dc-voices__head" gsapReveal="fade-up">
+    <div class="dc-voices__head" gsapReveal="fade-in">
       <p class="dc-eyebrow">Parent voices</p>
       <h2>When your child is cared for, <em>you can breathe easier.</em></h2>
     </div>
@@ -11,7 +11,7 @@
           class="dc-quote"
           [style.--accent]="t.accent"
           (pointermove)="onPointerMove($event)"
-          gsapReveal="fade-up"
+          gsapReveal="fade-in"
           [gsapRevealDelay]="(i % 3) * 90"
         >
           <span class="dc-quote__mark" aria-hidden="true">“</span>

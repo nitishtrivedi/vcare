@@ -14,12 +14,9 @@ import { ProgramDay } from './sections/program-day/program-day';
   imports: [
     ProgramHero,
     ProgramHighlights,
-    ProgramSchedule,
     ProgramMoments,
     ProgramTestimonials,
     ProgramCurriculum,
-    ProgramNutrition,
-    ProgramMission,
     ProgramDay,
   ],
   templateUrl: './daycare-program.html',

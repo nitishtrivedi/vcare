@@ -1,9 +1,14 @@
 <section class="stats">
   <div class="stats__grid">
-    @for (stat of stats; track stat.label; let i = $index) {
-      <div class="stat" gsapReveal="fade-up" [gsapRevealDelay]="i * 90">
-        <span class="stat__value" [countUp]="stat.value">{{ stat.value }}</span>
-        <span class="stat__label">{{ stat.label }}</span>
+    @for (stat of stats; track stat.label) {
+      <div class="stat" gsapReveal="fade-in">
+        <span class="stat__value" [countUp]="stat.value">
+          {{ stat.value }}
+        </span>
+
+        <span class="stat__label">
+          {{ stat.label }}
+        </span>
       </div>
     }
   </div>

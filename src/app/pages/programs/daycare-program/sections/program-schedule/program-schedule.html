@@ -1,5 +1,5 @@
 <section class="day" id="day">
-  <div class="day__intro" vcReveal="fade-up">
+  <div class="day__intro" gsapReveal="fade-in">
     <span class="day-kicker"> A DAY AT V CARE </span>
 
     <h2>
@@ -21,8 +21,8 @@
         class="day-event"
         [class.day-event--right]="i % 2 !== 0"
         [style.--accent]="block.accent"
-        vcReveal="fade-up"
-        [vcRevealDelay]="(i % 5) * 60"
+        gsapReveal="fade-in"
+        [gsapRevealDelay]="(i % 5) * 60"
       >
         <span class="day-event__time">
           {{ block.time }}

@@ -1,214 +1,203 @@
-<!-- =========================================================
-     HERO
-     ========================================================= -->
-<section class="gallery-hero">
-  <div class="gallery-hero__grid-bg" aria-hidden="true"></div>
-  <div class="gallery-hero__orb gallery-hero__orb--red" aria-hidden="true"></div>
-  <div class="gallery-hero__orb gallery-hero__orb--blue" aria-hidden="true"></div>
-  <div class="gallery-hero__orb gallery-hero__orb--yellow" aria-hidden="true"></div>
+<div class="gx-page" #root>
+  <!-- HERO -->
+  <section class="ab-section gx-hero">
+    <div class="ab-aura" aria-hidden="true">
+      <span class="ab-aura__blob ab-aura__blob--red gx-blob gx-blob--1"></span>
+      <span class="ab-aura__blob ab-aura__blob--yellow gx-blob gx-blob--2"></span>
+      <span class="ab-aura__blob ab-aura__blob--blue gx-blob gx-blob--3"></span>
+      <span class="ab-aura__blob ab-aura__blob--green gx-blob gx-blob--4"></span>
+    </div>
 
-  <div class="gallery-hero__inner" vcReveal="fade-up">
-    <span class="gallery-kicker">
-      <i [class.gallery-kicker__dot--scanning]="isScanning()"></i>
-      @if (isScanning()) {
-        Loading gallery…
-      } @else {
-        V Care · Visual Journal
-      }
-    </span>
+    <div class="ab-wrap gx-hero__inner">
+      <p class="ab-eyebrow gx-hero__eyebrow">Visual journal · V Care</p>
 
-    <h1>
-      Every moment,
-      <span>captured.</span>
-    </h1>
+      <h1 class="gx-hero__title">
+        <span class="gx-mask"><span class="gx-word">Every</span></span>
+        <span class="gx-mask"><span class="gx-word">moment,</span></span>
+        <span class="gx-mask"><span class="gx-word gx-grad">captured.</span></span>
+      </h1>
 
-    <p>
-      A living window into life at V Care — the play, the discovery, the tiny victories that make up
-      a day in our classrooms.
-    </p>
+      <p class="gx-hero__lead">
+        A living window into life at V Care: the play, the discovery and the tiny victories that
+        make up a day in our classrooms.
+      </p>
 
-    <div class="gallery-hero__stats">
-      <div class="gallery-stat">
-        <strong>{{ images().length }}</strong>
-        <span>Moments</span>
-      </div>
-      <div class="gallery-stat__divider"></div>
-      <div class="gallery-stat">
-        <strong>{{ categories().length - 1 }}</strong>
-        <span>Categories</span>
+      <div class="gx-hero__chips">
+        <span class="gx-chip">
+          <span class="gx-chip__dot" style="--c: #c93b41"></span>
+          <strong>{{ images().length }}</strong> moments
+        </span>
+        <span class="gx-chip">
+          <span class="gx-chip__dot" style="--c: #f2b632"></span>
+          <strong>{{ categoryCount() }}</strong> stories
+        </span>
+        <span class="gx-chip">
+          <span class="gx-chip__dot" style="--c: #218768"></span>
+          Real days, real joy
+        </span>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- =========================================================
-     FILTER BAR
-     ========================================================= -->
-@if (images().length > 0) {
-  <div class="gallery-filters" vcReveal="fade-up">
-    <div class="gallery-filters__track">
-      @for (cat of categories(); track cat) {
+    <div class="gx-ticker" aria-hidden="true">
+      <div class="gx-ticker__track">
+        @for (item of tickerItems(); track $index) {
+          <span class="gx-ticker__item">{{ item }}</span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER -->
+  <div class="gx-filter" role="toolbar" aria-label="Filter photos by category">
+    <div class="gx-filter__track">
+      <span class="gx-filter__ind" aria-hidden="true"></span>
+
+      @for (c of categories(); track c) {
         <button
           type="button"
-          class="filter-pill"
-          [class.filter-pill--active]="activeCategory() === cat"
-          (click)="setCategory(cat)"
+          class="gx-pill"
+          [class.is-active]="activeCategory() === c"
+          [attr.aria-pressed]="activeCategory() === c"
+          (click)="setCategory(c, $event)"
         >
-          {{ cat }}
+          {{ c }}
         </button>
       }
     </div>
   </div>
-}
 
-<!-- =========================================================
-     BENTO GRID
-     ========================================================= -->
-<section class="gallery-grid-section">
-  <div class="gallery-grid">
-    @for (img of filteredImages(); track trackByIndex($index, img); let i = $index) {
-      <button
-        type="button"
-        class="tile"
-        [style.--col-span]="img.colSpan"
-        [style.--row-span]="img.rowSpan"
-        [style.animation-delay.ms]="(i % 8) * 70"
-        (click)="openLightbox(i)"
-        [attr.aria-label]="'Open photo: ' + img.alt"
-      >
-        <img [src]="img.src" [alt]="img.alt" loading="lazy" (error)="onImageError(img.index)" />
-
-        @if (img.tag) {
-          <span class="tile__tag">{{ img.tag }}</span>
-        }
-
-        <span class="tile__scrim"></span>
-
-        <span class="tile__info">
-          <span class="tile__category">{{ img.category }}</span>
-          @if (img.caption) {
-            <span class="tile__caption">{{ img.caption }}</span>
+  <!-- GRID -->
+  <section class="gx-gallery">
+    <div class="ab-wrap">
+      @if (isScanning() && images().length === 0) {
+        <div class="gx-grid">
+          @for (i of skeletons; track i) {
+            <div class="gx-skel" [style.--c]="i === 0 ? 2 : 1" [style.--r]="i === 0 ? 2 : 1"></div>
           }
-        </span>
+        </div>
+      } @else if (!isScanning() && images().length === 0) {
+        <div class="gx-empty">
+          <span class="gx-empty__icon" aria-hidden="true"
+            ><i class="fa-regular fa-images"></i
+          ></span>
+          <h2>Our gallery is being curated.</h2>
+          <p>New moments from our classrooms will appear here very soon.</p>
+        </div>
+      } @else {
+        <div class="gx-grid">
+          @for (img of filteredImages(); track trackById($index, img); let i = $index) {
+            <button
+              type="button"
+              class="gx-tile"
+              [style.--a]="img.accent"
+              [style.--c]="img.colSpan"
+              [style.--r]="img.rowSpan"
+              [attr.aria-label]="'Open photo: ' + img.alt"
+              (pointermove)="tilt($event)"
+              (pointerleave)="untilt($event)"
+              (click)="openLightbox(i)"
+            >
+              <img [src]="img.src" [alt]="img.alt" loading="lazy" (error)="onImageError(img.id)" />
+              <span class="gx-tile__shade" aria-hidden="true"></span>
 
-        <span class="tile__expand" aria-hidden="true">
-          <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </span>
-      </button>
-    }
+              @if (img.tag) {
+                <span class="gx-tile__tag">{{ img.tag }}</span>
+              }
 
-    <!-- Skeleton placeholders while the manifest is still loading -->
-    @if (isScanning() && images().length === 0) {
-      @for (i of [1, 2, 3, 4, 5, 6, 7, 8]; track i) {
-        <div
-          class="tile tile--skeleton"
-          [style.--col-span]="i === 1 ? 2 : 1"
-          [style.--row-span]="i === 1 ? 2 : 1"
-        >
-          <span class="tile__scan-line"></span>
+              <span class="gx-tile__index" aria-hidden="true">{{ pad(i + 1) }}</span>
+
+              <span class="gx-tile__info">
+                <span class="gx-tile__cat">{{ img.category }}</span>
+                @if (img.caption) {
+                  <span class="gx-tile__cap">{{ img.caption }}</span>
+                }
+              </span>
+
+              <span class="gx-tile__zoom" aria-hidden="true">
+                <i class="fa-solid fa-expand"></i>
+              </span>
+            </button>
+          }
         </div>
       }
-    }
-  </div>
+    </div>
+  </section>
 
-  @if (!isScanning() && images().length === 0) {
-    <div class="gallery-empty">
-      <p>No photos added yet.</p>
-      <small>
-        Add photos to <code>public/assets/images/gallery/</code>, then list them in
-        <code>manifest.json</code> in that same folder — they'll appear here automatically.
-      </small>
+  <!-- LIGHTBOX -->
+  @if (lightboxImage(); as img) {
+    <div
+      class="gx-lb"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="img.alt"
+      (click)="closeLightbox()"
+      (touchstart)="onTouchStart($event)"
+      (touchend)="onTouchEnd($event)"
+    >
+      <div
+        class="gx-lb__backdrop"
+        [style.background-image]="'url(' + img.src + ')'"
+        aria-hidden="true"
+      ></div>
+      <div class="gx-lb__veil" aria-hidden="true"></div>
+
+      <div class="gx-lb__body" (click)="$event.stopPropagation()">
+        <figure class="gx-lb__frame">
+          <img [src]="img.src" [alt]="img.alt" />
+        </figure>
+
+        <div class="gx-lb__meta">
+          <div>
+            <span class="gx-lb__cat" [style.--a]="img.accent">{{ img.category }}</span>
+            @if (img.caption) {
+              <p>{{ img.caption }}</p>
+            }
+          </div>
+          <span class="gx-lb__count">{{ (lightboxIndex() ?? 0) + 1 }} / {{ total() }}</span>
+        </div>
+
+        <div class="gx-lb__thumbs">
+          @for (t of filteredImages(); track t.id; let ti = $index) {
+            <button
+              type="button"
+              class="gx-lb__thumb"
+              [class.is-active]="ti === lightboxIndex()"
+              [attr.aria-label]="'View photo ' + (ti + 1)"
+              (click)="jumpTo(ti)"
+            >
+              <img [src]="t.src" [alt]="" loading="lazy" />
+            </button>
+          }
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="gx-lb__close"
+        (click)="closeLightbox()"
+        aria-label="Close gallery"
+      >
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+
+      @if (total() > 1) {
+        <button
+          type="button"
+          class="gx-lb__nav gx-lb__nav--prev"
+          (click)="go(-1, $event)"
+          aria-label="Previous photo"
+        >
+          <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="gx-lb__nav gx-lb__nav--next"
+          (click)="go(1, $event)"
+          aria-label="Next photo"
+        >
+          <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+        </button>
+      }
     </div>
   }
-</section>
-
-<!-- =========================================================
-     LIGHTBOX
-     ========================================================= -->
-@if (lightboxImage(); as img) {
-  <div
-    class="lightbox"
-    role="dialog"
-    aria-modal="true"
-    [attr.aria-label]="img.alt"
-    (click)="closeLightbox()"
-  >
-    <button type="button" class="lightbox__close" (click)="closeLightbox()" aria-label="Close">
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
-      </svg>
-    </button>
-
-    <button
-      type="button"
-      class="lightbox__nav lightbox__nav--prev"
-      (click)="prev($event)"
-      aria-label="Previous photo"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        width="22"
-        height="22"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
-
-    <div class="lightbox__content" (click)="$event.stopPropagation()">
-      <div class="lightbox__frame">
-        <img [src]="img.src" [alt]="img.alt" />
-      </div>
-
-      <div class="lightbox__meta">
-        <span class="lightbox__category">{{ img.category }}</span>
-        @if (img.caption) {
-          <p>{{ img.caption }}</p>
-        }
-        <span class="lightbox__counter">
-          {{ (lightboxIndex() ?? 0) + 1 }} / {{ filteredImages().length }}
-        </span>
-      </div>
-    </div>
-
-    <button
-      type="button"
-      class="lightbox__nav lightbox__nav--next"
-      (click)="next($event)"
-      aria-label="Next photo"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        width="22"
-        height="22"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </button>
-  </div>
-}
+</div>

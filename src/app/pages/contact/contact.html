@@ -1,452 +1,419 @@
-<section class="contact-page">
-  <!-- =========================================================
-       CONTACT HERO
-       ========================================================= -->
-  <section class="contact-hero">
-    <div class="contact-hero__grid">
-      <!-- =====================================================
-           FORM COLUMN
-           ===================================================== -->
-      <div
-        class="contact-hero__form-col"
-        [style.background-image]="
-          'linear-gradient(145deg, rgba(8,42,80,0.94), rgba(8,42,80,0.76)), url(' +
-          formBackgroundImage +
-          ')'
-        "
-      >
-        <div class="contact-form-wrap" vcReveal="fade-up">
-          <span class="contact-kicker"> Get in touch </span>
+<div class="ct-page" #root>
+  <!-- SPLIT: FORM + INFO -->
+  <section class="ct-split">
+    <!-- LEFT: FORM -->
+    <div
+      class="ct-form-col"
+      [style.background-image]="
+        'linear-gradient(150deg, rgba(14, 38, 68, 0.94), rgba(23, 64, 110, 0.86) 55%, rgba(14, 90, 107, 0.82)), url(' +
+        formBackgroundImage +
+        ')'
+      "
+    >
+      <span class="ct-blob ct-blob--1" aria-hidden="true"></span>
+      <span class="ct-blob ct-blob--3" aria-hidden="true"></span>
 
-          <h1>
-            Let's talk about
-            <span>your child's journey.</span>
-          </h1>
+      <div class="ct-form-wrap">
+        <p class="ct-kicker">Get in touch</p>
 
-          <p class="contact-hero__lead">
-            Tell us a little about your child and what you're looking for — our admissions team will
-            get back to you shortly.
-          </p>
+        <h1 class="ct-title">Let’s talk about <span>your child’s journey.</span></h1>
 
-          <!-- =================================================
-               FORM
-               ================================================= -->
-          <form class="contact-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-            <!-- NAME -->
-            <div class="contact-form__row">
-              <label for="name"> Parent / Guardian Name </label>
+        <p class="ct-lead">
+          Tell us a little about your child and what you are looking for. Our admissions team will
+          get back to you shortly.
+        </p>
 
-              <input
-                id="name"
-                type="text"
-                formControlName="name"
-                placeholder="e.g. Priya Sharma"
-                autocomplete="name"
-                [class.contact-form__input--error]="f['name'].invalid && f['name'].touched"
-              />
+        <div class="ct-card">
+          @if (formStatus() === 'success') {
+            <div class="ct-success" role="status">
+              <span class="ct-success__ring" aria-hidden="true">
+                <svg class="ct-success__check" viewBox="0 0 64 64" fill="none">
+                  <path
+                    d="M18 33 L28 43 L47 22"
+                    stroke="currentColor"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
 
-              @if (f['name'].invalid && f['name'].touched) {
-                <span class="contact-form__error"> Please enter your name. </span>
+              <div class="ct-success__text">
+                <h2>Thank you!</h2>
+                <p>Your enquiry has been received. Our team will reach out to you very soon.</p>
+                <button type="button" class="ab-btn ab-btn--ghost" (click)="dismissStatus()">
+                  Send another enquiry
+                </button>
+              </div>
+            </div>
+          } @else {
+            <form class="ct-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+              @if (formStatus() === 'error') {
+                <div class="ct-alert" role="alert">
+                  <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                  <span>Something went wrong. Please try again or call us directly.</span>
+                  <button type="button" (click)="dismissStatus()" aria-label="Dismiss message">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                  </button>
+                </div>
               }
-            </div>
 
-            <!-- EMAIL + PHONE -->
-            <div class="contact-form__row-group">
-              <div class="contact-form__row">
-                <label for="email"> Email Address </label>
-
-                <input
-                  id="email"
-                  type="email"
-                  formControlName="email"
-                  placeholder="you&#64;email.com"
-                  autocomplete="email"
-                  [class.contact-form__input--error]="f['email'].invalid && f['email'].touched"
-                />
-
-                @if (f['email'].invalid && f['email'].touched) {
-                  <span class="contact-form__error"> Enter a valid email address. </span>
+              <div
+                class="ct-field"
+                [class.ct-field--error]="f['name'].invalid && f['name'].touched"
+              >
+                <label for="ct-name">Parent / guardian name</label>
+                <div class="ct-input">
+                  <i class="fa-regular fa-user" aria-hidden="true"></i>
+                  <input
+                    id="ct-name"
+                    type="text"
+                    formControlName="name"
+                    autocomplete="name"
+                    placeholder="e.g. Priya Sharma"
+                    [attr.aria-invalid]="f['name'].invalid && f['name'].touched"
+                  />
+                </div>
+                @if (f['name'].invalid && f['name'].touched) {
+                  <span class="ct-field__error" role="alert">Please enter your name.</span>
                 }
               </div>
 
-              <div class="contact-form__row">
-                <label for="phone"> Phone Number </label>
-
-                <input
-                  id="phone"
-                  type="tel"
-                  formControlName="phone"
-                  placeholder="98765 43210"
-                  autocomplete="tel"
-                  inputmode="numeric"
-                  [class.contact-form__input--error]="f['phone'].invalid && f['phone'].touched"
-                />
-
-                @if (f['phone'].invalid && f['phone'].touched) {
-                  <span class="contact-form__error"> Enter a valid 10-digit number. </span>
-                }
-              </div>
-            </div>
-
-            <!-- PROGRAM -->
-            <div class="contact-form__row">
-              <label for="program"> Program You're Interested In </label>
-
-              <div class="contact-form__select">
-                <select
-                  id="program"
-                  formControlName="program"
-                  [class.contact-form__input--error]="f['program'].invalid && f['program'].touched"
+              <div class="ct-row">
+                <div
+                  class="ct-field"
+                  [class.ct-field--error]="f['email'].invalid && f['email'].touched"
                 >
-                  <option value="" disabled>Select a program</option>
-
-                  @for (option of programOptions; track option.value) {
-                    <option [value]="option.value">
-                      {{ option.label }}
-                    </option>
+                  <label for="ct-email">Email address</label>
+                  <div class="ct-input">
+                    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+                    <input
+                      id="ct-email"
+                      type="email"
+                      formControlName="email"
+                      autocomplete="email"
+                      placeholder="you@email.com"
+                      [attr.aria-invalid]="f['email'].invalid && f['email'].touched"
+                    />
+                  </div>
+                  @if (f['email'].invalid && f['email'].touched) {
+                    <span class="ct-field__error" role="alert">Enter a valid email address.</span>
                   }
-                </select>
+                </div>
+
+                <div
+                  class="ct-field"
+                  [class.ct-field--error]="f['phone'].invalid && f['phone'].touched"
+                >
+                  <label for="ct-phone">Phone number</label>
+                  <div class="ct-input">
+                    <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                    <input
+                      id="ct-phone"
+                      type="tel"
+                      formControlName="phone"
+                      inputmode="numeric"
+                      autocomplete="tel"
+                      placeholder="98765 43210"
+                      [attr.aria-invalid]="f['phone'].invalid && f['phone'].touched"
+                    />
+                  </div>
+                  @if (f['phone'].invalid && f['phone'].touched) {
+                    <span class="ct-field__error" role="alert">Enter a valid 10-digit number.</span>
+                  }
+                </div>
               </div>
 
-              @if (f['program'].invalid && f['program'].touched) {
-                <span class="contact-form__error"> Please select a program. </span>
-              }
-            </div>
-
-            <!-- MESSAGE -->
-            <div class="contact-form__row">
-              <label for="message"> Your Message </label>
-
-              <textarea
-                id="message"
-                rows="4"
-                formControlName="message"
-                placeholder="Tell us about your child's age, what you're looking for, or any questions you have..."
-                [class.contact-form__input--error]="f['message'].invalid && f['message'].touched"
-              ></textarea>
-
-              @if (f['message'].invalid && f['message'].touched) {
-                <span class="contact-form__error">
-                  Please add a few more details (min 10 characters).
-                </span>
-              }
-            </div>
-
-            <!-- =================================================
-                 STATUS ALERT
-                 ================================================= -->
-            @if (formStatus() === 'success') {
-              <div class="contact-form__alert contact-form__alert--success" role="status">
-                <span class="contact-form__alert-icon"> ✓ </span>
-
-                <span class="contact-form__alert-text">
-                  Thanks! Your enquiry has been received — we'll reach out soon.
-                </span>
-
-                <button
-                  type="button"
-                  (click)="dismissStatus()"
-                  aria-label="Dismiss success message"
-                >
-                  ✕
-                </button>
+              <div
+                class="ct-field"
+                [class.ct-field--error]="f['program'].invalid && f['program'].touched"
+              >
+                <label for="ct-program">Program you are interested in</label>
+                <div class="ct-input">
+                  <i class="fa-solid fa-child-reaching" aria-hidden="true"></i>
+                  <select
+                    id="ct-program"
+                    formControlName="program"
+                    [attr.aria-invalid]="f['program'].invalid && f['program'].touched"
+                  >
+                    <option value="" disabled>Select a program</option>
+                    @for (option of programOptions; track option.value) {
+                      <option [value]="option.value">{{ option.label }}</option>
+                    }
+                  </select>
+                  <i class="fa-solid fa-chevron-down ct-input__chev" aria-hidden="true"></i>
+                </div>
+                @if (f['program'].invalid && f['program'].touched) {
+                  <span class="ct-field__error" role="alert">Please select a program.</span>
+                }
               </div>
-            }
 
-            @if (formStatus() === 'error') {
-              <div class="contact-form__alert contact-form__alert--error" role="alert">
-                <span class="contact-form__alert-icon"> ! </span>
-
-                <span class="contact-form__alert-text">
-                  Something went wrong. Please try again or call us directly.
-                </span>
-
-                <button type="button" (click)="dismissStatus()" aria-label="Dismiss error message">
-                  ✕
-                </button>
+              <div
+                class="ct-field"
+                [class.ct-field--error]="f['message'].invalid && f['message'].touched"
+              >
+                <label for="ct-message">Your message</label>
+                <div class="ct-input ct-input--area">
+                  <textarea
+                    id="ct-message"
+                    rows="4"
+                    formControlName="message"
+                    placeholder="Tell us about your child's age, what you're looking for, or any questions you have."
+                    [attr.aria-invalid]="f['message'].invalid && f['message'].touched"
+                  ></textarea>
+                </div>
+                @if (f['message'].invalid && f['message'].touched) {
+                  <span class="ct-field__error" role="alert"
+                    >Please add a few more details (at least 10 characters).</span
+                  >
+                }
               </div>
-            }
 
-            <!-- SUBMIT -->
-            <button
-              type="submit"
-              class="contact-form__submit"
-              [disabled]="formStatus() === 'submitting'"
-            >
-              @if (formStatus() === 'submitting') {
-                <span class="contact-form__spinner"></span>
-                Sending...
-              } @else {
-                <span> Send Enquiry </span>
-
-                <span class="contact-form__submit-arrow"> ↗ </span>
-              }
-            </button>
-          </form>
-        </div>
-      </div>
-
-      <!-- =====================================================
-           CONTACT INFORMATION
-           ===================================================== -->
-      <div class="contact-info-col">
-        <div class="contact-info" vcReveal="fade-up" [vcRevealDelay]="100">
-          <span class="contact-kicker contact-kicker--light"> V Care Education </span>
-
-          <h2>
-            We'd love to
-            <span>hear from you.</span>
-          </h2>
-
-          <p class="contact-info__intro">
-            Reach out directly, or drop by the campus for a visit — we're always happy to meet new
-            families.
-          </p>
-
-          <!-- CONTACT DETAILS -->
-          <div class="contact-info__list">
-            <!-- PHONE -->
-            <a class="contact-info__row" href="tel:+919765076513">
-              <span class="contact-info__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M6 3h3l2 5-2.5 2a11 11 0 0 0 5.5 5.5l2-2.5 5 2v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4 6.2 2 2 0 0 1 6 3z"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
-              </span>
-
-              <span class="contact-info__content">
-                <strong>Call Us</strong>
-                <span>+91 97650 76513</span>
-              </span>
-            </a>
-
-            <!-- EMAIL -->
-            <a class="contact-info__row" href="mailto:vcareeducationpune@gmail.com">
-              <span class="contact-info__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  aria-hidden="true"
-                >
-                  <rect x="3" y="5" width="18" height="14" rx="2" />
-
-                  <path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-
-              <span class="contact-info__content">
-                <strong>Email Us</strong>
-                <span>vcareeducationpune&#64;gmail.com</span>
-              </span>
-            </a>
-
-            <!-- ADDRESS -->
-            <div class="contact-info__row">
-              <span class="contact-info__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-
-                  <circle cx="12" cy="9.5" r="2.4" />
-                </svg>
-              </span>
-
-              <span class="contact-info__content">
-                <strong>Visit Us</strong>
-
-                <span>
-                  Survey No 20/2+3, Jayshree Nivas,<br />
-                  Shivshahi Colony, Canal Rd, Karvenagar,<br />
-                  Pune, Maharashtra 411052
-                </span>
-              </span>
-            </div>
-
-            <!-- HOURS -->
-            <div class="contact-info__row">
-              <span class="contact-info__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="9" />
-
-                  <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </span>
-
-              <span class="contact-info__content">
-                <strong>Working Hours</strong>
-                <span> Monday to Saturday: 9:00 AM – 6:00 PM </span>
-              </span>
-            </div>
-
-            <!-- WEBSITE -->
-            <a
-              class="contact-info__row"
-              href="https://vcarepreschool.in"
-              target="_blank"
-              rel="noopener"
-            >
-              <span class="contact-info__icon">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.8"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="9" />
-
-                  <path
-                    d="M3 12h18M12 3c2.5 2.5 3.8 5.8 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.8-3.8-9s1.3-6.5 3.8-9z"
-                  />
-                </svg>
-              </span>
-
-              <span class="contact-info__content">
-                <strong>Website</strong>
-                <span>vcarepreschool.in</span>
-              </span>
-            </a>
-          </div>
-
-          <!-- SOCIALS -->
-          <div class="contact-info__socials">
-            <a
-              href="https://www.facebook.com/share/19MaCkkdLy/?mibextid=wwXIfr"
-              aria-label="Facebook"
-              class="footer__social"
-              target="_blank"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-            <a
-              href="https://www.instagram.com/v_care_education._?stkn=dXhhM3E5NzI4bXM1"
-              aria-label="Instagram"
-              class="footer__social"
-              target="_blank"
-              ><i class="fa-brands fa-instagram"></i
-            ></a>
-            <a
-              href="https://youtube.com"
-              aria-label="YouTube"
-              class="footer__social"
-              target="_blank"
-              ><i class="fa-brands fa-youtube"></i
-            ></a>
-            <a
-              href="https://linkedin.com"
-              aria-label="LinkedIn"
-              class="footer__social"
-              target="_blank"
-              ><i class="fa-brands fa-linkedin-in"></i
-            ></a>
-          </div>
+              <button type="submit" class="ct-submit" [disabled]="formStatus() === 'submitting'">
+                @if (formStatus() === 'submitting') {
+                  <span class="ct-spinner" aria-hidden="true"></span>
+                  Sending…
+                } @else {
+                  Send enquiry <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                }
+              </button>
+            </form>
+          }
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- =========================================================
-       MAP SECTION
-       ========================================================= -->
-  <section class="contact-map">
-    <div class="contact-map__heading" vcReveal="fade-up">
-      <span class="contact-kicker"> Find us </span>
+    <!-- RIGHT: INFO -->
+    <aside class="ct-info-col">
+      <span class="ct-blob ct-blob--2" aria-hidden="true"></span>
 
-      <h2>
-        Come see the campus
-        <span>for yourself.</span>
-      </h2>
+      <div class="ct-info">
+        <p class="ct-kicker ct-kicker--light">V Care Education</p>
 
-      <p>
-        We're located in Karvenagar, Pune, and always happy to host a visit — just call ahead so we
-        can plan around nap and activity times!
-      </p>
-    </div>
+        <h2 class="ct-info__title">We would love to <span>hear from you.</span></h2>
 
-    <!-- <div class="contact-map__frame" vcReveal="zoom-in">
-      <iframe
-        [src]="mapEmbedUrl"
-        title="V Care Education location on Google Maps"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen
-      ></iframe>
+        <p class="ct-info__intro">
+          Reach out directly, or drop by the campus for a visit. We are always happy to meet new
+          families.
+        </p>
 
-      <a class="contact-map__directions" [href]="directionsUrl" target="_blank" rel="noopener">
-        Get Directions
-        <span>↗</span>
-      </a>
-    </div> -->
+        <!-- ANIMATED SVG ILLUSTRATION -->
+        <div class="ct-illus" aria-hidden="true">
+          <svg viewBox="0 0 360 170" focusable="false">
+            <defs>
+              <linearGradient id="ctPlane" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff" />
+                <stop offset="1" stop-color="#ffd27a" />
+              </linearGradient>
+            </defs>
 
-    <div class="contact-map__frame" vcReveal="zoom-in">
-      <!-- MAP -->
-      <iframe
-        [src]="mapEmbedUrl"
-        title="VCare Education campus location — Karvenagar, Pune"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen
-      ></iframe>
+            <!-- trail -->
+            <path
+              class="ct-illus__trail"
+              d="M40 130 C 120 40, 230 170, 318 52"
+              fill="none"
+              stroke="rgba(255,255,255,0.55)"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-dasharray="4 10"
+            />
 
-      <!-- =====================================================
-       VCare BRAND LOCATION MARKER
-       ===================================================== -->
-      <div class="contact-map__marker" aria-label="VCare Education campus">
-        <div class="contact-map__marker-pin">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21Z" fill="currentColor" />
+            <!-- home base -->
+            <g transform="translate(40 130)">
+              <circle r="22" fill="rgba(255,255,255,0.14)" />
+              <path d="M-11 2 L0 -9 L11 2 V13 H-11 Z" fill="#ffffff" />
+              <rect x="-3" y="5" width="6" height="8" fill="#e77b30" />
+            </g>
 
-            <circle cx="12" cy="9.5" r="3" fill="#ffffff" />
+            <!-- destination pin -->
+            <g class="ct-illus__pin" transform="translate(318 52)">
+              <circle class="ct-illus__ring" r="16" fill="none" stroke="#ffd27a" stroke-width="2" />
+              <circle class="ct-illus__ring" r="16" fill="none" stroke="#ffd27a" stroke-width="2" />
+              <path
+                d="M0 -20 C 9 -20, 14 -13, 14 -7 C 14 3, 0 14, 0 14 C 0 14, -14 3, -14 -7 C -14 -13, -9 -20, 0 -20 Z"
+                fill="#f2b632"
+              />
+              <circle cy="-7" r="4.5" fill="#ffffff" />
+            </g>
+
+            <!-- paper plane -->
+            <g transform="translate(40 130)">
+              <g class="ct-illus__plane">
+                <path d="M0 0 L26 -8 L12 4 L16 14 Z" fill="url(#ctPlane)" />
+                <path
+                  d="M0 0 L12 4 L26 -8"
+                  fill="none"
+                  stroke="rgba(25,52,79,0.25)"
+                  stroke-width="1"
+                />
+              </g>
+            </g>
+
+            <!-- rotating star -->
+            <path
+              class="ct-illus__star"
+              d="M330 18 l2.4 5.2 5.2 2.4 -5.2 2.4 -2.4 5.2 -2.4 -5.2 -5.2 -2.4 5.2 -2.4 z"
+              fill="#ffffff"
+              opacity="0.9"
+            />
           </svg>
         </div>
 
-        <div class="contact-map__marker-label">
-          <strong>VCare Education</strong>
-          <span>Our Campus</span>
+        <ul class="ct-cards" role="list">
+          <li>
+            <a class="ct-card-link" href="tel:+919765076513">
+              <span class="ct-chip ct-chip--red"
+                ><i class="fa-solid fa-phone" aria-hidden="true"></i
+              ></span>
+              <span><strong>Call us</strong><small>+91 97650 76513</small></span>
+            </a>
+          </li>
+
+          <li>
+            <a class="ct-card-link" href="mailto:vcareeducationpune@gmail.com">
+              <span class="ct-chip ct-chip--orange"
+                ><i class="fa-solid fa-envelope" aria-hidden="true"></i
+              ></span>
+              <span><strong>Email us</strong><small>vcareeducationpune&#64;gmail.com</small></span>
+            </a>
+          </li>
+
+          <li>
+            <div class="ct-card-link">
+              <span class="ct-chip ct-chip--green"
+                ><i class="fa-solid fa-location-dot" aria-hidden="true"></i
+              ></span>
+              <span>
+                <strong>Visit us</strong>
+                <small
+                  >Survey No 20/2+3, Jayshree Nivas, Shivshahi Colony, Canal Rd, Karvenagar, Pune
+                  411052</small
+                >
+              </span>
+            </div>
+          </li>
+
+          <li>
+            <div class="ct-card-link">
+              <span class="ct-clock-wrap" aria-hidden="true">
+                <svg class="ct-clock" viewBox="0 0 40 40">
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="18"
+                    fill="none"
+                    stroke="#ffffff"
+                    stroke-width="2"
+                    opacity="0.9"
+                  />
+                  <line
+                    class="ct-clock__h"
+                    x1="20"
+                    y1="20"
+                    x2="20"
+                    y2="11"
+                    stroke="#ffd27a"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                  />
+                  <line
+                    class="ct-clock__m"
+                    x1="20"
+                    y1="20"
+                    x2="20"
+                    y2="7"
+                    stroke="#ffffff"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                  />
+                  <circle cx="20" cy="20" r="1.8" fill="#ffffff" />
+                </svg>
+              </span>
+              <span
+                ><strong>Working hours</strong
+                ><small>Monday to Saturday, 9:00 AM – 6:00 PM</small></span
+              >
+            </div>
+          </li>
+
+          <li>
+            <a class="ct-card-link" href="https://vcarepreschool.in" target="_blank" rel="noopener">
+              <span class="ct-chip ct-chip--blue"
+                ><i class="fa-solid fa-globe" aria-hidden="true"></i
+              ></span>
+              <span><strong>Website</strong><small>vcarepreschool.in</small></span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="ct-socials">
+          <a
+            href="https://www.facebook.com/share/19MaCkkdLy/?mibextid=wwXIfr"
+            aria-label="Facebook"
+            target="_blank"
+            rel="noopener"
+            ><i class="fa-brands fa-facebook-f" aria-hidden="true"></i
+          ></a>
+          <a
+            href="https://www.instagram.com/v_care_education._?stkn=dXhhM3E5NzI4bXM1"
+            aria-label="Instagram"
+            target="_blank"
+            rel="noopener"
+            ><i class="fa-brands fa-instagram" aria-hidden="true"></i
+          ></a>
+          <a href="https://youtube.com" aria-label="YouTube" target="_blank" rel="noopener"
+            ><i class="fa-brands fa-youtube" aria-hidden="true"></i
+          ></a>
+          <a href="https://linkedin.com" aria-label="LinkedIn" target="_blank" rel="noopener"
+            ><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i
+          ></a>
         </div>
       </div>
+    </aside>
+  </section>
 
-      <!-- =====================================================
-       CAMPUS INFO BADGE
-       ===================================================== -->
-      <div class="contact-map__campus-card">
-        <span class="contact-map__campus-card-kicker"> VCare Education </span>
+  <!-- MAP -->
+  <section class="ct-map-sec">
+    <div class="ab-wrap">
+      <header class="ct-map-head">
+        <p class="ab-eyebrow">Find us</p>
+        <h2 class="ab-h2">Come see the campus <span class="ab-grad-text">for yourself.</span></h2>
+        <p>
+          We are in Karvenagar, Pune, and always happy to host a visit. Just call ahead so we can
+          plan around nap and activity times.
+        </p>
+      </header>
 
-        <strong> Karvenagar Campus </strong>
+      <div class="ct-map">
+        <iframe
+          [src]="mapEmbedUrl"
+          title="V Care Education campus location, Karvenagar, Pune"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
 
-        <span> Shivshahi Colony, Pune </span>
+        <div class="ct-map__pin" aria-hidden="true">
+          <span class="ct-map__ring"></span>
+          <span class="ct-map__ring ct-map__ring--2"></span>
+          <span class="ct-map__dot"><i class="fa-solid fa-location-dot"></i></span>
+        </div>
+
+        <div class="ct-map__card">
+          <span class="ct-map__kicker">V Care Education</span>
+          <strong>Karvenagar Campus</strong>
+          <span>Shivshahi Colony, Pune 411052</span>
+        </div>
+
+        <a
+          class="ab-btn ab-btn--primary ct-map__cta"
+          [href]="directionsUrl"
+          target="_blank"
+          rel="noopener"
+        >
+          Get directions <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
       </div>
-
-      <!-- DIRECTIONS -->
-      <a class="contact-map__directions" [href]="directionsUrl" target="_blank" rel="noopener">
-        <span>Get Directions</span>
-        <span class="contact-map__directions-arrow">↗</span>
-      </a>
     </div>
   </section>
-</section>
+</div>

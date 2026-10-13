@@ -1,14 +1,14 @@
 <section class="ptt-facts">
   <app-program-aura variant="fresh" />
 
-  <div class="ptt-facts__card" gsapReveal="fade-up">
+  <div class="ptt-facts__card" gsapReveal="fade-in">
     <div class="ptt-facts__label">
       <span class="ptt-kicker">The basics</span>
       <strong>Made simple.</strong>
     </div>
 
     @for (fact of facts; track fact.label; let i = $index) {
-      <div class="ptt-fact" gsapReveal="fade-up" [gsapRevealDelay]="(i + 1) * 100">
+      <div class="ptt-fact" gsapReveal="fade-in" [gsapRevealDelay]="(i + 1) * 100">
         <span class="ptt-fact__icon" aria-hidden="true">{{ fact.icon }}</span>
         <div>
           <strong>{{ fact.value }}</strong>

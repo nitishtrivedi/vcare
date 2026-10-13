@@ -1,150 +1,116 @@
-<section class="faq-hero">
-  <div class="faq-hero__inner" vcReveal="fade-up">
-    <span class="faq-kicker">We're happy to help</span>
+<section class="ab-section faq-hero" #root>
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--yellow faq-hero__blob-a"></span>
+    <span class="ab-aura__blob ab-aura__blob--blue faq-hero__blob-b"></span>
+    <span class="ab-aura__blob ab-aura__blob--red faq-hero__blob-c"></span>
+  </div>
 
-    <h1>
-      Frequently Asked
-      <span>Questions.</span>
+  <div class="ab-wrap faq-hero__inner">
+    <p class="ab-eyebrow" gsapReveal="fade-up">We're happy to help</p>
+
+    <h1 class="ab-h2 faq-hero__title">
+      <span class="ab-mask"><span>Frequently asked</span></span>
+      <span class="ab-mask"><span class="ab-grad-text">questions.</span></span>
     </h1>
 
-    <p>
-      Everything parents usually ask us about programs, admissions, the Zero Fee Model and daily
-      life at V Care. Can't find your answer? Reach out and we'll help directly.
+    <p class="faq-hero__lead" gsapReveal="fade-up">
+      Everything parents usually ask about programs, admissions, the Zero Fee Model and daily life
+      at V Care. Can't find your answer? Reach out and we'll help directly.
     </p>
 
-    <nav class="faq-hero__jump" aria-label="Jump to category">
-      @for (cat of categories; track cat.title) {
-        <a [href]="'#' + cat.title" [style.--accent]="cat.accent">{{ cat.title }}</a>
+    <div class="faq-tabs" role="tablist" aria-label="FAQ categories">
+      <button
+        type="button"
+        role="tab"
+        class="faq-tab"
+        [class.faq-tab--active]="activeTab() === 'all'"
+        [attr.aria-selected]="activeTab() === 'all'"
+        (click)="setTab('all')"
+      >
+        All <span class="faq-tab__count">{{ total }}</span>
+      </button>
+
+      @for (c of categories; track c.id) {
+        <button
+          type="button"
+          role="tab"
+          class="faq-tab"
+          [style.--accent]="c.accent"
+          [class.faq-tab--active]="activeTab() === c.id"
+          [attr.aria-selected]="activeTab() === c.id"
+          (click)="setTab(c.id)"
+        >
+          <i [class]="'fa-solid ' + c.icon" aria-hidden="true"></i>
+          {{ c.title }}
+        </button>
       }
-    </nav>
+    </div>
   </div>
 </section>
 
-<section class="faq-body">
-  @for (cat of categories; track cat.title; let ci = $index) {
-    <div class="faq-category" [id]="cat.title" [style.--accent]="cat.accent" vcReveal="fade-up">
-      <div class="faq-category__heading">
-        <div class="faq-category__icon">
-          @switch (cat.icon) {
-            @case ('general') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 014 18.5v-13z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 001.5-1.5v-13z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-            @case ('admissions') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <rect
-                  x="5"
-                  y="4"
-                  width="14"
-                  height="17"
-                  rx="2"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                />
-                <path
-                  d="M9 3.5h6v2H9z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M8.5 13l2 2 4-4.5"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-            @case ('zero-fee') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M9.5 12l1.8 1.8L14.5 10"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-            @case ('safety') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" />
-                <path
-                  d="M12 8v4l2.5 2.5"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-          }
-        </div>
+<section class="ab-section faq-body">
+  <div class="ab-wrap">
+    @for (cat of visibleCategories(); track cat.id) {
+      <div class="faq-cat">
+        <header class="faq-cat__head">
+          <span class="faq-cat__icon" [style.--accent]="cat.accent" aria-hidden="true">
+            <i [class]="'fa-solid ' + cat.icon"></i>
+          </span>
+          <h2>{{ cat.title }}</h2>
+        </header>
 
-        <h2>{{ cat.title }}</h2>
-      </div>
-
-      <div class="faq-category__list">
-        @for (item of cat.items; track item.question; let ii = $index) {
-          <div class="faq-item" [class.faq-item--open]="isOpen(ci + '-' + ii)">
-            <button
-              type="button"
-              class="faq-item__question"
-              (click)="toggle(ci + '-' + ii)"
-              [attr.aria-expanded]="isOpen(ci + '-' + ii)"
+        <div class="faq-cat__list">
+          @for (item of cat.items; track item.question; let ii = $index) {
+            <div
+              class="ab-card faq-item"
+              [class.faq-item--open]="isOpen(cat.id, ii)"
+              [style.--accent]="cat.accent"
             >
-              <span>{{ item.question }}</span>
+              <h3 class="faq-item__heading">
+                <button
+                  type="button"
+                  class="faq-item__btn"
+                  [attr.aria-expanded]="isOpen(cat.id, ii)"
+                  [attr.aria-controls]="'faq-a-' + key(cat.id, ii)"
+                  (click)="toggle(cat.id, ii)"
+                >
+                  <span>{{ item.question }}</span>
+                  <span class="faq-item__icon" aria-hidden="true">
+                    <i class="fa-solid fa-plus"></i>
+                  </span>
+                </button>
+              </h3>
 
-              <svg class="faq-item__chevron" viewBox="0 0 12 8" fill="none">
-                <path
-                  d="M1 1.5L6 6.5L11 1.5"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-
-            <div class="faq-item__answer-wrap">
-              <div class="faq-item__answer-inner">
-                <p>{{ item.answer }}</p>
+              <div class="faq-item__panel" [id]="'faq-a-' + key(cat.id, ii)" role="region">
+                <div class="faq-item__inner">
+                  <p>{{ item.answer }}</p>
+                </div>
               </div>
             </div>
-          </div>
-        }
+          }
+        </div>
       </div>
-    </div>
-  }
+    }
+  </div>
 </section>
 
-<section class="faq-cta">
-  <div class="faq-cta__inner" vcReveal="zoom-in">
-    <h2>Still have a question?</h2>
-    <p>Our team is happy to talk you through anything not covered here.</p>
+<section class="ab-section faq-cta">
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--orange faq-cta__blob"></span>
+  </div>
 
-    <div class="faq-cta__actions">
-      <a href="tel:+919765076513" class="btn btn--primary">Call +91 97650 76513</a>
-      <a routerLink="/contact" class="btn btn--ghost">Send an Enquiry</a>
+  <div class="ab-wrap">
+    <div class="ab-card faq-cta__panel" gsapReveal="zoom-in">
+      <div>
+        <h2 class="ab-h2">Still have a question?</h2>
+        <p>Our team is happy to talk you through anything not covered here.</p>
+      </div>
+      <div class="faq-cta__actions">
+        <a href="tel:+919765076513" class="ab-btn ab-btn--primary">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i> +91 97650 76513
+        </a>
+        <a routerLink="/contact" class="ab-btn ab-btn--ghost">Send an enquiry</a>
+      </div>
     </div>
   </div>
 </section>

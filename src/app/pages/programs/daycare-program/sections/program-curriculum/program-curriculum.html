@@ -1,5 +1,5 @@
 <section class="dc-cur" id="curriculum">
-  <div class="dc-cur__head" gsapReveal="fade-up">
+  <div class="dc-cur__head" gsapReveal="fade-in">
     <p class="dc-eyebrow">Our holistic curriculum</p>
     <h2>Ten learning tracks, <em>one joyful</em> journey.</h2>
     <p>
@@ -12,7 +12,7 @@
     @for (track of tracks; track track.no; let i = $index) {
       <article
         class="dc-track dc-track--{{ track.tone }}"
-        gsapReveal="fade-up"
+        gsapReveal="fade-in"
         [gsapRevealDelay]="(i % 2) * 90"
       >
         <header class="dc-track__head">
@@ -30,14 +30,14 @@
   </div>
 
   <div class="dc-nut">
-    <div class="dc-nut__intro" gsapReveal="fade-up">
+    <div class="dc-nut__intro" gsapReveal="fade-in">
       <p class="dc-eyebrow">Focus on nutrition</p>
       <h3>Healthy habits, <em>one bite</em> at a time.</h3>
       <p>Mindful eating routines, coordinated with parents for every child's dietary needs.</p>
     </div>
 
     @for (group of groups; track group.title; let i = $index) {
-      <article class="dc-nut__card" gsapReveal="fade-up" [gsapRevealDelay]="(i + 1) * 120">
+      <article class="dc-nut__card" gsapReveal="fade-in" [gsapRevealDelay]="(i + 1) * 120">
         <h4>{{ group.title }}</h4>
         <ul>
           @for (point of group.points; track point) {

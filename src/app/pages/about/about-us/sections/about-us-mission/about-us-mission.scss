@@ -1,138 +1,118 @@
-.mission {
-  padding: 6.5rem 1.5rem 2rem;
-  background: #fff;
-  text-align: center;
+:host {
+  display: block;
+}
 
-  &__intro {
+.ab-mission {
+  background: #fffdf9;
+
+  &__head {
     max-width: 760px;
-    margin: 0 auto;
-  }
-
-  &__eyebrow {
-    margin-bottom: 0.7rem;
-    color: var(--orange);
-    font-size: 0.82rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  h2 {
-    color: var(--navy-deep);
-    font-size: clamp(2.3rem, 4vw, 3rem);
-    line-height: 1.15;
-
-    span {
-      display: block;
-      color: var(--blue);
-    }
-  }
-
-  &__divider {
-    margin: 1.25rem auto 2rem;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    gap: 1rem;
   }
 
   &__lead {
     max-width: 62ch;
-    margin: 0 auto;
-    color: #5b6878;
     font-size: 0.98rem;
     line-height: 1.85;
+    color: var(--ab-body);
   }
 
   &__grid {
-    max-width: 1000px;
-    margin: 3.5rem auto 0;
-
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 
   &__card {
-    padding: 2.5rem 2rem;
-    border-radius: 24px;
-    text-align: left;
-
-    box-shadow: 0 20px 45px -25px rgba(8, 42, 80, 0.25);
+    padding: 2.4rem 2rem;
 
     h3 {
-      margin: 1.1rem 0 0.6rem;
-      color: #fff;
-      font-family: 'Paytone One', cursive;
-      font-size: 1.4rem;
+      margin: 1.2rem 0 0.6rem;
+      font-family: var(--v-font-display, 'Sora', sans-serif);
+      font-size: 1.35rem;
+      color: var(--ab-ink);
     }
 
     p {
-      color: rgba(255, 255, 255, 0.92);
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       line-height: 1.75;
+      color: var(--ab-body);
     }
 
     &--mission {
-      background: linear-gradient(135deg, var(--blue) 0%, #045a94 100%);
+      background: linear-gradient(150deg, #ffffff 0%, #eaf4fb 100%);
     }
 
-    // Darkened from the brand green so white text clears WCAG AA contrast
     &--vision {
-      background: linear-gradient(135deg, #2c8d38 0%, #1f6e29 100%);
+      background: linear-gradient(150deg, #ffffff 0%, #e6f5ee 100%);
     }
   }
 
   &__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.18);
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 17px;
+    font-size: 1.2rem;
+    color: #fff;
+    background: var(--ab-blue);
 
-    svg {
-      width: 26px;
-      height: 26px;
-      color: #fff;
+    &--orange {
+      background: var(--ab-orange-ink);
     }
   }
 
   &__promise {
-    max-width: 760px;
-    margin: 2rem auto 0;
-    padding: 2.25rem 2.5rem;
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2.2rem 2.4rem;
+    background: linear-gradient(120deg, #fff4e6 0%, #ffe9e9 55%, #fff9df 100%);
 
-    background: var(--orange);
-    border-radius: 28px;
-
-    box-shadow: 0 22px 45px -20px rgba(246, 146, 32, 0.45);
-
-    &-label {
-      display: block;
-      margin-bottom: 0.6rem;
-      color: var(--navy-deep);
-      font-family: 'Paytone One', cursive;
-      font-size: 1.3rem;
+    .ab-eyebrow {
+      margin-bottom: 0.5rem;
     }
+  }
 
-    p {
-      // navy-deep, not white — white-on-orange fails contrast at this weight/size
-      color: var(--navy-deep);
-      font-size: 1rem;
-      font-weight: 600;
-      line-height: 1.7;
-    }
+  &__promise-text {
+    font-family: var(--v-font-display, 'Sora', sans-serif);
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ab-ink);
+  }
+
+  &__blob-a {
+    width: 380px;
+    height: 380px;
+    top: -140px;
+    left: -120px;
+  }
+
+  &__blob-b {
+    width: 340px;
+    height: 340px;
+    bottom: -140px;
+    right: -100px;
   }
 }
 
 @media (max-width: 760px) {
-  .mission {
-    padding: 5rem 1.25rem 1.5rem;
-
+  .ab-mission {
     &__grid {
       grid-template-columns: 1fr;
     }
 
     &__promise {
-      padding: 1.85rem 1.6rem;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.8rem;
     }
   }
 }

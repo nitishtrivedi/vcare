@@ -1,65 +1,71 @@
-<section class="about-hero">
-  <!-- Decorative shapes -->
-  <span class="about-hero__shape about-hero__shape--red"></span>
-  <span class="about-hero__shape about-hero__shape--yellow"></span>
-  <span class="about-hero__shape about-hero__shape--green"></span>
+<section class="ab-section ab-hero" #root>
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--yellow ab-hero__blob-a"></span>
+    <span class="ab-aura__blob ab-aura__blob--red ab-hero__blob-b"></span>
+    <span class="ab-aura__blob ab-aura__blob--green ab-hero__blob-c"></span>
+  </div>
 
-  <div class="about-hero__inner">
-    <div class="about-hero__content">
-      <p class="about-hero__kicker" vcReveal="fade-up">
-        Preschool &amp; Activity Centre · Karvenagar, Pune
-      </p>
+  <div class="ab-wrap ab-hero__grid">
+    <div class="ab-hero__copy">
+      <p class="ab-eyebrow ab-hero__eyebrow">Preschool &amp; Activity Centre · Karvenagar, Pune</p>
 
-      <h1 class="about-hero__title" vcReveal="fade-up" [vcRevealDelay]="80">
-        Growing little minds
-        <span>with care, confidence &amp; curiosity.</span>
+      <h1 class="ab-h2 ab-hero__title">
+        <span class="ab-mask"><span class="ab-hero__line">Growing little minds with </span></span>
+        <span class="ab-mask">
+          <span class="ab-hero__line ab-grad-text">care, confidence &amp; curiosity.</span>
+        </span>
       </h1>
 
-      <p class="about-hero__description" vcReveal="fade-up" [vcRevealDelay]="160">
+      <svg class="ab-hero__squiggle" viewBox="0 0 300 16" aria-hidden="true" focusable="false">
+        <path d="M3 10 C 40 2, 70 14, 110 8 S 180 2, 220 9 S 280 12, 297 5" />
+      </svg>
+
+      <p class="ab-hero__lead" gsapReveal="fade-up">
         At V Care, we believe early childhood is not just about preparing children for school. It is
         about helping them discover who they are, understand the world around them and grow into
         confident, kind and curious individuals.
       </p>
 
-      <div class="about-hero__actions" vcReveal="fade-up" [vcRevealDelay]="240">
-        <a routerLink="/contact" class="about-hero__btn about-hero__btn--primary"> Book a Visit </a>
-
-        <a
-          [routerLink]="['/about-us']"
-          fragment="our-story"
-          class="about-hero__btn about-hero__btn--ghost"
-        >
-          Our Story
-          <span>↓</span>
+      <div class="ab-hero__actions">
+        <a routerLink="/contact" class="ab-btn ab-btn--primary">
+          Book a visit <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a [routerLink]="['/about-us']" fragment="our-story" class="ab-btn ab-btn--ghost">
+          Our story <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
         </a>
       </div>
+
+      <ul class="ab-hero__stats" role="list">
+        <li class="ab-hero__stat">Play comes first</li>
+        <li class="ab-hero__stat">Learn with joy</li>
+        <li class="ab-hero__stat">Ages 6 months to 8 years</li>
+      </ul>
     </div>
 
-    <div class="about-hero__visual" vcReveal="zoom-in" [vcRevealDelay]="120">
-      <div class="about-hero__visual-bg"></div>
+    <div class="ab-hero__visual">
+      <span class="ab-hero__halo" aria-hidden="true"></span>
 
-      <div class="about-hero__photo">
+      <figure class="ab-hero__frame">
         <img
           [src]="heroImage"
-          alt="Happy child at V Care Preschool"
-          onerror="this.style.display = 'none'"
+          alt="A happy child at V Care Preschool"
+          width="640"
+          height="800"
+          fetchpriority="high"
         />
+      </figure>
+
+      <div class="ab-hero__chip ab-hero__chip--a">
+        <span class="ab-hero__chip-icon" aria-hidden="true"
+          ><i class="fa-solid fa-puzzle-piece"></i
+        ></span>
+        <span><strong>Play</strong> comes first</span>
       </div>
 
-      <div class="about-hero__badge about-hero__badge--top">
-        <strong>Play</strong>
-        <span>comes first</span>
+      <div class="ab-hero__chip ab-hero__chip--b">
+        <span class="ab-hero__chip-icon" aria-hidden="true"><i class="fa-solid fa-star"></i></span>
+        <span><strong>Learn</strong> with joy</span>
       </div>
-
-      <div class="about-hero__badge about-hero__badge--bottom">
-        <strong>Learn</strong>
-        <span>with joy</span>
-      </div>
-
-      <span class="about-hero__dot about-hero__dot--blue"></span>
-      <span class="about-hero__dot about-hero__dot--orange"></span>
     </div>
   </div>
-
-  <div class="about-hero__wave"></div>
 </section>

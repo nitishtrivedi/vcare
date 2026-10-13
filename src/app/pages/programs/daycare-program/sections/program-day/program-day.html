@@ -1,27 +1,45 @@
 <section class="pd" id="day" #root>
   <header class="pd__head">
     <p class="pd__eyebrow">A typical day</p>
+
     <h2>A rhythm children <em>feel</em> in their bones.</h2>
+
     <p class="pd__sub">
       Explore the day. Hover or tap any part of the dial to see what happens, and how long it lasts.
+    </p>
+
+    <p
+      class="pd__clock-status"
+      [class.pd__clock-status--outside]="isOutOfHours()"
+      aria-live="polite"
+    >
+      <span class="pd__clock-dot" aria-hidden="true"></span>
+
+      @if (isOutOfHours()) {
+        Outside daycare hours · {{ currentTimeLabel() }} IST
+      } @else {
+        Daycare in progress · {{ currentTimeLabel() }} IST
+      }
     </p>
   </header>
 
   <div class="pd__stage">
-    <!-- DIAL -->
+    <!-- INTERACTIVE DAILY DIAL -->
     <div class="pd__dial-wrap">
       <svg
         class="pd__dial"
         viewBox="0 0 400 400"
         role="group"
-        aria-label="Daily schedule dial, from {{ dayStartLabel }} to {{ dayEndLabel }}"
+        [attr.aria-label]="'Daily schedule from ' + dayStartLabel + ' to ' + dayEndLabel"
       >
-        <!-- faint track rings -->
+        <!-- Decorative guide rings -->
         <circle class="pd__track" cx="200" cy="200" r="180" />
+
         <circle class="pd__track" cx="200" cy="200" r="128" />
+
         <circle class="pd__track pd__track--dash" cx="200" cy="200" r="154" />
 
-        <!-- segments -->
+        <!-- Schedule segments: interactive and never transformed by GSAP -->
         @for (block of blocks; track block.label; let i = $index) {
           <path
             class="pd-arc pd-arc--{{ block.tone }}"
@@ -34,8 +52,8 @@
             [attr.aria-label]="
               block.label + ', ' + formatBlockTime(block) + ', ' + formatBlockDuration(block)
             "
-            (mouseenter)="preview(i)"
-            (mouseleave)="preview(null)"
+            (pointerenter)="preview(i)"
+            (pointerleave)="preview(null)"
             (focus)="preview(i)"
             (blur)="preview(null)"
             (click)="select(i)"
@@ -44,13 +62,7 @@
           />
         }
 
-        <!-- needle -->
-        <g class="pd__needle" #needle aria-hidden="true">
-          <line x1="200" y1="200" x2="200" y2="8" />
-          <circle cx="200" cy="8" r="4" />
-        </g>
-
-        <!-- now marker -->
+        <!-- Actual current-time marker. It only exists during daycare hours. -->
         @if (nowTick(); as tick) {
           <line
             class="pd__now"
@@ -58,22 +70,28 @@
             [attr.y1]="tick.in.y"
             [attr.x2]="tick.out.x"
             [attr.y2]="tick.out.y"
+            aria-hidden="true"
           />
         }
 
-        <!-- centre -->
-        <text class="pd__centre-total" x="200" y="186" text-anchor="middle">{{ totalLabel }}</text>
+        <!-- Dial centre -->
+        <text class="pd__centre-total" x="200" y="186" text-anchor="middle">
+          {{ totalLabel }}
+        </text>
+
         <text class="pd__centre-sub" x="200" y="210" text-anchor="middle">
           of structured rhythm
         </text>
+
         <text class="pd__centre-range" x="200" y="232" text-anchor="middle">
           {{ dayStartLabel }} – {{ dayEndLabel }}
         </text>
       </svg>
 
-      <!-- DETAIL CARD -->
-      <aside class="pd__detail" [attr.data-tone]="active().tone" aria-hidden="false">
-        <span class="pd__detail-index">{{ activeIndex() + 1 }} / {{ blocks.length }}</span>
+      <!-- SELECTED ACTIVITY DETAILS -->
+      <aside class="pd__detail" [attr.data-tone]="active().tone">
+        <span class="pd__detail-index"> {{ activeIndex() + 1 }} / {{ blocks.length }} </span>
+
         <h3>{{ active().label }}</h3>
 
         <dl class="pd__detail-meta">
@@ -81,10 +99,12 @@
             <dt>Time</dt>
             <dd>{{ activeRange() }}</dd>
           </div>
+
           <div>
             <dt>Length</dt>
             <dd>{{ activeDuration() }}</dd>
           </div>
+
           <div>
             <dt>Of the day</dt>
             <dd>{{ activeShare() }}%</dd>
@@ -96,11 +116,13 @@
         </div>
       </aside>
 
-      <p class="pd__live" aria-live="polite">{{ liveText() }}</p>
+      <p class="pd__live" aria-live="polite">
+        {{ liveText() }}
+      </p>
     </div>
 
-    <!-- LIST -->
-    <ol class="pd__list" role="listbox" aria-label="Schedule, select a block">
+    <!-- DAILY SCHEDULE LIST -->
+    <ol class="pd__list" role="listbox" aria-label="Daily schedule">
       @for (block of blocks; track block.label; let i = $index) {
         <li
           class="pd-item pd-item--{{ block.tone }}"
@@ -110,33 +132,40 @@
           [attr.aria-selected]="selectedIndex() === i"
           [attr.data-index]="i"
           tabindex="0"
-          (mouseenter)="preview(i)"
-          (mouseleave)="preview(null)"
+          (pointerenter)="preview(i)"
+          (pointerleave)="preview(null)"
           (focus)="preview(i)"
+          (blur)="preview(null)"
           (click)="select(i)"
           (keydown)="onListKeydown($event, i)"
         >
-          <span class="pd-item__no">{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</span>
+          <span class="pd-item__no">
+            {{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}
+          </span>
 
           <span class="pd-item__body">
-            <span class="pd-item__label">{{ block.label }}</span>
-            <span class="pd-item__time">{{ formatBlockTime(block) }}</span>
+            <span class="pd-item__label">
+              {{ block.label }}
+            </span>
+
+            <span class="pd-item__time">
+              {{ formatBlockTime(block) }}
+            </span>
           </span>
 
           <span class="pd-item__meter" aria-hidden="true">
             <span [style.width.%]="(block.minutes / 90) * 100"></span>
           </span>
 
-          <span class="pd-item__dur">{{ block.minutes }} min</span>
+          <span class="pd-item__dur"> {{ block.minutes }} min </span>
         </li>
       }
     </ol>
   </div>
 
   <footer class="pd__foot">
-    <span
-      >Durations reflect a typical day. Exact start times may shift slightly to suit the
-      group.</span
-    >
+    <span>
+      Durations reflect a typical day. Exact start times may shift slightly to suit the group.
+    </span>
   </footer>
 </section>

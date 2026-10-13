@@ -2,12 +2,13 @@
   <div class="vo__inner">
     <header class="vo__header" gsapReveal="fade-up">
       <span class="v-eyebrow">Parent voices</span>
+
       <h2 class="v-h2">What Parents <span class="v-gradient-text">Have To Say</span></h2>
     </header>
 
     <div class="vo__grid">
-      @for (t of testimonials; track t.name; let i = $index) {
-        <figure class="vo__card v-glass" gsapReveal="fade-up" [gsapRevealDelay]="i * 100">
+      @for (t of testimonials; track t.name) {
+        <figure class="vo__card v-glass" gsapReveal="fade-in">
           <span class="vo__mark" aria-hidden="true">“</span>
 
           <blockquote>
@@ -15,7 +16,10 @@
           </blockquote>
 
           <figcaption class="vo__person">
-            <span class="vo__avatar" aria-hidden="true">{{ t.initials }}</span>
+            <span class="vo__avatar" aria-hidden="true">
+              {{ t.initials }}
+            </span>
+
             <span>
               <strong>{{ t.name }}</strong>
               <small>{{ t.relation }}</small>

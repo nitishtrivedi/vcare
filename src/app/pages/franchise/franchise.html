@@ -1,642 +1,381 @@
-<!-- =========================================================
-     HERO
-     ========================================================= -->
-<section class="fr-hero">
-  <div class="fr-hero__glow fr-hero__glow--yellow"></div>
-  <div class="fr-hero__glow fr-hero__glow--green"></div>
+<!-- HERO -->
+<section class="ab-section fr-hero" #root>
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--yellow fr-hero__blob-a"></span>
+    <span class="ab-aura__blob ab-aura__blob--green fr-hero__blob-b"></span>
+    <span class="ab-aura__blob ab-aura__blob--orange fr-hero__blob-c"></span>
+  </div>
 
-  <div class="fr-hero__inner">
-    <div class="fr-hero__content" vcReveal="fade-up">
-      <div class="fr-hero__eyebrow">
-        <span>VCARE FRANCHISE PROGRAM</span>
-        <i></i>
-        EXPAND THE LEGACY OF CARE
-      </div>
+  <div class="ab-wrap fr-hero__inner">
+    <p class="ab-eyebrow fr-hero__eyebrow">VCare franchise program</p>
 
-      <h1>
-        Own a VCare.
-        <span>Build a legacy of care.</span>
-      </h1>
+    <h1 class="ab-h2 fr-hero__title">
+      <span class="ab-mask"><span>Own a VCare.</span></span>
+      <span class="ab-mask"><span class="ab-grad-text">Build a legacy of care.</span></span>
+    </h1>
 
-      <p class="fr-hero__lead">
-        India's preschool sector is growing fast — and parents in your city are already searching
-        for a name they can trust. Partner with VCare's proven Zero Fee Model, ready-made curriculum
-        and complete operational playbook, and turn early childhood education into a thriving,
-        profitable business.
+    <p class="fr-hero__lead">
+      India’s preschool sector is growing fast, and parents in your city are already searching for a
+      name they can trust. Partner with VCare’s proven Zero Fee Model, ready-made curriculum and
+      complete operational playbook, and turn early childhood education into a thriving business.
+    </p>
+
+    <div class="fr-hero__actions">
+      <a href="#franchise-enquiry" class="ab-btn ab-btn--primary">
+        Enquire about franchise <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
+      <a href="assets/documents/VCare_Franchise_Brochure.pdf" download class="ab-btn ab-btn--ghost">
+        <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> Download brochure
+      </a>
+    </div>
+
+    <dl class="fr-hero__stats">
+      @for (s of heroStats; track s.label) {
+        <div class="ab-card fr-stat">
+          <dt>{{ s.label }}</dt>
+          <dd>{{ s.value }}</dd>
+        </div>
+      }
+    </dl>
+  </div>
+</section>
+
+<!-- MODELS -->
+<section class="ab-section fr-models">
+  <div class="ab-wrap">
+    <header class="fr-head" gsapReveal="fade-up">
+      <p class="ab-eyebrow">Two ways to partner</p>
+      <h2 class="ab-h2">Choose how involved <span class="ab-grad-text">you want to be.</span></h2>
+      <p class="fr-head__lead">
+        Every partner invests in the same trusted brand and Zero Fee Model. The only difference is
+        who runs the day-to-day.
       </p>
+    </header>
 
-      <div class="fr-hero__actions">
-        <a href="#franchise-enquiry" class="fr-btn fr-btn--primary">
-          Enquire About Franchise
-          <span>↗</span>
-        </a>
+    <div class="fr-models__grid" data-model-grid>
+      @for (m of models; track m.name) {
+        <article class="ab-card fr-model" data-model [style.--accent]="m.accent">
+          <span class="fr-model__tag">{{ m.tag }}</span>
+          <div class="fr-model__top">
+            <span class="fr-model__icon" aria-hidden="true"
+              ><i [class]="'fa-solid ' + m.icon"></i
+            ></span>
+            <h3>{{ m.name }}</h3>
+          </div>
+          <p class="fr-model__pitch">{{ m.pitch }}</p>
 
-        <a
-          href="assets/documents/VCare_Franchise_Brochure.pdf"
-          download
-          class="fr-btn fr-btn--ghost"
-        >
-          Download Brochure
-        </a>
-      </div>
+          <div class="fr-model__stats">
+            @for (s of m.stats; track s.label) {
+              <div class="fr-model__stat">
+                <strong>{{ s.value }}</strong>
+                <span>{{ s.label }}</span>
+              </div>
+            }
+          </div>
+
+          <ul class="fr-model__points" role="list">
+            @for (p of m.points; track p) {
+              <li><i class="fa-solid fa-check" aria-hidden="true"></i>{{ p }}</li>
+            }
+          </ul>
+
+          <p class="fr-model__fit"><strong>Best for:</strong> {{ m.bestFor }}</p>
+
+          <a href="#franchise-enquiry" class="ab-btn ab-btn--primary fr-model__cta">
+            Enquire about {{ m.name }}
+          </a>
+        </article>
+      }
+    </div>
+
+    <p class="fr-models__note">{{ modelsNote }}</p>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="ab-section fr-support">
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--blue fr-support__blob"></span>
+  </div>
+
+  <div class="ab-wrap">
+    <header class="fr-head" gsapReveal="fade-up">
+      <p class="ab-eyebrow">What you get</p>
+      <h2 class="ab-h2">Support that <span class="ab-grad-text">cuts your risk in half.</span></h2>
+      <p class="fr-head__lead">
+        Five-plus years of operational learning, including curriculum, systems, training and
+        marketing, so you are never building from scratch.
+      </p>
+    </header>
+
+    <div class="fr-pillars" data-pillar-grid>
+      @for (p of pillars; track p.title) {
+        <article class="ab-card fr-pillar" data-pillar [style.--accent]="p.accent">
+          <span class="fr-pillar__icon" aria-hidden="true"
+            ><i [class]="'fa-solid ' + p.icon"></i
+          ></span>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.description }}</p>
+        </article>
+      }
     </div>
   </div>
+</section>
 
-  <div class="fr-hero__stats" vcReveal="fade-up" [vcRevealDelay]="140">
-    @for (stat of heroStats; track stat.label) {
-      <div class="fr-stat">
-        <strong>{{ stat.value }}</strong>
-        <span>{{ stat.label }}</span>
-      </div>
-    }
-  </div>
+<!-- OPPORTUNITY -->
+<section class="ab-section fr-opp">
+  <div class="ab-wrap">
+    <header class="fr-head" gsapReveal="fade-up">
+      <p class="ab-eyebrow">The market opportunity</p>
+      <h2 class="ab-h2">
+        The demand is there. <span class="ab-grad-text">We have the track record.</span>
+      </h2>
+      <p class="fr-head__lead">
+        Early childhood education is one of India’s fastest-growing sectors, and VCare’s own centre
+        is proof that the Zero Fee Model works.
+      </p>
+    </header>
 
-  <div class="fr-hero__wave">
-    <app-wave-divider fill="#fff"></app-wave-divider>
+    <div class="fr-opp__grid" data-opp-grid>
+      @for (o of opportunities; track o.number) {
+        <article class="ab-card fr-opp__card" data-opp>
+          <span class="fr-opp__num">{{ o.number }}</span>
+          <h3>{{ o.title }}</h3>
+          <p>{{ o.description }}</p>
+        </article>
+      }
+    </div>
   </div>
 </section>
 
-<!-- =========================================================
-     INVESTMENT TIERS
-     ========================================================= -->
-<!-- <section class="fr-tiers">
-  <div class="fr-tiers__heading" vcReveal="fade-up">
-    <span class="fr-kicker">Choose your track</span>
-
-    <h2>
-      Three ways to grow
-      <span>with VCare.</span>
-    </h2>
-
-    <p>
-      The tiers below apply to the Owner-Operated Franchise Model above — every one runs on the same
-      trusted VCare curriculum, brand and support system. Pick the investment level that fits your
-      ambition.
-    </p>
+<!-- PROCESS -->
+<section class="ab-section fr-steps">
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--green fr-steps__blob"></span>
   </div>
 
-  <div class="fr-tiers__grid">
-    @for (tier of tiers; track tier.name; let i = $index) {
-      <article
-        class="tier-card"
-        [class.tier-card--popular]="tier.popular"
-        [style.--accent]="tier.accent"
-        vcReveal="fade-up"
-        [vcRevealDelay]="i * 100"
-      >
-        @if (tier.popular) {
-          <span class="tier-card__ribbon">Most Popular</span>
+  <div class="ab-wrap">
+    <header class="fr-head" gsapReveal="fade-up">
+      <p class="ab-eyebrow">How it works</p>
+      <h2 class="ab-h2">Five steps. <span class="ab-grad-text">One thriving centre.</span></h2>
+    </header>
+
+    <div class="fr-steps__track">
+      <div class="fr-steps__line" aria-hidden="true"><span></span></div>
+
+      <ol class="fr-steps__list" role="list">
+        @for (s of steps; track s.number) {
+          <li class="fr-step" data-step>
+            <span class="fr-step__num">{{ s.number }}</span>
+            <h3>{{ s.title }}</h3>
+            <p>{{ s.description }}</p>
+          </li>
         }
-
-        <span class="tier-card__badge">{{ tier.badge }}</span>
-
-        <h3>{{ tier.name }}</h3>
-
-        <div class="tier-card__price">
-          <span>Investment</span>
-          <strong>{{ tier.investment }}</strong>
-        </div>
-
-        <div class="tier-card__earning">
-          <span>Minimum monthly earning potential</span>
-          <strong>{{ tier.earning }}<small>/mo</small></strong>
-        </div>
-
-        <p class="tier-card__capacity">{{ tier.capacity }}</p>
-
-        <ul class="tier-card__features">
-          @for (feature of tier.features; track feature) {
-            <li>
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M5 13l4 4 10-10"
-                  stroke="currentColor"
-                  stroke-width="2.4"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              {{ feature }}
-            </li>
-          }
-        </ul>
-
-        <a href="#franchise-enquiry" class="fr-btn fr-btn--primary">
-          Enquire for {{ tier.name }}
-          <span>→</span>
-        </a>
-      </article>
-    }
+      </ol>
+    </div>
   </div>
+</section>
 
-  <p class="fr-tiers__note">
-    Earning potential figures are indicative, based on full-capacity enrolment and standard
-    operating costs at each tier. Actual returns vary by location, admissions and centre
-    performance.
-  </p>
-</section> -->
+<!-- FAQ -->
+<section class="ab-section fr-faq">
+  <div class="ab-wrap fr-faq__wrap">
+    <header class="fr-head" gsapReveal="fade-up">
+      <p class="ab-eyebrow">Questions, answered</p>
+      <h2 class="ab-h2">Frequently asked <span class="ab-grad-text">franchise questions.</span></h2>
+    </header>
 
-<!-- =========================================================
-     PARTNERSHIP MODELS
-     ========================================================= -->
-<section class="fr-models">
-  <div class="fr-models__heading" vcReveal="fade-up">
-    <span class="fr-kicker">Two ways to partner</span>
-
-    <h2>
-      Choose how involved
-      <span>you want to be.</span>
-    </h2>
-
-    <p>
-      Every VCare partner invests in the same trusted brand and Zero Fee Model — the only difference
-      is who runs the day-to-day. Pick the track that matches how hands-on you want to be.
-    </p>
-  </div>
-
-  <div class="fr-models__grid">
-    <span class="fr-models__or">OR</span>
-
-    @for (model of partnershipModels; track model.name; let i = $index) {
-      <article
-        class="model-card"
-        [style.--accent]="model.accent"
-        vcReveal="fade-up"
-        [vcRevealDelay]="i * 110"
-      >
-        <span class="model-card__tag">{{ model.tag }}</span>
-
-        <h3>{{ model.name }}</h3>
-        <p class="model-card__pitch">{{ model.pitch }}</p>
-
-        <div class="model-card__stats">
-          @for (stat of model.stats; track stat.label) {
-            <div class="model-card__stat">
-              <strong>{{ stat.value }}</strong>
-              <span>{{ stat.label }}</span>
+    <div class="fr-faq__list">
+      @for (item of faqs; track item.question; let i = $index) {
+        <div class="ab-card fr-faq__item" [class.fr-faq__item--open]="isFaqOpen(i)">
+          <h3 class="fr-faq__heading">
+            <button
+              type="button"
+              class="fr-faq__btn"
+              [attr.aria-expanded]="isFaqOpen(i)"
+              [attr.aria-controls]="'fr-faq-' + i"
+              (click)="toggleFaq(i)"
+            >
+              <span>{{ item.question }}</span>
+              <span class="fr-faq__icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+            </button>
+          </h3>
+          <div class="fr-faq__panel" [id]="'fr-faq-' + i" role="region">
+            <div class="fr-faq__inner">
+              <p>{{ item.answer }}</p>
             </div>
-          }
-        </div>
-
-        <ul class="model-card__points">
-          @for (point of model.points; track point) {
-            <li>
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M5 13l4 4 10-10"
-                  stroke="currentColor"
-                  stroke-width="2.4"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-              {{ point }}
-            </li>
-          }
-        </ul>
-
-        <p class="model-card__fit"><strong>Best for:</strong> {{ model.bestFor }}</p>
-
-        <a href="#franchise-enquiry" class="fr-btn fr-btn--primary">
-          Enquire about {{ model.name }}
-          <span>→</span>
-        </a>
-      </article>
-    }
-  </div>
-
-  <p class="fr-models__note">{{ modelsNote }}</p>
-</section>
-
-<!-- =========================================================
-     SUPPORT PILLARS
-     ========================================================= -->
-<section class="fr-support">
-  <div class="fr-support__heading" vcReveal="fade-up">
-    <span class="fr-kicker fr-kicker--light">What you get</span>
-
-    <h2>
-      Support that cuts
-      <span>your risk in half.</span>
-    </h2>
-
-    <p>
-      You get 5+ years of operational learning — curriculum, systems, training and marketing — so
-      you're never building from scratch.
-    </p>
-  </div>
-
-  <div class="fr-support__grid">
-    @for (pillar of pillars; track pillar.title; let i = $index) {
-      <article
-        class="pillar-card"
-        [style.--accent]="pillar.accent"
-        vcReveal="fade-up"
-        [vcRevealDelay]="(i % 3) * 90"
-      >
-        <div class="pillar-card__icon">
-          @switch (pillar.icon) {
-            @case ('curriculum') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 5.5C4 4.7 4.7 4 5.5 4H12v16H5.5A1.5 1.5 0 014 18.5v-13z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M20 5.5c0-.8-.7-1.5-1.5-1.5H12v16h6.5a1.5 1.5 0 001.5-1.5v-13z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-            @case ('brand') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M9.5 12l1.8 1.8L14.5 10"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-            @case ('recruit') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <circle cx="8" cy="9" r="2.6" stroke="currentColor" stroke-width="1.6" />
-                <circle cx="16" cy="9" r="2.6" stroke="currentColor" stroke-width="1.6" />
-                <path
-                  d="M3 19c.6-3 2.6-4.6 5-4.6s4.4 1.6 5 4.6M11 19c.6-3 2.6-4.6 5-4.6s4.4 1.6 5 4.6"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                />
-              </svg>
-            }
-            @case ('launch') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M13 8l4 4-4 4M17 12H9"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M9 5H5v14h4"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-              </svg>
-            }
-            @case ('safety') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7" />
-                <path
-                  d="M12 8v4l2.5 2.5"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-            @case ('audit') {
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M4 6h16M4 12h16M4 18h10"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                />
-                <path
-                  d="M18 15l2 2 4-4"
-                  stroke="currentColor"
-                  stroke-width="1.7"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            }
-          }
-        </div>
-
-        <h3>{{ pillar.title }}</h3>
-        <p>{{ pillar.description }}</p>
-      </article>
-    }
-  </div>
-</section>
-
-<!-- =========================================================
-     WHY NOW / OPPORTUNITY
-     ========================================================= -->
-<section class="fr-opportunity">
-  <div class="fr-opportunity__heading" vcReveal="fade-up">
-    <span class="fr-kicker">The market opportunity</span>
-
-    <h2>
-      The demand is there.
-      <span>We have the track record.</span>
-    </h2>
-
-    <p>
-      Early childhood education is one of India's fastest-growing sectors — and VCare's own centre
-      is proof that the Zero Fee Model works.
-    </p>
-  </div>
-
-  <div class="fr-opportunity__grid">
-    @for (point of opportunities; track point.title; let i = $index) {
-      <article class="opportunity-card" vcReveal="fade-up" [vcRevealDelay]="i * 90">
-        <span class="opportunity-card__number">{{ point.number }}</span>
-        <h3>{{ point.title }}</h3>
-        <p>{{ point.description }}</p>
-      </article>
-    }
-  </div>
-</section>
-
-<!-- =========================================================
-     PROCESS
-     ========================================================= -->
-<section class="fr-process">
-  <div class="fr-process__heading" vcReveal="fade-up">
-    <span class="fr-kicker fr-kicker--light">How it works</span>
-
-    <h2>
-      Five steps.
-      <span>One thriving centre.</span>
-    </h2>
-  </div>
-
-  <div class="fr-process__timeline">
-    @for (step of steps; track step.number; let i = $index) {
-      <article class="process-step" vcReveal="fade-up" [vcRevealDelay]="i * 90">
-        <span class="process-step__number">{{ step.number }}</span>
-
-        <div class="process-step__body">
-          <h3>{{ step.title }}</h3>
-          <p>{{ step.description }}</p>
-        </div>
-      </article>
-    }
-  </div>
-</section>
-
-<!-- =========================================================
-     FAQ
-     ========================================================= -->
-<section class="fr-faq">
-  <div class="fr-faq__heading" vcReveal="fade-up">
-    <span class="fr-kicker">Questions, answered</span>
-
-    <h2>
-      Frequently asked
-      <span>franchise questions.</span>
-    </h2>
-  </div>
-
-  <div class="fr-faq__list">
-    @for (item of faqs; track item.question; let i = $index) {
-      <div
-        class="faq-item"
-        [class.faq-item--open]="isFaqOpen(i)"
-        vcReveal="fade-up"
-        [vcRevealDelay]="i * 50"
-      >
-        <button
-          type="button"
-          class="faq-item__question"
-          (click)="toggleFaq(i)"
-          [attr.aria-expanded]="isFaqOpen(i)"
-        >
-          <span>{{ item.question }}</span>
-
-          <svg class="faq-item__chevron" viewBox="0 0 12 8" fill="none">
-            <path
-              d="M1 1.5L6 6.5L11 1.5"
-              stroke="currentColor"
-              stroke-width="1.7"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-
-        <div class="faq-item__answer-wrap">
-          <div class="faq-item__answer-inner">
-            <p>{{ item.answer }}</p>
           </div>
         </div>
-      </div>
-    }
+      }
+    </div>
   </div>
 </section>
 
-<!-- =========================================================
-     CTA / ENQUIRY FORM
-     ========================================================= -->
-<section class="fr-cta" id="franchise-enquiry">
-  <div class="fr-cta__glow fr-cta__glow--yellow"></div>
-  <div class="fr-cta__glow fr-cta__glow--green"></div>
+<!-- CTA + FORM -->
+<section class="ab-section fr-cta" id="franchise-enquiry">
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--yellow fr-cta__blob-a"></span>
+    <span class="ab-aura__blob ab-aura__blob--red fr-cta__blob-b"></span>
+  </div>
 
-  <div class="fr-cta__inner">
-    <div class="fr-cta__intro" vcReveal="fade-up">
-      <span class="fr-kicker fr-kicker--light">Start your journey</span>
-
-      <h2>
-        Ready to build
-        <span>your VCare centre?</span>
-      </h2>
-
+  <div class="ab-wrap fr-cta__grid">
+    <div class="fr-cta__intro" gsapReveal="fade-up">
+      <p class="ab-eyebrow">Start your journey</p>
+      <h2 class="ab-h2">Ready to build <span class="ab-grad-text">your VCare centre?</span></h2>
       <p>
-        We're onboarding franchise partners across Maharashtra for the upcoming academic year.
-        Spaces in high-demand locations are limited — fill in the form and our franchise team will
-        schedule a discovery call within 48 hours.
+        We are onboarding franchise partners across Maharashtra for the upcoming academic year.
+        Spaces in high-demand locations are limited. Fill in the form and our team will schedule a
+        discovery call within 48 hours.
       </p>
 
-      <ul class="fr-cta__points">
+      <ul class="fr-cta__points" role="list">
         <li>
-          <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.4"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M4 12l5 5L20 6" />
-          </svg>
-          Investment starts at ₹50 Lakhs
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Investment starts at ₹50 Lakhs
         </li>
         <li>
-          <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.4"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M4 12l5 5L20 6" />
-          </svg>
-          Minimum ₹1,00,000/month earning potential
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Minimum ₹1,00,000/month
+          earning potential
         </li>
         <li>
-          <svg
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.4"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M4 12l5 5L20 6" />
-          </svg>
-          Full training, launch & marketing support
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Full training, launch and
+          marketing support
         </li>
       </ul>
     </div>
 
-    <div class="fr-cta__form-wrap" vcReveal="zoom-in" [vcRevealDelay]="120">
+    <div class="ab-card fr-form-wrap">
       <form class="fr-form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-        <div class="fr-form__row">
-          <label for="fr-name">Full Name</label>
+        <div class="fr-field">
+          <label for="fr-name">Full name</label>
           <input
             id="fr-name"
             type="text"
             formControlName="name"
-            placeholder="e.g. Priya Sharma"
             autocomplete="name"
-            [class.fr-form__input--error]="f['name'].invalid && f['name'].touched"
+            placeholder="e.g. Priya Sharma"
+            [attr.aria-invalid]="f['name'].invalid && f['name'].touched"
+            [class.fr-field--error]="f['name'].invalid && f['name'].touched"
           />
           @if (f['name'].invalid && f['name'].touched) {
-            <span class="fr-form__error">Please enter your name.</span>
+            <span class="fr-field__error" role="alert">Please enter your name.</span>
           }
         </div>
 
-        <div class="fr-form__row-group">
-          <div class="fr-form__row">
-            <label for="fr-email">Email Address</label>
+        <div class="fr-form__row">
+          <div class="fr-field">
+            <label for="fr-email">Email address</label>
             <input
               id="fr-email"
               type="email"
               formControlName="email"
-              placeholder="you&#64;email.com"
               autocomplete="email"
-              [class.fr-form__input--error]="f['email'].invalid && f['email'].touched"
+              placeholder="you@email.com"
+              [attr.aria-invalid]="f['email'].invalid && f['email'].touched"
+              [class.fr-field--error]="f['email'].invalid && f['email'].touched"
             />
             @if (f['email'].invalid && f['email'].touched) {
-              <span class="fr-form__error">Enter a valid email address.</span>
+              <span class="fr-field__error" role="alert">Enter a valid email address.</span>
             }
           </div>
 
-          <div class="fr-form__row">
-            <label for="fr-phone">Phone Number</label>
+          <div class="fr-field">
+            <label for="fr-phone">Phone number</label>
             <input
               id="fr-phone"
               type="tel"
               formControlName="phone"
-              placeholder="98765 43210"
-              autocomplete="tel"
               inputmode="numeric"
-              [class.fr-form__input--error]="f['phone'].invalid && f['phone'].touched"
+              autocomplete="tel"
+              placeholder="98765 43210"
+              [attr.aria-invalid]="f['phone'].invalid && f['phone'].touched"
+              [class.fr-field--error]="f['phone'].invalid && f['phone'].touched"
             />
             @if (f['phone'].invalid && f['phone'].touched) {
-              <span class="fr-form__error">Enter a valid 10-digit number.</span>
+              <span class="fr-field__error" role="alert">Enter a valid 10-digit number.</span>
             }
           </div>
         </div>
 
-        <div class="fr-form__row-group">
-          <div class="fr-form__row">
-            <label for="fr-city">City of Interest</label>
+        <div class="fr-form__row">
+          <div class="fr-field">
+            <label for="fr-city">City of interest</label>
             <input
               id="fr-city"
               type="text"
               formControlName="city"
               placeholder="e.g. Nashik"
-              [class.fr-form__input--error]="f['city'].invalid && f['city'].touched"
+              [attr.aria-invalid]="f['city'].invalid && f['city'].touched"
+              [class.fr-field--error]="f['city'].invalid && f['city'].touched"
             />
             @if (f['city'].invalid && f['city'].touched) {
-              <span class="fr-form__error">Please tell us your city.</span>
+              <span class="fr-field__error" role="alert">Please tell us your city.</span>
             }
           </div>
 
-          <div class="fr-form__row">
-            <label for="fr-budget">Investment Budget</label>
-            <div class="fr-form__select">
-              <select
-                id="fr-budget"
-                formControlName="budget"
-                [class.fr-form__input--error]="f['budget'].invalid && f['budget'].touched"
-              >
-                <option value="" disabled>Select a range</option>
-                @for (option of budgetOptions; track option) {
-                  <option [value]="option">{{ option }}</option>
-                }
-              </select>
-            </div>
+          <div class="fr-field">
+            <label for="fr-budget">Investment budget</label>
+            <select
+              id="fr-budget"
+              formControlName="budget"
+              [attr.aria-invalid]="f['budget'].invalid && f['budget'].touched"
+              [class.fr-field--error]="f['budget'].invalid && f['budget'].touched"
+            >
+              <option value="" disabled>Select a range</option>
+              @for (option of budgetOptions; track option) {
+                <option [value]="option">{{ option }}</option>
+              }
+            </select>
             @if (f['budget'].invalid && f['budget'].touched) {
-              <span class="fr-form__error">Please select a budget range.</span>
+              <span class="fr-field__error" role="alert">Please select a budget range.</span>
             }
           </div>
         </div>
 
-        <div class="fr-form__row">
-          <label for="fr-message">Anything you'd like us to know?</label>
+        <div class="fr-field">
+          <label for="fr-message"
+            >Anything you would like us to know? <span class="fr-optional">(optional)</span></label
+          >
           <textarea
             id="fr-message"
             rows="3"
             formControlName="message"
-            placeholder="Tell us about your location, timeline or any questions you have..."
+            placeholder="Tell us about your location, timeline or any questions you have."
           ></textarea>
         </div>
 
         @if (formStatus() === 'success') {
-          <div class="fr-form__alert fr-form__alert--success" role="status">
-            <span class="fr-form__alert-icon">✓</span>
+          <div class="fr-alert fr-alert--success" role="status">
+            <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
             <span
-              >Thanks! Your franchise enquiry has been received — our team will reach out
-              soon.</span
+              >Thanks! Your franchise enquiry has been received. Our team will reach out soon.</span
             >
-            <button type="button" (click)="dismissStatus()" aria-label="Dismiss">✕</button>
+            <button type="button" (click)="dismissStatus()" aria-label="Dismiss message">
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
           </div>
         }
 
         @if (formStatus() === 'error') {
-          <div class="fr-form__alert fr-form__alert--error" role="alert">
-            <span class="fr-form__alert-icon">!</span>
+          <div class="fr-alert fr-alert--error" role="alert">
+            <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
             <span>{{
               formErrorMessage() || 'Something went wrong. Please try again or call us directly.'
             }}</span>
-            <button type="button" (click)="dismissStatus()" aria-label="Dismiss">✕</button>
+            <button type="button" (click)="dismissStatus()" aria-label="Dismiss message">
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
           </div>
         }
 
-        <button type="submit" class="fr-form__submit" [disabled]="formStatus() === 'submitting'">
+        <button
+          type="submit"
+          class="ab-btn ab-btn--primary fr-form__submit"
+          [disabled]="formStatus() === 'submitting'"
+        >
           @if (formStatus() === 'submitting') {
-            <span class="fr-form__spinner"></span>
-            Sending...
+            <span class="fr-spinner" aria-hidden="true"></span>
+            Sending…
           } @else {
-            <span>Submit Franchise Enquiry</span>
-            <span class="fr-form__submit-arrow">↗</span>
+            Submit franchise enquiry <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
           }
         </button>
       </form>

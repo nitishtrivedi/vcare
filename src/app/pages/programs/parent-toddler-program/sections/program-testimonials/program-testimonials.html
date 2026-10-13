@@ -2,7 +2,7 @@
   <app-program-aura variant="fresh" />
 
   <div class="ptt-voices__inner">
-    <div class="ptt-voices__head" gsapReveal="fade-up">
+    <div class="ptt-voices__head" gsapReveal="fade-in">
       <span class="ptt-kicker">Parent perspective</span>
       <h2>Growing together <span>feels different.</span></h2>
     </div>
@@ -13,7 +13,7 @@
           class="ptt-quote"
           [style.--accent]="t.accent"
           (pointermove)="onPointerMove($event)"
-          gsapReveal="fade-up"
+          gsapReveal="fade-in"
           [gsapRevealDelay]="(i % 3) * 90"
         >
           <span class="ptt-quote__mark" aria-hidden="true">“</span>

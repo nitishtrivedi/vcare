@@ -1,23 +1,30 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  computed,
+  ElementRef,
   HostListener,
+  Injector,
   OnDestroy,
   OnInit,
+  ViewChild,
+  afterNextRender,
+  computed,
+  inject,
   signal,
 } from '@angular/core';
-import { ScrollReveal } from '../../directives/scroll-reveal';
+import { gsap, prefersReducedMotion, registerGsap } from '../../shared/motion/gsap-setup';
 
 export interface GalleryImage {
-  index: number;
+  id: number;
   src: string;
   alt: string;
   category: string;
-  colSpan: number;
-  rowSpan: number;
   caption?: string;
   tag?: string;
+  colSpan: number;
+  rowSpan: number;
+  accent: string;
 }
 
 interface ManifestEntry {
@@ -29,214 +36,433 @@ interface ManifestEntry {
   rowSpan?: number;
 }
 
-/**
- * Optional per-photo overrides, keyed by the number in the filename
- * (gallery-image-3.jpg → key 3). Nothing here is required — any photo
- * without an entry just gets sensible auto-generated defaults, so you
- * can upload 5 photos or 500 and it all just works.
- *
- * Fill this in only for photos you want to specifically caption / tag /
- * resize. Everything else is left to the auto pattern.
- */
-// const IMAGE_META: Record<
-//   number,
-//   Partial<Pick<GalleryImage, 'category' | 'caption' | 'tag' | 'colSpan' | 'rowSpan'>>
-// > = {
-//   1: {
-//     category: 'Classroom',
-//     caption: 'Hands-on exploration, every single day.',
-//     tag: 'Featured',
-//     colSpan: 2,
-//     rowSpan: 2,
-//   },
-//   // 2: { category: 'Outdoor Play', caption: 'Free play in the sun.' },
-//   // 3: { category: 'Events', tag: 'New', colSpan: 2, rowSpan: 1 },
-// };
+const ACCENTS = ['#c93b41', '#e77b30', '#f2b632', '#218768', '#176fae', '#8a5cf6'];
 
-// A rotating bento pattern so photos without an explicit size in
-// IMAGE_META still lay out with nice visual variety at any scale.
-const SIZE_PATTERN: Array<Pick<GalleryImage, 'colSpan' | 'rowSpan'>> = [
+// A rotating bento pattern so photos without explicit sizes still look designed.
+const SIZE_PATTERN: Array<{ colSpan: number; rowSpan: number }> = [
+  { colSpan: 2, rowSpan: 2 },
   { colSpan: 1, rowSpan: 1 },
   { colSpan: 1, rowSpan: 1 },
   { colSpan: 2, rowSpan: 1 },
   { colSpan: 1, rowSpan: 2 },
   { colSpan: 1, rowSpan: 1 },
   { colSpan: 1, rowSpan: 1 },
-  { colSpan: 2, rowSpan: 2 },
-  { colSpan: 1, rowSpan: 1 },
-  { colSpan: 1, rowSpan: 2 },
   { colSpan: 2, rowSpan: 1 },
 ];
 
-const DEFAULT_CATEGORY = 'V Care Moments';
 @Component({
   selector: 'app-gallery',
-  imports: [ScrollReveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './gallery.html',
   styleUrl: './gallery.scss',
 })
-export class Gallery implements OnInit, OnDestroy {
+export class Gallery implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('root', { static: true }) private root!: ElementRef<HTMLElement>;
+
+  private readonly injector = inject(Injector);
+
   // ============================================================
-  // 🎛️  IMAGE SOURCE
-  // Add or remove photos by editing the manifest file below —
-  // no code changes needed, and no guessed/blind network
-  // requests (that's what caused the 404 console spam before).
-  //
+  // IMAGE SOURCE
   //   public/assets/images/gallery/manifest.json
-  //   public/assets/images/gallery/<any-filename>.jpg
-  //
-  // manifest.json looks like:
-  //   [
-  //     { "src": "gallery-1.jpg", "category": "Classroom", "caption": "...", "tag": "Featured", "colSpan": 2, "rowSpan": 2 },
-  //     { "src": "gallery-2.jpg" },
-  //     { "src": "gallery-3.jpg", "category": "Outdoor Play" }
-  //   ]
-  //
-  // Only "src" is required — everything else is optional and falls
-  // back to sensible defaults.
+  //   [ { "src": "gallery-1.jpg", "category": "Classroom", "caption": "...", "tag": "Featured", "colSpan": 2, "rowSpan": 2 } ]
+  // Only "src" is required.
   // ============================================================
   private readonly FOLDER = 'assets/images/gallery/';
   private readonly MANIFEST_URL = `${this.FOLDER}manifest.json`;
 
   private destroyed = false;
+  private ctx?: gsap.Context;
+  private tileCtx?: gsap.Context;
+  private touchStartX: number | null = null;
 
+  readonly skeletons = [0, 1, 2, 3, 4, 5, 6, 7];
   readonly images = signal<GalleryImage[]>([]);
   readonly isScanning = signal(true);
-
-  readonly categories = computed(() => {
-    const set = new Set(this.images().map((img) => img.category));
-    return ['All', ...Array.from(set)];
-  });
-
   readonly activeCategory = signal('All');
+  readonly lightboxIndex = signal<number | null>(null);
+
+  readonly categories = computed(() => [
+    'All',
+    ...Array.from(new Set(this.images().map((img) => img.category))),
+  ]);
+
+  readonly categoryCount = computed(() => this.categories().length - 1);
 
   readonly filteredImages = computed(() => {
-    const active = this.activeCategory();
+    const category = this.activeCategory();
     const all = this.images();
-    return active === 'All' ? all : all.filter((img) => img.category === active);
+    return category === 'All' ? all : all.filter((img) => img.category === category);
   });
 
-  setCategory(category: string): void {
-    this.activeCategory.set(category);
-  }
+  readonly total = computed(() => this.filteredImages().length);
 
-  // ---------------- LIFECYCLE ----------------
+  readonly lightboxImage = computed(() => {
+    const index = this.lightboxIndex();
+    return index === null ? null : (this.filteredImages()[index] ?? null);
+  });
+
+  readonly tickerItems = computed(() => {
+    const cats = this.categories().slice(1);
+    return [...cats, ...cats, ...cats];
+  });
+
+  constructor() {
+    registerGsap();
+  }
 
   ngOnInit(): void {
     this.loadManifest();
   }
 
-  ngOnDestroy(): void {
-    this.destroyed = true;
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = '';
-      document.body.classList.remove('lightbox-open');
+  ngAfterViewInit(): void {
+    if (prefersReducedMotion()) return;
+
+    this.ctx = gsap.context(() => {
+      gsap
+        .timeline({ defaults: { ease: 'power4.out' } })
+        .from('.gx-hero__eyebrow', { autoAlpha: 0, y: 14, duration: 0.6 })
+        .from('.gx-word', { yPercent: 115, rotate: 4, duration: 1.1, stagger: 0.1 }, '-=0.3')
+        .from(
+          '.gx-hero__lead, .gx-chip',
+          { autoAlpha: 0, y: 18, duration: 0.7, stagger: 0.08 },
+          '-=0.7',
+        )
+        .from('.gx-ticker', { autoAlpha: 0, duration: 0.8 }, '-=0.4')
+        .from('.gx-filter', { autoAlpha: 0, y: 20, duration: 0.6 }, '-=0.5');
+
+      gsap.to('.gx-blob--1', {
+        x: 90,
+        y: 50,
+        duration: 12,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
+      gsap.to('.gx-blob--2', {
+        x: -80,
+        y: 60,
+        duration: 14,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
+      gsap.to('.gx-blob--3', {
+        x: 50,
+        y: -70,
+        duration: 16,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
+      gsap.to('.gx-blob--4', {
+        x: -60,
+        y: -40,
+        duration: 11,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
+      gsap.to('.gx-chip__dot', {
+        scale: 1.7,
+        duration: 1.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        stagger: 0.2,
+      });
+    }, this.root.nativeElement);
+
+    // Park the active-pill indicator under the "All" pill on first paint.
+    const first = this.root.nativeElement.querySelector<HTMLElement>('.gx-pill');
+    const indicator = this.root.nativeElement.querySelector<HTMLElement>('.gx-filter__ind');
+    if (first && indicator) {
+      gsap.set(indicator, { x: first.offsetLeft, width: first.offsetWidth });
     }
   }
 
-  // ---------------- MANIFEST LOADING ----------------
+  ngOnDestroy(): void {
+    this.destroyed = true;
+    this.ctx?.revert();
+    this.tileCtx?.revert();
+    this.lockBody(false);
+  }
+
+  // ---------- LOADING ----------
 
   private async loadManifest(): Promise<void> {
     try {
       const response = await fetch(this.MANIFEST_URL);
-
-      if (!response.ok) {
-        // No manifest yet — treat as "nothing uploaded", not an error.
-        if (!this.destroyed) this.isScanning.set(false);
-        return;
-      }
+      if (!response.ok) return;
 
       const entries = (await response.json()) as ManifestEntry[];
-
-      const list: GalleryImage[] = entries.map((entry, i) => this.buildImage(i + 1, entry));
+      const list = entries.map((entry, i) => this.buildImage(i + 1, entry));
 
       if (!this.destroyed) {
         this.images.set(list);
+        afterNextRender(() => this.revealTiles(), { injector: this.injector });
       }
     } catch {
-      // Manifest missing or malformed — fall back to empty state quietly.
+      // Missing or malformed manifest: show the empty state quietly.
     } finally {
-      if (!this.destroyed) {
-        this.isScanning.set(false);
-      }
+      if (!this.destroyed) this.isScanning.set(false);
     }
   }
 
-  private buildImage(index: number, entry: ManifestEntry): GalleryImage {
-    const pattern = SIZE_PATTERN[(index - 1) % SIZE_PATTERN.length];
+  private buildImage(id: number, entry: ManifestEntry): GalleryImage {
+    const pattern = SIZE_PATTERN[(id - 1) % SIZE_PATTERN.length];
 
     return {
-      index,
+      id,
       src: `${this.FOLDER}${entry.src}`,
-      alt: entry.caption ?? `V Care Education gallery photo ${index}`,
-      category: entry.category ?? DEFAULT_CATEGORY,
+      alt: entry.caption ?? `V Care gallery photo ${id}`,
+      category: entry.category ?? 'V Care Moments',
       caption: entry.caption,
       tag: entry.tag,
       colSpan: entry.colSpan ?? pattern.colSpan,
       rowSpan: entry.rowSpan ?? pattern.rowSpan,
+      accent: ACCENTS[(id - 1) % ACCENTS.length],
     };
   }
 
-  /**
-   * If a manifest entry points at a file that's missing or was moved,
-   * drop just that tile instead of leaving a broken image in the grid.
-   */
-  onImageError(index: number): void {
-    this.images.update((current) => current.filter((img) => img.index !== index));
+  /** Drop only the tile whose file is missing. */
+  onImageError(id: number): void {
+    this.images.update((list) => list.filter((img) => img.id !== id));
   }
 
-  // ---------------- LIGHTBOX ----------------
+  // ---------- GRID ANIMATION ----------
 
-  readonly lightboxIndex = signal<number | null>(null);
+  private revealTiles(): void {
+    if (prefersReducedMotion()) return;
 
-  readonly lightboxImage = computed(() => {
-    const idx = this.lightboxIndex();
-    const list = this.filteredImages();
-    return idx === null ? null : (list[idx] ?? null);
-  });
+    this.tileCtx?.revert();
+    this.tileCtx = gsap.context(() => {
+      gsap.from('.gx-tile', {
+        autoAlpha: 0,
+        y: 80,
+        scale: 0.9,
+        rotate: 2,
+        duration: 1,
+        stagger: { each: 0.08, from: 'start' },
+        ease: 'power4.out',
+        clearProps: 'transform',
+        scrollTrigger: { trigger: '.gx-grid', start: 'top 85%' },
+      });
+    }, this.root.nativeElement);
+  }
+
+  private animateTilesIn(): void {
+    if (prefersReducedMotion()) return;
+
+    gsap.fromTo(
+      this.root.nativeElement.querySelectorAll('.gx-tile'),
+      { autoAlpha: 0, scale: 0.8, y: 30 },
+      {
+        autoAlpha: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.06,
+        ease: 'back.out(1.2)',
+        clearProps: 'transform',
+      },
+    );
+  }
+
+  setCategory(category: string, event: Event): void {
+    if (category === this.activeCategory()) return;
+
+    const pill = event.currentTarget as HTMLElement;
+    this.moveIndicator(pill);
+
+    const tiles = this.root.nativeElement.querySelectorAll('.gx-tile');
+
+    if (prefersReducedMotion() || tiles.length === 0) {
+      this.activeCategory.set(category);
+      return;
+    }
+
+    gsap.to(tiles, {
+      autoAlpha: 0,
+      scale: 0.8,
+      y: 24,
+      duration: 0.25,
+      stagger: 0.015,
+      ease: 'power2.in',
+      overwrite: true,
+      onComplete: () => {
+        this.activeCategory.set(category);
+        afterNextRender(() => this.animateTilesIn(), { injector: this.injector });
+      },
+    });
+  }
+
+  private moveIndicator(pill: HTMLElement): void {
+    const indicator = this.root.nativeElement.querySelector<HTMLElement>('.gx-filter__ind');
+    if (!indicator) return;
+
+    gsap.to(indicator, {
+      x: pill.offsetLeft,
+      width: pill.offsetWidth,
+      duration: 0.7,
+      ease: 'elastic.out(1, 0.75)',
+    });
+  }
+
+  // ---------- 3D TILT ----------
+
+  tilt(event: PointerEvent): void {
+    if (prefersReducedMotion() || event.pointerType !== 'mouse') return;
+
+    const el = event.currentTarget as HTMLElement;
+    const rect = el.getBoundingClientRect();
+    const px = (event.clientX - rect.left) / rect.width;
+    const py = (event.clientY - rect.top) / rect.height;
+
+    gsap.to(el, {
+      rotateY: (px - 0.5) * 14,
+      rotateX: (0.5 - py) * 14,
+      transformPerspective: 900,
+      duration: 0.5,
+      ease: 'power2.out',
+      overwrite: 'auto',
+    });
+
+    el.style.setProperty('--mx', `${px * 100}%`);
+    el.style.setProperty('--my', `${py * 100}%`);
+  }
+
+  untilt(event: PointerEvent): void {
+    if (prefersReducedMotion()) return;
+
+    gsap.to(event.currentTarget as HTMLElement, {
+      rotateX: 0,
+      rotateY: 0,
+      duration: 0.8,
+      ease: 'elastic.out(1, 0.5)',
+      overwrite: 'auto',
+    });
+  }
+
+  // ---------- LIGHTBOX ----------
 
   openLightbox(index: number): void {
     this.lightboxIndex.set(index);
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'hidden';
-      document.body.classList.add('lightbox-open');
-    }
+    this.lockBody(true);
+
+    afterNextRender(
+      () => {
+        if (prefersReducedMotion()) return;
+
+        gsap.fromTo(
+          '.gx-lb',
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.45, ease: 'power2.out' },
+        );
+        gsap.fromTo(
+          '.gx-lb__frame',
+          { scale: 0.82, autoAlpha: 0, rotate: -3 },
+          { scale: 1, autoAlpha: 1, rotate: 0, duration: 0.8, ease: 'expo.out' },
+        );
+        gsap.fromTo(
+          '.gx-lb__thumb',
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.03, delay: 0.2 },
+        );
+      },
+      { injector: this.injector },
+    );
   }
 
   closeLightbox(): void {
-    this.lightboxIndex.set(null);
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = '';
-      document.body.classList.remove('lightbox-open');
+    if (this.lightboxIndex() === null) return;
+
+    const finish = () => {
+      this.lightboxIndex.set(null);
+      this.lockBody(false);
+    };
+
+    if (prefersReducedMotion()) {
+      finish();
+      return;
     }
+
+    gsap.to('.gx-lb', { autoAlpha: 0, duration: 0.3, ease: 'power2.in', onComplete: finish });
   }
 
-  next(event?: Event): void {
+  go(direction: 1 | -1, event?: Event): void {
     event?.stopPropagation();
-    const total = this.filteredImages().length;
-    const idx = this.lightboxIndex();
-    if (idx === null || total === 0) return;
-    this.lightboxIndex.set((idx + 1) % total);
+
+    const total = this.total();
+    if (!total) return;
+
+    const step = () => this.lightboxIndex.update((i) => ((i ?? 0) + direction + total) % total);
+
+    const frame = this.root.nativeElement.querySelector<HTMLElement>('.gx-lb__frame');
+
+    if (prefersReducedMotion() || !frame) {
+      step();
+      return;
+    }
+
+    gsap.to(frame, {
+      x: -direction * 90,
+      rotate: -direction * 2,
+      autoAlpha: 0,
+      duration: 0.25,
+      ease: 'power2.in',
+      onComplete: () => {
+        step();
+        afterNextRender(
+          () =>
+            gsap.fromTo(
+              frame,
+              { x: direction * 90, rotate: direction * 2, autoAlpha: 0 },
+              { x: 0, rotate: 0, autoAlpha: 1, duration: 0.55, ease: 'expo.out' },
+            ),
+          { injector: this.injector },
+        );
+      },
+    });
   }
 
-  prev(event?: Event): void {
-    event?.stopPropagation();
-    const total = this.filteredImages().length;
-    const idx = this.lightboxIndex();
-    if (idx === null || total === 0) return;
-    this.lightboxIndex.set((idx - 1 + total) % total);
+  jumpTo(index: number): void {
+    this.lightboxIndex.set(index);
   }
 
   @HostListener('document:keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
     if (this.lightboxIndex() === null) return;
+
     if (event.key === 'Escape') this.closeLightbox();
-    if (event.key === 'ArrowRight') this.next();
-    if (event.key === 'ArrowLeft') this.prev();
+    else if (event.key === 'ArrowRight') this.go(1);
+    else if (event.key === 'ArrowLeft') this.go(-1);
   }
 
-  trackByIndex(_: number, img: GalleryImage): number {
-    return img.index;
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches[0]?.clientX ?? null;
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (this.touchStartX === null) return;
+
+    const dx = (event.changedTouches[0]?.clientX ?? 0) - this.touchStartX;
+    this.touchStartX = null;
+
+    if (Math.abs(dx) > 50) this.go(dx < 0 ? 1 : -1);
+  }
+
+  // ---------- HELPERS ----------
+
+  pad(n: number): string {
+    return String(n).padStart(2, '0');
+  }
+
+  trackById(_: number, img: GalleryImage): number {
+    return img.id;
+  }
+
+  private lockBody(locked: boolean): void {
+    document.body.style.overflow = locked ? 'hidden' : '';
+    document.body.classList.toggle('lightbox-open', locked);
   }
 }

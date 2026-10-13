@@ -2,7 +2,7 @@
   <app-program-aura variant="cool" />
 
   <div class="ptt-why__inner">
-    <div class="ptt-why__heading" gsapReveal="fade-up">
+    <div class="ptt-why__heading" gsapReveal="fade-in">
       <span class="ptt-kicker">Why V Care</span>
       <h2>Eight little reasons <span>to begin together.</span></h2>
       <p>
@@ -21,7 +21,7 @@
           class="ptt-why-point"
           [class.ptt-why-point--right]="i % 2 === 1"
           [style.--accent]="point.accent"
-          gsapReveal="fade-up"
+          gsapReveal="fade-in"
           [gsapRevealDelay]="(i % 2) * 80"
         >
           <span class="ptt-why-point__dot">{{ i + 1 }}</span>

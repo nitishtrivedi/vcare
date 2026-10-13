@@ -8,7 +8,7 @@
 
     <div class="wu__grid">
       @for (point of points; track point.title; let i = $index) {
-        <div class="wu__tile v-glass" gsapReveal="pop" [gsapRevealDelay]="i * 70">
+        <div class="wu__tile v-glass" gsapReveal="fade-in" [gsapRevealDelay]="i * 70">
           <span class="wu__icon" aria-hidden="true">
             @switch (point.icon) {
               @case ('holistic') {
