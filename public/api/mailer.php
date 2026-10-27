@@ -92,6 +92,80 @@ function vcare_smtp_is_ready(): bool
 |--------------------------------------------------------------------------
 */
 
+// function vcare_send_enquiry_emails(string $type, array $fields): void
+// {
+//     try {
+//         $config = vcare_mail_config();
+
+//         $fromEmail = (string)($config['mail_from_email'] ?? 'support@vcarepreschool.in');
+//         $fromName  = (string)($config['mail_from_name'] ?? 'V Care Education');
+//         $adminTo   = (string)($config['mail_admin_to'] ?? 'enquiries@vcarepreschool.in');
+
+//         $customerEmail = trim((string)($fields['email'] ?? ''));
+//         $customerName  = trim((string)($fields['name'] ?? ''));
+
+//         [$customerSubject, $customerHtml, $customerText] =
+//             vcare_build_customer_email($type, $fields);
+
+//         [$adminSubject, $adminHtml, $adminText] =
+//             vcare_build_admin_email($type, $fields);
+
+//         /*
+//         | 1. Customer acknowledgement
+//         */
+//         if ($customerEmail !== '' && filter_var($customerEmail, FILTER_VALIDATE_EMAIL)) {
+//             vcare_dispatch_email(
+//                 $customerEmail,
+//                 $customerName,
+//                 $customerSubject,
+//                 $customerHtml,
+//                 $customerText,
+//                 $fromEmail,
+//                 $fromName,
+//                 $fromEmail
+//             );
+//         }
+
+//         /*
+//         | 2. Internal notification. Reply-To is the enquirer, so "Reply" works.
+//         */
+//         vcare_dispatch_email(
+//             $adminTo,
+//             'V Care Enquiries',
+//             $adminSubject,
+//             $adminHtml,
+//             $adminText,
+//             $fromEmail,
+//             $fromName,
+//             $customerEmail !== '' ? $customerEmail : $fromEmail
+//         );
+//     } catch (\Throwable $e) {
+//         vcare_mail_log('Fatal error while preparing emails: ' . $e->getMessage());
+//     }
+// }
+
+function vcare_admin_recipients(): array
+{
+    $config = vcare_mail_config();
+    $raw    = $config['mail_admin_to'] ?? [];
+
+    if (is_string($raw)) {
+        $raw = [$raw];
+    }
+
+    $valid = [];
+
+    foreach ((array)$raw as $address) {
+        $address = trim((string)$address);
+
+        if ($address !== '' && filter_var($address, FILTER_VALIDATE_EMAIL)) {
+            $valid[strtolower($address)] = $address;
+        }
+    }
+
+    return array_values($valid);
+}
+
 function vcare_send_enquiry_emails(string $type, array $fields): void
 {
     try {
@@ -99,7 +173,6 @@ function vcare_send_enquiry_emails(string $type, array $fields): void
 
         $fromEmail = (string)($config['mail_from_email'] ?? 'support@vcarepreschool.in');
         $fromName  = (string)($config['mail_from_name'] ?? 'V Care Education');
-        $adminTo   = (string)($config['mail_admin_to'] ?? 'enquiries@vcarepreschool.in');
 
         $customerEmail = trim((string)($fields['email'] ?? ''));
         $customerName  = trim((string)($fields['name'] ?? ''));
@@ -110,9 +183,7 @@ function vcare_send_enquiry_emails(string $type, array $fields): void
         [$adminSubject, $adminHtml, $adminText] =
             vcare_build_admin_email($type, $fields);
 
-        /*
-        | 1. Customer acknowledgement
-        */
+        // 1. Thank-you email to the enquirer
         if ($customerEmail !== '' && filter_var($customerEmail, FILTER_VALIDATE_EMAIL)) {
             vcare_dispatch_email(
                 $customerEmail,
@@ -126,19 +197,23 @@ function vcare_send_enquiry_emails(string $type, array $fields): void
             );
         }
 
-        /*
-        | 2. Internal notification. Reply-To is the enquirer, so "Reply" works.
-        */
-        vcare_dispatch_email(
-            $adminTo,
-            'V Care Enquiries',
-            $adminSubject,
-            $adminHtml,
-            $adminText,
-            $fromEmail,
-            $fromName,
-            $customerEmail !== '' ? $customerEmail : $fromEmail
-        );
+        // 2. Notification to every admin recipient, each sent independently
+        foreach (vcare_admin_recipients() as $adminAddress) {
+            $ok = vcare_dispatch_email(
+                $adminAddress,
+                'V Care Enquiries',
+                $adminSubject,
+                $adminHtml,
+                $adminText,
+                $fromEmail,
+                $fromName,
+                $customerEmail !== '' ? $customerEmail : $fromEmail
+            );
+
+            vcare_mail_log(
+                ($ok ? 'Sent OK to ' : 'FAILED to ') . $adminAddress . ' (' . $type . ')'
+            );
+        }
     } catch (\Throwable $e) {
         vcare_mail_log('Fatal error while preparing emails: ' . $e->getMessage());
     }
@@ -149,6 +224,45 @@ function vcare_send_enquiry_emails(string $type, array $fields): void
 | Dispatch: SMTP first, native mail() as fallback
 |--------------------------------------------------------------------------
 */
+
+// function vcare_dispatch_email(
+//     string $toEmail,
+//     string $toName,
+//     string $subject,
+//     string $htmlBody,
+//     string $textBody,
+//     string $fromEmail,
+//     string $fromName,
+//     string $replyTo
+// ): bool {
+//     if (vcare_smtp_is_ready()) {
+//         $sent = vcare_send_via_smtp(
+//             $toEmail,
+//             $toName,
+//             $subject,
+//             $htmlBody,
+//             $textBody,
+//             $fromEmail,
+//             $fromName,
+//             $replyTo
+//         );
+
+//         if ($sent) {
+//             return true;
+//         }
+
+//         vcare_mail_log("SMTP failed for {$toEmail}. Trying native mail().");
+//     }
+
+//     return vcare_send_via_native_mail(
+//         $toEmail,
+//         $subject,
+//         $htmlBody,
+//         $fromEmail,
+//         $fromName,
+//         $replyTo
+//     );
+// }
 
 function vcare_dispatch_email(
     string $toEmail,
@@ -162,30 +276,20 @@ function vcare_dispatch_email(
 ): bool {
     if (vcare_smtp_is_ready()) {
         $sent = vcare_send_via_smtp(
-            $toEmail,
-            $toName,
-            $subject,
-            $htmlBody,
-            $textBody,
-            $fromEmail,
-            $fromName,
-            $replyTo
+            $toEmail, $toName, $subject, $htmlBody, $textBody,
+            $fromEmail, $fromName, $replyTo
         );
 
         if ($sent) {
             return true;
         }
 
-        vcare_mail_log("SMTP failed for {$toEmail}. Trying native mail().");
+        // Do not fall back silently. The SMTP error is already logged.
+        return false;
     }
 
     return vcare_send_via_native_mail(
-        $toEmail,
-        $subject,
-        $htmlBody,
-        $fromEmail,
-        $fromName,
-        $replyTo
+        $toEmail, $subject, $htmlBody, $fromEmail, $fromName, $replyTo
     );
 }
 
