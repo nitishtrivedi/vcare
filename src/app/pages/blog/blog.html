@@ -1,121 +1,228 @@
-<section class="public-blog">
-  <section class="public-blog__hero">
-    <div class="public-blog__shape public-blog__shape--one" aria-hidden="true"></div>
+<div class="bl-page" #root>
+  <!-- HERO -->
+  <section class="ab-section bl-hero">
+    <div class="ab-aura" aria-hidden="true">
+      <span class="ab-aura__blob ab-aura__blob--red bl-blob bl-blob--1"></span>
+      <span class="ab-aura__blob ab-aura__blob--yellow bl-blob bl-blob--2"></span>
+      <span class="ab-aura__blob ab-aura__blob--green bl-blob bl-blob--3"></span>
+    </div>
 
-    <div class="public-blog__shape public-blog__shape--two" aria-hidden="true"></div>
+    <div class="ab-wrap bl-hero__grid">
+      <div class="bl-hero__copy">
+        <p class="ab-eyebrow bl-hero__kicker">V Care Journal</p>
 
-    <div class="public-blog__shape public-blog__shape--three" aria-hidden="true"></div>
-
-    <div class="public-blog__hero-inner" vcReveal="fade-up">
-      <div>
-        <span class="public-blog__kicker">
-          <span></span>
-          V Care Journal
-        </span>
-
-        <h1>
-          Little minds.
-          <span>Big ideas.</span>
+        <h1 class="bl-hero__title">
+          <span class="bl-mask"><span class="bl-word">Little minds.</span></span>
+          <span class="bl-mask"><span class="bl-word bl-grad">Big ideas.</span></span>
         </h1>
 
-        <p>
-          Stories, ideas and practical insights from V Care — helping children learn, grow, belong
+        <p class="bl-hero__lead">
+          Stories, ideas and practical insights from V Care, helping children learn, grow, belong
           and become.
         </p>
+
+        <label class="bl-search">
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input
+            type="search"
+            placeholder="Search stories, authors, topics…"
+            aria-label="Search articles"
+            [value]="query()"
+            (input)="onSearch($event)"
+          />
+          @if (query()) {
+            <button
+              type="button"
+              class="bl-search__clear"
+              (click)="clearSearch()"
+              aria-label="Clear search"
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+          }
+        </label>
       </div>
 
-      <div class="public-blog__visual" aria-hidden="true">
-        <div class="public-blog__visual-circle"></div>
+      <div class="bl-hero__art" aria-hidden="true">
+        <svg class="bl-book" viewBox="0 0 420 320" focusable="false">
+          <defs>
+            <linearGradient id="blCover" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#c93b41" />
+              <stop offset="0.5" stop-color="#e77b30" />
+              <stop offset="1" stop-color="#176fae" />
+            </linearGradient>
+          </defs>
 
-        <div class="public-blog__visual-card">
-          <strong>Learn.</strong>
-          <strong>Explore.</strong>
-          <strong>Grow.</strong>
-        </div>
+          <path
+            class="bl-book__cover"
+            d="M26 74 Q210 40 210 92 Q210 40 394 74 L394 262 Q210 230 210 282 Q210 230 26 262 Z"
+            fill="url(#blCover)"
+          />
+          <path
+            class="bl-book__page bl-book__page--l"
+            d="M210 92 Q120 72 52 92 L52 242 Q120 226 210 260 Z"
+            fill="#ffffff"
+          />
+          <path
+            class="bl-book__page bl-book__page--r"
+            d="M210 92 Q300 72 368 92 L368 242 Q300 226 210 260 Z"
+            fill="#fffdf9"
+          />
+
+          <path class="bl-book__line" d="M84 124 Q130 114 180 126" stroke="#176fae" />
+          <path class="bl-book__line" d="M84 150 Q130 140 180 152" stroke="#e77b30" />
+          <path class="bl-book__line" d="M84 176 Q130 166 180 178" stroke="#218768" />
+          <path class="bl-book__line" d="M240 126 Q290 114 336 124" stroke="#c93b41" />
+          <path class="bl-book__line" d="M240 152 Q290 140 336 150" stroke="#176fae" />
+          <path class="bl-book__line" d="M240 178 Q290 166 336 176" stroke="#d49a12" />
+
+          <circle class="bl-book__orb" cx="368" cy="40" r="11" fill="#f2b632" />
+          <circle class="bl-book__orb" cx="50" cy="48" r="7" fill="#7c4dd8" />
+          <circle class="bl-book__orb" cx="390" cy="200" r="6" fill="#218768" />
+        </svg>
       </div>
     </div>
   </section>
 
-  <section class="public-blog__content section">
-    <div class="section-inner">
-      <div class="public-blog__heading" vcReveal="fade-up">
-        <div>
-          <span> From V Care </span>
-
-          <h2>Stories worth reading.</h2>
-        </div>
-
-        <p>A collection of ideas, stories and everyday learning moments.</p>
-      </div>
-
+  <!-- CONTENT -->
+  <section class="ab-section bl-content">
+    <div class="ab-wrap">
       @if (isLoading()) {
-        <div class="public-blog__loading">Loading the V Care Journal…</div>
-      } @else if (errorMessage()) {
-        <div class="public-blog__state">
-          <strong> We couldn't load the journal. </strong>
-
-          <p>
-            {{ errorMessage() }}
-          </p>
-
-          <button type="button" (click)="loadBlogs()">Try again</button>
-        </div>
-      } @else if (blogs().length === 0) {
-        <div class="public-blog__state">
-          <strong> The journal is just getting started. </strong>
-
-          <p>New V Care stories will appear here soon.</p>
-        </div>
-      } @else {
-        <div class="public-blog__grid">
-          @for (blog of blogs(); track blog.id) {
-            <article class="public-blog__card" vcReveal="fade-up">
-              <a [routerLink]="['/blog', blog.slug]" class="public-blog__image">
-                @if (blog.featured_image) {
-                  <img
-                    [src]="resolveImageUrl(blog.featured_image)"
-                    [alt]="blog.title"
-                    loading="lazy"
-                  />
-                } @else {
-                  <div>V CARE</div>
-                }
-
-                <span> V Care Journal </span>
-              </a>
-
-              <div class="public-blog__card-body">
-                <div class="public-blog__meta">
-                  <span>
-                    {{ blog.author_name }}
-                  </span>
-
-                  <i></i>
-
-                  <span>
-                    {{ formatDate(blog.created_at) }}
-                  </span>
-                </div>
-
-                <h3>
-                  <a [routerLink]="['/blog', blog.slug]">
-                    {{ blog.title }}
-                  </a>
-                </h3>
-
-                <p>
-                  {{ getExcerpt(blog.content) }}
-                </p>
-
-                <a [routerLink]="['/blog', blog.slug]" class="public-blog__read">
-                  Read article
-                  <span>→</span>
-                </a>
-              </div>
-            </article>
+        <div class="bl-grid">
+          @for (i of skeletons; track i) {
+            <div class="bl-skel"></div>
           }
         </div>
+      } @else if (errorMessage()) {
+        <div class="ab-card bl-state">
+          <span class="bl-state__icon bl-state__icon--red" aria-hidden="true">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </span>
+          <h2>We could not load the journal.</h2>
+          <p>{{ errorMessage() }}</p>
+          <button type="button" class="ab-btn ab-btn--primary" (click)="loadBlogs()">
+            Try again
+          </button>
+        </div>
+      } @else if (blogs().length === 0) {
+        <div class="ab-card bl-state">
+          <span class="bl-state__icon" aria-hidden="true"
+            ><i class="fa-solid fa-feather-pointed"></i
+          ></span>
+          <h2>The journal is just getting started.</h2>
+          <p>New V Care stories will appear here soon.</p>
+        </div>
+      } @else if (filtered().length === 0) {
+        <div class="ab-card bl-state">
+          <span class="bl-state__icon" aria-hidden="true"
+            ><i class="fa-solid fa-magnifying-glass"></i
+          ></span>
+          <h2>No stories match “{{ query() }}”.</h2>
+          <p>Try a different word, or browse everything.</p>
+          <button type="button" class="ab-btn ab-btn--ghost" (click)="clearSearch()">
+            Clear search
+          </button>
+        </div>
+      } @else {
+        @if (featured(); as f) {
+          <article class="ab-card bl-feature">
+            <a
+              class="bl-feature__media"
+              [routerLink]="['/blog', f.slug]"
+              [attr.aria-label]="'Read ' + f.title"
+            >
+              @if (resolveImageUrl(f.featured_image); as src) {
+                <img class="bl-feature__img" [src]="src" [alt]="f.title" loading="eager" />
+              } @else {
+                <span class="bl-feature__fallback" aria-hidden="true">VC</span>
+              }
+              <span class="bl-feature__badge"
+                ><i class="fa-solid fa-star" aria-hidden="true"></i> Featured</span
+              >
+            </a>
+
+            <div class="bl-feature__body">
+              <div class="bl-meta">
+                <span class="bl-meta__author">{{ f.author_name }}</span>
+                <span class="bl-meta__dot" aria-hidden="true"></span>
+                <span>{{ formatDate(f.created_at) }}</span>
+                <span class="bl-meta__dot" aria-hidden="true"></span>
+                <span>{{ readingTime(f.content) }} min read</span>
+              </div>
+
+              <h2 class="bl-feature__title">
+                <a [routerLink]="['/blog', f.slug]">{{ f.title }}</a>
+              </h2>
+
+              <p class="bl-feature__excerpt">{{ excerpt(f.content, 240) }}</p>
+
+              <a class="ab-btn ab-btn--primary bl-feature__cta" [routerLink]="['/blog', f.slug]">
+                Read the story <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </article>
+        }
+
+        @if (grid().length > 0) {
+          <div class="bl-grid">
+            @for (b of grid(); track b.id; let i = $index) {
+              <article class="ab-card bl-card" [style.--a]="accent(i)">
+                <a
+                  class="bl-card__media"
+                  [routerLink]="['/blog', b.slug]"
+                  [attr.aria-label]="'Read ' + b.title"
+                >
+                  @if (resolveImageUrl(b.featured_image); as src) {
+                    <img [src]="src" [alt]="b.title" loading="lazy" />
+                  } @else {
+                    <span class="bl-card__fallback" aria-hidden="true">VC</span>
+                  }
+                  <span class="bl-card__num">{{ pad(i + 1) }}</span>
+                </a>
+
+                <div class="bl-card__body">
+                  <div class="bl-meta">
+                    <span class="bl-meta__author">{{ b.author_name }}</span>
+                    <span class="bl-meta__dot" aria-hidden="true"></span>
+                    <span>{{ formatDate(b.created_at) }}</span>
+                  </div>
+
+                  <h3 class="bl-card__title">
+                    <a [routerLink]="['/blog', b.slug]">{{ b.title }}</a>
+                  </h3>
+
+                  <p class="bl-card__excerpt">{{ excerpt(b.content) }}</p>
+
+                  <div class="bl-card__foot">
+                    <a class="bl-card__read" [routerLink]="['/blog', b.slug]">
+                      Read article <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <span class="bl-card__time">{{ readingTime(b.content) }} min</span>
+                  </div>
+                </div>
+              </article>
+            }
+          </div>
+        }
       }
     </div>
   </section>
-</section>
+
+  <!-- CTA -->
+  <section class="ab-section bl-cta">
+    <div class="ab-wrap">
+      <div class="ab-card bl-cta__panel">
+        <div>
+          <h2 class="ab-h2">Want to see learning <span class="ab-grad-text">in person?</span></h2>
+          <p>Visit our campus in Karvenagar and meet the educators behind these stories.</p>
+        </div>
+        <div class="bl-cta__actions">
+          <a routerLink="/contact" class="ab-btn ab-btn--primary">Book a visit</a>
+          <a href="tel:+919765076513" class="ab-btn ab-btn--ghost">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> +91 97650 76513
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

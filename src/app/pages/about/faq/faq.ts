@@ -1,6 +1,16 @@
-import { Component, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+  signal,
+} from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ScrollReveal } from '../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../directives/gsap-reveal';
+import { gsap, prefersReducedMotion, registerGsap } from '../../../shared/motion/gsap-setup';
 
 interface FaqItem {
   question: string;
@@ -8,29 +18,35 @@ interface FaqItem {
 }
 
 interface FaqCategory {
+  id: string;
   title: string;
+  icon: string;
   accent: string;
-  icon: 'general' | 'admissions' | 'zero-fee' | 'safety';
   items: FaqItem[];
 }
 
 @Component({
   selector: 'app-faq',
-  imports: [RouterLink, ScrollReveal],
+  imports: [RouterLink, GsapReveal],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './faq.html',
   styleUrl: './faq.scss',
 })
-export class Faq {
+export class Faq implements AfterViewInit, OnDestroy {
+  @ViewChild('root', { static: true }) private root!: ElementRef<HTMLElement>;
+  private ctx?: gsap.Context;
+
   readonly categories: FaqCategory[] = [
     {
+      id: 'general',
       title: 'General & Curriculum',
-      accent: '#EB2027',
-      icon: 'general',
+      icon: 'fa-book-open',
+      accent: '#c93b41',
       items: [
         {
           question: 'What age groups does V Care welcome?',
           answer:
-            'From 6 months to 8 years \u2014 spanning our Parent Toddler Program, Playgroup, Nursery, Junior KG, Senior KG and After School Program.',
+            'From 6 months to 8 years, spanning our Parent Toddler Program, Playgroup, Nursery, Junior KG, Senior KG and After School Program.',
         },
         {
           question: 'What teaching approach does V Care follow?',
@@ -44,19 +60,20 @@ export class Faq {
         {
           question: 'What are your operating days?',
           answer:
-            'We\u2019re open Monday to Saturday. The centre remains closed on the 2nd and last Saturday of every month.',
+            'We are open Monday to Saturday. The centre remains closed on the 2nd and last Saturday of every month.',
         },
       ],
     },
     {
+      id: 'admissions',
       title: 'Admissions & Programs',
-      accent: '#F69220',
-      icon: 'admissions',
+      icon: 'fa-id-card',
+      accent: '#e77b30',
       items: [
         {
           question: 'What programs does V Care offer?',
           answer:
-            'Parent Toddler Program (6 months\u20132 years), Playgroup, Nursery, Junior KG and Senior KG under our Preschool Program, the After School Program, and Daycare.',
+            'Parent Toddler Program (6 months to 2 years), Playgroup, Nursery, Junior KG and Senior KG under our Preschool Program, the After School Program, and Daycare.',
         },
         {
           question: 'What is the adult-to-child ratio?',
@@ -71,24 +88,25 @@ export class Faq {
         {
           question: 'Can I visit the campus before enrolling?',
           answer:
-            'Absolutely \u2014 we encourage it. Book a time that works for you and we\u2019ll walk you through the classrooms and activities in person.',
+            'Absolutely. We encourage it. Book a time that works for you and we will walk you through the classrooms and activities in person.',
         },
       ],
     },
     {
+      id: 'zero-fee',
       title: 'Zero Fee Model',
-      accent: '#3BB44A',
-      icon: 'zero-fee',
+      icon: 'fa-shield-heart',
+      accent: '#218768',
       items: [
         {
           question: 'What exactly is the Zero Fee Model?',
           answer:
-            'Instead of tuition fees, you place a one-time Refundable Education Deposit (RED) of \u20B92,00,000 at admission. Your child studies with zero monthly or annual fees for the entire journey, and the full deposit is returned at the end.',
+            'Instead of tuition fees, you place a one-time Refundable Education Deposit (RED) of ₹2,00,000 at admission. Your child studies with zero monthly or annual fees for the entire journey, and the full deposit is returned at the end.',
         },
         {
           question: 'When do I get my deposit back?',
           answer:
-            'On completion of Senior KG \u2014 after your child\u2019s full 4-year journey through Playgroup, Nursery, Junior KG and Senior KG.',
+            'On completion of Senior KG, after your child’s full 4-year journey through Playgroup, Nursery, Junior KG and Senior KG.',
         },
         {
           question: 'What if we need to leave before the program ends?',
@@ -98,19 +116,20 @@ export class Faq {
         {
           question: 'Is this a fee or an investment product?',
           answer:
-            'Neither \u2014 it\u2019s a pure, time-bound refundable deposit, legally documented, and never tied to school performance or profits.',
+            'Neither. It is a pure, time-bound refundable deposit, legally documented, and never tied to school performance or profits.',
         },
       ],
     },
     {
+      id: 'safety',
       title: 'Daycare, Fees & Safety',
-      accent: '#006FB9',
-      icon: 'safety',
+      icon: 'fa-shield-halved',
+      accent: '#176fae',
       items: [
         {
           question: 'What are the Daycare timings and charges?',
           answer:
-            'Daycare covers children from 6 months to 8 years in flexible slots \u2014 from 2 hours (\u20B93,500/month) up to 10 hours (\u20B915,000/month), with a pay-per-day option also available for parents without registration.',
+            'Daycare covers children from 6 months to 8 years in flexible slots, from 2 hours (₹3,500/month) up to 10 hours (₹15,000/month), with a pay-per-day option also available for parents without registration.',
         },
         {
           question: 'What meals are provided during Daycare?',
@@ -125,27 +144,98 @@ export class Faq {
         {
           question: 'What is your late pickup and late payment policy?',
           answer:
-            'Fees are due on or before the 5th of every month. Late payments and pickups beyond scheduled hours carry a small daily/hourly charge, shared with you clearly at admission.',
+            'Fees are due on or before the 5th of every month. Late payments and pickups beyond scheduled hours carry a small daily or hourly charge, shared with you clearly at admission.',
         },
       ],
     },
   ];
 
-  private readonly openKeys = signal<Set<string>>(new Set());
+  readonly total = this.categories.reduce((n, c) => n + c.items.length, 0);
+  readonly activeTab = signal<string>('all');
+  readonly openKeys = signal<ReadonlySet<string>>(new Set());
 
-  toggle(key: string): void {
-    this.openKeys.update((current) => {
-      const next = new Set(current);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
+  readonly visibleCategories = computed(() => {
+    const tab = this.activeTab();
+    return tab === 'all' ? this.categories : this.categories.filter((c) => c.id === tab);
+  });
+
+  constructor() {
+    registerGsap();
+  }
+
+  key(catId: string, index: number): string {
+    return `${catId}-${index}`;
+  }
+
+  isOpen(catId: string, index: number): boolean {
+    return this.openKeys().has(this.key(catId, index));
+  }
+
+  toggle(catId: string, index: number): void {
+    const k = this.key(catId, index);
+    this.openKeys.update((set) => {
+      const next = new Set(set);
+      next.has(k) ? next.delete(k) : next.add(k);
       return next;
     });
   }
 
-  isOpen(key: string): boolean {
-    return this.openKeys().has(key);
+  setTab(id: string): void {
+    this.activeTab.set(id);
+    this.openKeys.set(new Set());
+    // Wait for Angular to render the new list before animating it in.
+    setTimeout(() => this.animateItems(), 0);
+  }
+
+  ngAfterViewInit(): void {
+    if (prefersReducedMotion()) return;
+
+    this.ctx = gsap.context(() => {
+      gsap
+        .timeline({ defaults: { ease: 'power4.out' } })
+        .from('.faq-hero__title .ab-mask > span', { yPercent: 110, duration: 1, stagger: 0.12 })
+        .from('.faq-tab', { autoAlpha: 0, y: 14, duration: 0.5, stagger: 0.06 }, '-=0.5');
+
+      gsap.to('.faq-hero__blob-a', {
+        x: 50,
+        y: 30,
+        duration: 10,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
+      gsap.to('.faq-hero__blob-b', {
+        x: -40,
+        y: -20,
+        duration: 12,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+      });
+    }, this.root.nativeElement);
+
+    this.animateItems();
+  }
+
+  private animateItems(): void {
+    if (prefersReducedMotion()) return;
+
+    gsap.fromTo(
+      this.root.nativeElement.querySelectorAll('.faq-item'),
+      { autoAlpha: 0, y: 18 },
+      {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.06,
+        ease: 'power3.out',
+        clearProps: 'transform',
+        overwrite: 'auto',
+      },
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.ctx?.revert();
   }
 }

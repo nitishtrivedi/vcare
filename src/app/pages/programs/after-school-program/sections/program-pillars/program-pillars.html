@@ -1,0 +1,37 @@
+<section class="ash-pillars" id="why">
+  <div class="ash-pillars__head" gsapReveal="fade-up">
+    <span class="ash-kicker">Why it matters</span>
+    <h2>After school should be <span>more than supervision.</span></h2>
+    <p>
+      It should be a place where children discover new interests, build independence and learn how
+      to use their time well.
+    </p>
+  </div>
+
+  <div class="ash-pillars__grid">
+    @for (p of pillars; track p.title; let i = $index) {
+      <article
+        class="ash-pillar"
+        [style.--accent]="p.accent"
+        (pointermove)="onPointerMove($event)"
+        gsapReveal="fade-up"
+        [gsapRevealDelay]="i * 110"
+      >
+        <span class="ash-pillar__num">0{{ i + 1 }}</span>
+        <span class="ash-pillar__icon" aria-hidden="true">{{ p.icon }}</span>
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.description }}</p>
+      </article>
+    }
+  </div>
+
+  <div class="ash-facts" gsapReveal="zoom-in">
+    @for (f of facts; track f.label) {
+      <div class="ash-fact">
+        <strong>{{ f.value }}</strong>
+        <span>{{ f.label }}</span>
+      </div>
+    }
+    <p class="ash-facts__note">*Closed on the 2nd and last Saturday of every month.</p>
+  </div>
+</section>

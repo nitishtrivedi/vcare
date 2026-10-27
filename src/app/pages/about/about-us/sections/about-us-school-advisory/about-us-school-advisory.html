@@ -1,72 +1,54 @@
-<section class="advisory">
-  <h2 class="advisory__heading">Our Advisory Board</h2>
+<section class="ab-section ab-adv-wrap" #root>
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--red ab-adv-wrap__blob"></span>
+    <span class="ab-aura__blob ab-aura__blob--green ab-adv-wrap__blob-b"></span>
+  </div>
 
-  <div class="advisory__row">
-    @for (member of advisors; track member.name; let i = $index) {
-      <div
-        class="advisory-capsule"
-        tabindex="0"
-        vcReveal="fade-up"
-        [vcRevealDelay]="i * 80"
-        role="group"
-        [attr.aria-label]="member.name + ', ' + member.role"
-        [style.grid-column]="'span ' + (member.colSpan ?? 1)"
-        [style.grid-row]="'span ' + (member.rowSpan ?? 1)"
-      >
-        <div class="advisory-capsule__collapsed">
-          <span class="advisory-capsule__avatar" [style.background]="member.accent">
-            {{ member.initials }}
-          </span>
-          <span class="advisory-capsule__name">{{ member.name }}</span>
-        </div>
+  <div class="ab-wrap">
+    <header class="ab-adv-wrap__head" gsapReveal="fade-up">
+      <p class="ab-eyebrow">Guidance &amp; governance</p>
+      <h2 class="ab-h2">Our <span class="ab-grad-text">advisory board</span></h2>
+    </header>
 
-        <!-- <div class="advisory-capsule__expanded">
-          <div class="advisory-capsule__photo" [style.background]="member.accent">
-            @if (!brokenImages.has(i)) {
-              <img
-                [src]="member.image"
-                [alt]="member.name"
-                (error)="onImageError(i)"
-                loading="lazy"
-              />
+    <div class="ab-adv-wrap__grid" data-adv-grid>
+      @for (m of advisors; track m.name; let i = $index) {
+        <article
+          class="ab-card ab-adv"
+          data-adv
+          [class.ab-adv--open]="isOpen(m.name)"
+          [style.--accent]="m.accent"
+        >
+          <div class="ab-adv__photo">
+            @if (m.image && !failed().has(m.name)) {
+              <img [src]="m.image" [alt]="m.name" loading="lazy" (error)="markFailed(m.name)" />
             } @else {
-              <span class="advisory-capsule__initials">{{ member.initials }}</span>
+              <span class="ab-adv__initials" aria-hidden="true">{{ m.initials }}</span>
             }
           </div>
 
-          <div class="advisory-capsule__body">
-            <strong class="advisory-capsule__title">{{ member.name }}</strong>
-            <span class="advisory-capsule__role" [style.background]="member.accent">{{
-              member.role
-            }}</span>
-            <p class="advisory-capsule__desc">{{ member.description }}</p>
-          </div>
-        </div> -->
-        <div class="advisory-capsule__expand-wrap">
-          <div class="advisory-capsule__expanded">
-            <div class="advisory-capsule__photo" [style.background]="member.accent">
-              @if (!brokenImages.has(i)) {
-                <img
-                  [src]="member.image"
-                  [alt]="member.name"
-                  (error)="onImageError(i)"
-                  loading="lazy"
-                />
-              } @else {
-                <span class="advisory-capsule__initials">{{ member.initials }}</span>
-              }
+          <div class="ab-adv__body">
+            <h3>{{ m.name }}</h3>
+            <span class="ab-adv__role">{{ m.role }}</span>
+
+            <div class="ab-adv__more" [id]="'adv-panel-' + i">
+              <div class="ab-adv__more-inner">
+                <p>{{ m.description }}</p>
+              </div>
             </div>
 
-            <div class="advisory-capsule__body">
-              <strong class="advisory-capsule__title">{{ member.name }}</strong>
-              <span class="advisory-capsule__role" [style.background]="member.accent">{{
-                member.role
-              }}</span>
-              <p class="advisory-capsule__desc">{{ member.description }}</p>
-            </div>
+            <button
+              type="button"
+              class="ab-adv__toggle"
+              [attr.aria-expanded]="isOpen(m.name)"
+              [attr.aria-controls]="'adv-panel-' + i"
+              (click)="toggle(m.name)"
+            >
+              {{ isOpen(m.name) ? 'Show less' : 'Read profile' }}
+              <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+            </button>
           </div>
-        </div>
-      </div>
-    }
+        </article>
+      }
+    </div>
   </div>
 </section>

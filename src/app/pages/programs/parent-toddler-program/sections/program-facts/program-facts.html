@@ -1,14 +1,15 @@
-<section class="facts">
-  <div class="facts__inner">
-    <div class="facts__label">
-      <span>THE BASICS</span>
+<section class="ptt-facts">
+  <app-program-aura variant="fresh" />
+
+  <div class="ptt-facts__card" gsapReveal="fade-in">
+    <div class="ptt-facts__label">
+      <span class="ptt-kicker">The basics</span>
       <strong>Made simple.</strong>
     </div>
 
     @for (fact of facts; track fact.label; let i = $index) {
-      <div class="fact" vcReveal="fade-up" [vcRevealDelay]="i * 90">
-        <span class="fact__number"> 0{{ i + 1 }} </span>
-
+      <div class="ptt-fact" gsapReveal="fade-in" [gsapRevealDelay]="(i + 1) * 100">
+        <span class="ptt-fact__icon" aria-hidden="true">{{ fact.icon }}</span>
         <div>
           <strong>{{ fact.value }}</strong>
           <small>{{ fact.label }}</small>
@@ -16,9 +17,8 @@
       </div>
     }
 
-    <a routerLink="/contact" class="facts__cta" vcReveal="fade-up">
-      Start the conversation
-      <span>→</span>
+    <a routerLink="/contact" class="ptt-facts__cta">
+      Start the conversation <span aria-hidden="true">→</span>
     </a>
   </div>
 </section>

@@ -1,4 +1,41 @@
 :host {
+  --program-paper: #fffdf8;
+  --program-white: #ffffff;
+  --program-blue-wash: #f0f7fc;
+  --program-ink: #19344f;
+  --program-body: #526b81;
+  --program-muted: #7a8da0;
+  --program-blue: #176fae;
+  --program-blue-deep: #10558b;
+  --program-orange: #e77b30;
+  --program-green: #218768;
+  --program-border: rgba(25, 52, 79, 0.1);
+  --program-shadow: 0 24px 65px -38px rgba(25, 52, 79, 0.28);
+
   display: block;
+  min-width: 0;
   overflow: clip;
+
+  color: var(--program-ink);
+  background: var(--program-paper);
+  font-family: var(--v-font-body, 'Inter', sans-serif);
+}
+
+:host,
+:host * {
+  box-sizing: border-box;
+}
+
+:host img,
+:host video {
+  max-width: 100%;
+}
+
+:host a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:host :focus-visible {
+  outline: 3px solid rgba(23, 111, 174, 0.38);
+  outline-offset: 4px;
 }

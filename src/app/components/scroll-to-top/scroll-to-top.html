@@ -1,16 +1,31 @@
 <button
+  #button
   type="button"
-  class="scroll-top"
-  [class.scroll-top--visible]="isVisible()"
-  (click)="scrollToTop()"
+  class="stt"
+  [class.stt--visible]="isVisible()"
+  (click)="scrollToTop(button, $any(arrow))"
   aria-label="Scroll back to top"
   [attr.tabindex]="isVisible() ? 0 : -1"
 >
-  <svg viewBox="0 0 24 24" fill="none">
+  <svg class="stt__ring" viewBox="0 0 50 50" aria-hidden="true">
+    <circle class="stt__track" cx="25" cy="25" r="22" />
+    <circle
+      class="stt__progress"
+      cx="25"
+      cy="25"
+      r="22"
+      [attr.stroke-dasharray]="circumference"
+      [attr.stroke-dashoffset]="dashOffset"
+    />
+  </svg>
+
+  <span class="stt__glow" aria-hidden="true"></span>
+
+  <svg #arrow class="stt__arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path
       d="M12 19V5M12 5l-6 6M12 5l6 6"
       stroke="currentColor"
-      stroke-width="2.4"
+      stroke-width="2.2"
       stroke-linecap="round"
       stroke-linejoin="round"
     />

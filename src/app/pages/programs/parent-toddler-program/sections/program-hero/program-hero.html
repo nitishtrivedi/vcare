@@ -1,69 +1,59 @@
-<section class="pt-hero">
-  <div class="pt-hero__grain"></div>
+<section class="ptt-hero" #heroRoot>
+  <app-program-aura variant="warm" />
+  <div class="ptt-hero__grid" aria-hidden="true"></div>
 
-  <div class="pt-hero__inner">
-    <div class="pt-hero__content" vcReveal="fade-up">
-      <div class="pt-hero__eyebrow">
-        <span>06 MONTHS — 02 YEARS</span>
-        <i></i>
-        PARENT + TODDLER
-      </div>
-
-      <h1>
-        Together, <br />
-        is where.. the
-        <span>learning begins.</span>
-      </h1>
-
-      <p class="pt-hero__lead">
-        The parent-child bond is the strongest foundation a child can build on. Our Parent Toddler
-        Program gently introduces your little one to a social, preschool-like environment — with you
-        right there beside them, every step of the way.
+  <div class="ptt-hero__inner">
+    <div class="ptt-hero__content">
+      <p class="ptt-hero__eyebrow">
+        <span class="ptt-hero__pulse" aria-hidden="true"></span>
+        06 months – 2 years · Parent + toddler
       </p>
 
-      <div class="pt-hero__actions">
-        <a routerLink="/contact" class="pt-button pt-button--primary">
-          Make an Enquiry
-          <span>↗</span>
+      <h1 class="ptt-hero__title">
+        <span class="ptt-mask"><span class="ptt-line">Together is</span></span>
+        <span class="ptt-mask"
+          ><span class="ptt-line ptt-accent">where learning begins.</span></span
+        >
+      </h1>
+
+      <p class="ptt-hero__lead">
+        The parent-child bond is the strongest foundation a child can build on. Our Parent Toddler
+        Program gently introduces your little one to a social, preschool-like environment, with you
+        right beside them every step of the way.
+      </p>
+
+      <div class="ptt-hero__actions">
+        <a routerLink="/contact" class="ptt-btn ptt-btn--primary">
+          Make an enquiry <span aria-hidden="true">↗</span>
         </a>
-
-        <a href="#experience" class="pt-button pt-button--light"> Explore the experience </a>
+        <a href="#experience" class="ptt-btn ptt-btn--ghost">Explore the experience</a>
       </div>
 
-      <div class="pt-hero__quote">
-        <span>“</span>
+      <blockquote class="ptt-hero__quote">
+        <span aria-hidden="true">“</span>
         <p>A little hand. A familiar face. A whole new world to discover.</p>
-      </div>
+      </blockquote>
     </div>
 
-    <div class="pt-hero__visual" vcReveal="zoom-in" [vcRevealDelay]="120">
-      <div class="pt-hero__orb pt-hero__orb--yellow"></div>
-      <div class="pt-hero__orb pt-hero__orb--pink"></div>
+    <div class="ptt-hero__visual" #visual>
+      <div class="ptt-hero__ring" aria-hidden="true"></div>
 
-      <div class="pt-hero__image">
+      <div class="ptt-hero__frame">
         <img
           src="assets/images/pages/parent-toddler/mother-toddler-hero.jpg"
           alt="A parent and toddler enjoying an activity together at V Care"
           width="640"
-          height="640"
-          loading="eager"
+          height="800"
           fetchpriority="high"
         />
       </div>
 
-      <div class="pt-hero__floating pt-hero__floating--one">
-        <strong>PLAY</strong>
-        <span>together</span>
-      </div>
-
-      <div class="pt-hero__floating pt-hero__floating--two">
-        <strong>GROW</strong>
-        <span>together</span>
-      </div>
+      <div class="ptt-chip ptt-chip--a"><span aria-hidden="true">♥</span>Play together</div>
+      <div class="ptt-chip ptt-chip--b"><span aria-hidden="true">✦</span>Grow together</div>
     </div>
   </div>
 
-  <div class="pt-hero__wave">
-    <app-wave-divider fill="#fffdf7"></app-wave-divider>
+  <div class="ptt-hero__wave">
+    <app-wave-divider fill="#fffdf8"></app-wave-divider>
   </div>
 </section>

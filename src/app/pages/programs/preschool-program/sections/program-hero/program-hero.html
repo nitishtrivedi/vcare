@@ -1,61 +1,70 @@
-<section class="program-hero">
-  <div class="program-hero__pattern"></div>
+<section class="program-hero" #heroRoot>
+  <div class="program-hero__pattern" aria-hidden="true"></div>
+  <div class="program-hero__ambient program-hero__ambient--blue" aria-hidden="true"></div>
+  <div class="program-hero__ambient program-hero__ambient--orange" aria-hidden="true"></div>
 
   <div class="program-hero__inner">
-    <div class="program-hero__content" vcReveal="fade-up">
+    <div class="program-hero__content">
       <div class="program-hero__eyebrow">
-        <span>01</span>
-        Preschool Program
+        <span class="program-hero__eyebrow-dot"></span>
+        <span>Preschool · Early years · Ages 2–6</span>
       </div>
 
       <h1 class="program-hero__title">
-        The first chapter..
-        <span>starts with wonder.</span>
+        <span class="program-hero__title-line">Big beginnings.</span>
+        <span class="program-hero__title-line program-hero__title-accent"> Brighter futures. </span>
       </h1>
 
-      <p class="program-hero__subtitle">Best in Karvenagar, Pune</p>
+      <p class="program-hero__subtitle">A joyful start to a lifelong love of learning.</p>
 
       <p class="program-hero__description">
-        A child's brain develops 90% of its capacity by age 5. V Care's Preschool Program makes
-        these formative years safe, stimulating and joyful — laying the foundation for a lifetime of
-        confident learning.
+        The early years are full of firsts, discoveries and little moments that shape who children
+        become. At V Care, we make those years safe, stimulating and joyful through hands-on
+        learning, purposeful play and caring guidance.
       </p>
 
       <div class="program-hero__actions">
         <a routerLink="/contact" class="program-hero__button program-hero__button--primary">
-          Make an Enquiry
-          <span>↗</span>
+          <span>Make an enquiry</span>
+          <span class="program-hero__button-icon" aria-hidden="true">↗</span>
         </a>
 
-        <a href="#classes" class="program-hero__button program-hero__button--ghost">
-          Explore Classes
+        <a href="#classes" class="program-hero__button program-hero__button--secondary">
+          Explore our classes
+          <span aria-hidden="true">↓</span>
         </a>
       </div>
 
       <div class="program-hero__meta">
-        <div>
+        <div class="program-hero__meta-item">
           <strong>2–6</strong>
-          <span>years</span>
+          <span>Years of age</span>
         </div>
 
-        <div class="program-hero__meta-line"></div>
+        <span class="program-hero__meta-divider" aria-hidden="true"></span>
 
-        <div>
-          <strong>Mon–Fri</strong>
-          <span>weekly</span>
+        <div class="program-hero__meta-item">
+          <strong>4 stages</strong>
+          <span>Growing together</span>
         </div>
 
-        <div class="program-hero__meta-line"></div>
+        <span class="program-hero__meta-divider" aria-hidden="true"></span>
 
-        <div>
+        <div class="program-hero__meta-item">
           <strong>3–5 hrs</strong>
-          <span>daily</span>
+          <span>Program duration</span>
         </div>
+      </div>
+
+      <div class="program-hero__location">
+        <span class="program-hero__location-icon" aria-hidden="true">⌖</span>
+        <span>Preschool in Karvenagar, Pune</span>
       </div>
     </div>
 
-    <div class="program-hero__visual" vcReveal="zoom-in" [vcRevealDelay]="120">
-      <div class="program-hero__sun"></div>
+    <div class="program-hero__visual">
+      <div class="program-hero__visual-backdrop" aria-hidden="true"></div>
+      <div class="program-hero__sun" aria-hidden="true"></div>
 
       <div class="program-hero__photo">
         <img
@@ -63,28 +72,52 @@
           alt="Children of V Care Preschool sitting together and smiling"
           width="640"
           height="640"
-          loading="eager"
           fetchpriority="high"
+          decoding="async"
         />
       </div>
 
-      <div class="program-hero__badge program-hero__badge--top">
-        <span>Learn</span>
-        through play
+      <div class="program-hero__floating-card program-hero__floating-card--top">
+        <span class="program-hero__floating-icon program-hero__floating-icon--orange">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M12 3.5l2.1 5.3 5.7.4-4.4 3.7 1.4 5.5-4.8-3-4.8 3 1.4-5.5-4.4-3.7 5.7-.4L12 3.5Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <span>
+          <strong>Learn through play</strong>
+          <small>Curiosity comes first</small>
+        </span>
       </div>
 
-      <div class="program-hero__badge program-hero__badge--bottom">
-        <span>Grow</span>
-        with confidence
+      <div class="program-hero__floating-card program-hero__floating-card--bottom">
+        <span class="program-hero__floating-icon program-hero__floating-icon--blue">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M12 20s-8-4.4-8-10a4.5 4.5 0 0 1 8-2.7A4.5 4.5 0 0 1 20 10c0 5.6-8 10-8 10Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <span>
+          <strong>Grow with confidence</strong>
+          <small>Every child belongs</small>
+        </span>
       </div>
 
-      <span class="program-hero__dot program-hero__dot--red"></span>
-      <span class="program-hero__dot program-hero__dot--blue"></span>
-      <span class="program-hero__dot program-hero__dot--green"></span>
+      <span class="program-hero__decor program-hero__decor--one" aria-hidden="true">✦</span>
+      <span class="program-hero__decor program-hero__decor--two" aria-hidden="true">✧</span>
+      <span class="program-hero__decor program-hero__decor--three" aria-hidden="true">●</span>
     </div>
   </div>
 
   <div class="program-hero__divider">
-    <app-wave-divider fill="#fffdf7"></app-wave-divider>
+    <app-wave-divider fill="#fffdf8"></app-wave-divider>
   </div>
 </section>

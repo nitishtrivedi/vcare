@@ -1,4 +1,22 @@
 :host {
+  --ash-ink: #0f2b4a;
+  --ash-body: #536a80;
+  --ash-muted: #6f8497;
+  --ash-blue: #176fae;
+  --ash-orange: #e77b30;
+  --ash-red: #d94c51;
+  --ash-green: #218768;
+  --ash-navy: #061e3a;
+  --ash-border: rgba(15, 43, 74, 0.1);
+
   display: block;
   overflow: clip;
+  color: var(--ash-ink);
+  background: #fffdf8;
+  font-family: var(--v-font-body, 'Inter', sans-serif);
+}
+
+:host :focus-visible {
+  outline: 3px solid rgba(23, 111, 174, 0.4);
+  outline-offset: 4px;
 }

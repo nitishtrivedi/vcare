@@ -1,34 +1,27 @@
-<section class="daycare-moments">
-  <div class="daycare-moments__inner">
-    <div class="daycare-moments__intro">
-      <span class="daycare-kicker daycare-kicker--light"> LIFE AT V CARE </span>
-
-      <h2>
-        The little moments
-        <span>matter most.</span>
-      </h2>
-
+<section class="dc-mom" id="moments">
+  <div class="dc-mom__inner">
+    <div class="dc-mom__head" gsapReveal="fade-in">
+      <p class="dc-eyebrow">Life at V Care</p>
+      <h2>The little moments <em>matter most.</em></h2>
       <p>
-        A glimpse into the everyday experiences that turn daycare into a place children look forward
-        to returning to.
+        A glimpse into the everyday experiences that make daycare a place children love returning
+        to.
       </p>
     </div>
 
     @if (videos().length > 0) {
-      <div class="daycare-moments__grid">
+      <div class="dc-mom__grid" gsapReveal="zoom-in">
         @for (video of videos(); track trackByIndex($index, video); let i = $index) {
           <button
             type="button"
-            class="daycare-moment"
-            [class.daycare-moment--hero]="i === 0"
+            class="dc-clip"
+            [class.dc-clip--large]="i === 0"
             [attr.aria-label]="'Play video ' + (i + 1)"
             (click)="openLightbox(i)"
-            vcReveal="fade-up"
-            [vcRevealDelay]="i * 70"
           >
             <video
-              class="daycare-moment__thumb"
-              [class.daycare-moment__thumb--ready]="loadedThumbs().has(video.index)"
+              class="dc-clip__thumb"
+              [class.dc-clip__thumb--ready]="loadedThumbs().has(video.index)"
               [src]="video.src"
               [poster]="video.poster || null"
               muted
@@ -40,10 +33,10 @@
               (loadeddata)="onThumbReady(video.index)"
             ></video>
 
-            <span class="daycare-moment__number"> 0{{ i + 1 }} </span>
+            <span class="dc-clip__no">0{{ i + 1 }}</span>
 
-            <span class="daycare-moment__play">
-              <svg viewBox="0 0 24 24">
+            <span class="dc-clip__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                 <path d="M8 5v14l11-7z"></path>
               </svg>
             </span>
@@ -53,116 +46,74 @@
     }
 
     @if (isScanning() && videos().length === 0) {
-      <div class="daycare-moments__grid">
+      <div class="dc-mom__grid">
         @for (i of [1, 2, 3, 4, 5, 6]; track i) {
-          <div
-            class="daycare-moment daycare-moment--skeleton"
-            [class.daycare-moment--hero]="i === 1"
-          >
-            <span class="daycare-moment__scan-line"></span>
+          <div class="dc-clip dc-clip--skeleton" [class.dc-clip--large]="i === 1">
+            <span class="dc-clip__scan"></span>
           </div>
         }
       </div>
     }
 
     @if (!isScanning() && videos().length === 0) {
-      <div class="daycare-moments__empty">
-        <p>No videos uploaded yet.</p>
-        <!-- <small>
-          Add video files to <code>public/assets/videos/daycare-program/</code>, then list them in
-          <code>manifest.json</code> in that same folder — they'll appear here automatically.
-        </small> -->
+      <div class="dc-mom__empty">
+        <p>Videos coming soon.</p>
+        <small>
+          Add files to <code>public/assets/videos/daycare-program/</code> and list them in
+          <code>manifest.json</code>.
+        </small>
       </div>
     }
 
-    @if (isScanning() && videos().length > 0) {
-      <p class="daycare-moments__note daycare-moments__note--scanning">
-        Still checking for more videos…
-      </p>
-    } @else if (videos().length > 0) {
-      <p class="daycare-moments__note">Tap a video to watch.</p>
+    @if (videos().length > 0) {
+      <p class="dc-mom__note">Tap a video to watch.</p>
     }
   </div>
 </section>
 
 @if (lightboxVideo(); as video) {
   <div
-    class="video-lightbox"
+    class="dc-lb"
     role="dialog"
     aria-modal="true"
     aria-label="Video player"
     (click)="closeLightbox()"
   >
-    <button
-      type="button"
-      class="video-lightbox__close"
-      (click)="closeLightbox()"
-      aria-label="Close"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
-      </svg>
+    <button type="button" class="dc-lb__close" (click)="closeLightbox()" aria-label="Close">
+      ✕
     </button>
 
     @if (videos().length > 1) {
       <button
         type="button"
-        class="video-lightbox__nav video-lightbox__nav--prev"
+        class="dc-lb__nav dc-lb__nav--prev"
         (click)="prev($event)"
         aria-label="Previous video"
       >
-        <svg
-          viewBox="0 0 24 24"
-          width="22"
-          height="22"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        ‹
       </button>
     }
 
-    <div class="video-lightbox__content" (click)="$event.stopPropagation()">
+    <div class="dc-lb__content" (click)="$event.stopPropagation()">
       <video
-        class="video-lightbox__player"
+        class="dc-lb__player"
         [src]="video.src"
         [poster]="video.poster || null"
         controls
         autoplay
         playsinline
       ></video>
-
-      <span class="video-lightbox__counter">
-        {{ (lightboxIndex() ?? 0) + 1 }} / {{ videos().length }}
-      </span>
+      <span class="dc-lb__counter">{{ (lightboxIndex() ?? 0) + 1 }} / {{ videos().length }}</span>
     </div>
 
     @if (videos().length > 1) {
       <button
         type="button"
-        class="video-lightbox__nav video-lightbox__nav--next"
+        class="dc-lb__nav dc-lb__nav--next"
         (click)="next($event)"
         aria-label="Next video"
       >
-        <svg
-          viewBox="0 0 24 24"
-          width="22"
-          height="22"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        ›
       </button>
     }
   </div>

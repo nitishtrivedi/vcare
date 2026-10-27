@@ -1,103 +1,69 @@
-<section class="programs" id="programs">
-  <div class="programs__inner">
-    <!-- Decorative funky shapes, echoing the brand palette -->
-    <span class="programs__shape programs__shape--triangle" aria-hidden="true"></span>
-    <span class="programs__shape programs__shape--blob" aria-hidden="true"></span>
+<section class="pg" id="programs">
+  <div class="pg__inner">
+    <div class="pg__intro" gsapReveal="slide-right">
+      <span class="v-eyebrow">Explore</span>
+      <h2 class="v-h2">Our <span class="v-gradient-text">Programs</span></h2>
 
-    <div class="programs__intro" vcReveal="slide-right">
-      <h3 class="programs__title">Our Programs</h3>
-
-      <p class="programs__para">
+      <p class="pg__para">
         At V Care, we believe the first few years of a child's life shape everything that follows.
         Our preschool and activity centre in Karvenagar is built around one idea: children learn
         best when they feel safe, loved and free to be curious.
       </p>
-
-      <p class="programs__para">
+      <p class="pg__para">
         We're working to raise children who are confident, kind, and genuinely excited to learn —
         not through worksheets and pressure, but through play, stories, music and hands-on
         discovery, guided by teachers who know each child by name.
       </p>
-
-      <p class="programs__para">
+      <p class="pg__para">
         From a toddler's very first steps into a group setting, right through to structured
         after-school care, every V Care program is thoughtfully paced for its age group. Explore
         what's next for your little one.
       </p>
     </div>
 
-    <div class="programs__carousel">
-      <button
-        type="button"
-        class="programs__arrow programs__arrow--prev icon-bounce"
-        (click)="prev()"
-        aria-label="Previous program"
-      >
-        <svg viewBox="0 0 24 24" fill="none">
-          <path
-            d="M15 6l-6 6 6 6"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
+    <div class="pg__carousel">
+      <div class="pg__controls">
+        <button type="button" class="pg__arrow" (click)="prev()" aria-label="Previous program">
+          ‹
+        </button>
+        <button type="button" class="pg__arrow" (click)="next()" aria-label="Next program">
+          ›
+        </button>
+      </div>
 
-      <div class="programs__track">
+      <div class="pg__track">
         @for (
           program of visible();
           track startIndex() + '-' + $index + '-' + program.name;
           let i = $index
         ) {
           <article
-            class="program-card"
+            class="pg__card v-glass"
             [attr.data-accent]="program.accent"
-            [class]="'program-card--slot-' + i"
+            gsapReveal="fade-in"
+            [gsapRevealDelay]="i * 80"
           >
-            <div class="program-card__image">
-              <!-- Replace with your own photo at this path -->
+            <div class="pg__media">
               <img
                 [src]="program.image"
                 [alt]="program.name"
+                loading="lazy"
                 onerror="this.style.display = 'none'"
               />
             </div>
 
-            <div class="program-card__body">
-              <span class="program-card__dots" aria-hidden="true"> <i></i><i></i><i></i> </span>
+            <div class="pg__body">
+              <span class="pg__age">{{ program.age }}</span>
+              <h3>{{ program.name }}</h3>
+              <p>{{ program.copy }}</p>
 
-              <h3 class="program-card__name">{{ program.name }}</h3>
-              <p class="program-card__tagline">{{ program.tagline }}</p>
-              <p class="program-card__age">{{ program.age }}</p>
-
-              <a
-                [routerLink]="program.routerLink"
-                [fragment]="program.fragment"
-                class="program-card__btn"
-                >Know More &raquo;</a
-              >
+              <a [routerLink]="program.routerLink" [fragment]="program.fragment" class="pg__link">
+                Know More <span aria-hidden="true">→</span>
+              </a>
             </div>
           </article>
         }
       </div>
-
-      <button
-        type="button"
-        class="programs__arrow programs__arrow--next icon-bounce"
-        (click)="next()"
-        aria-label="Next program"
-      >
-        <svg viewBox="0 0 24 24" fill="none">
-          <path
-            d="M9 6l6 6-6 6"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
     </div>
   </div>
 </section>

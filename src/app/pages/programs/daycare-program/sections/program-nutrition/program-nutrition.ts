@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ScrollReveal } from '../../../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../../../directives/gsap-reveal';
 
 @Component({
   selector: 'app-program-nutrition',
-  imports: [ScrollReveal],
+  imports: [GsapReveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './program-nutrition.html',
   styleUrl: './program-nutrition.scss',

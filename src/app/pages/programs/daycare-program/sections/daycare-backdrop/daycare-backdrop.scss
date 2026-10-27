@@ -1,0 +1,46 @@
+:host {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.dcb-wrap {
+  position: absolute;
+  inset: 0;
+}
+
+.dcb {
+  position: absolute;
+  top: -4%;
+  left: -4%;
+  width: 108%;
+  height: 108%;
+}
+
+.dcb__ring {
+  fill: none;
+  stroke: #8fbfe3;
+  stroke-width: 1.1;
+  opacity: 0.5;
+  vector-effect: non-scaling-stroke;
+
+  &:nth-child(even) {
+    stroke: #a9d8bd;
+  }
+}
+
+.dcb__sun {
+  position: absolute;
+  top: -14%;
+  right: -12%;
+  width: 52vw;
+  height: 52vw;
+  max-width: 680px;
+  max-height: 680px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #fdf1de 35%, rgba(253, 241, 222, 0) 70%);
+  filter: blur(30px);
+}

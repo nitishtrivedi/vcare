@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ScrollReveal } from '../../../../../directives/scroll-reveal';
 import { ScheduleBlock } from '../../../../../models/program.model';
+import { GsapReveal } from '../../../../../directives/gsap-reveal';
 
 const ACCENTS = ['#EB2027', '#F69220', '#3BB44A', '#006FB9', '#874D3E', '#FBED21'];
 
 @Component({
   selector: 'app-program-schedule',
-  imports: [ScrollReveal],
+  imports: [GsapReveal],
   templateUrl: './program-schedule.html',
   styleUrl: './program-schedule.scss',
 })

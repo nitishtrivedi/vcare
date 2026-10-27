@@ -1,36 +1,38 @@
-<section class="benefits" id="experience">
-  <div class="benefits__inner">
-    <div class="benefits__intro" vcReveal="fade-up">
-      <span class="pt-kicker"> The experience </span>
+<section class="ptt-benefits" id="experience" #section>
+  <app-program-aura variant="cool" />
 
-      <h2>
-        Designed for
-        <span>two people growing together.</span>
-      </h2>
+  <div class="ptt-benefits__inner">
+    <div class="ptt-benefits__intro" gsapReveal="fade-in">
+      <span class="ptt-kicker">The experience</span>
+      <h2>Designed for <span>two people growing together.</span></h2>
 
       @for (para of introParagraphs; track para) {
         <p>{{ para }}</p>
       }
     </div>
 
-    <div class="benefits__orbit" vcReveal="zoom-in">
-      <div class="benefits__core">
-        <span>V</span>
+    <div class="ptt-orbit" gsapReveal="zoom-in">
+      <span class="ptt-orbit__ring" aria-hidden="true"></span>
+
+      <div class="ptt-core">
+        <span class="ptt-core__pulse" aria-hidden="true"></span>
+        <span class="ptt-core__mark">V</span>
         <strong>CARE</strong>
         <small>TOGETHER</small>
       </div>
 
-      @for (circle of circles; track circle.text; let i = $index) {
-        <article
-          class="benefit-node benefit-node--{{ i + 1 }}"
-          [style.--accent]="circle.accent"
-          vcReveal="pop"
-          [vcRevealDelay]="i * 70"
-        >
-          <span class="benefit-node__index"> 0{{ i + 1 }} </span>
-
-          <p>{{ circle.text }}</p>
-        </article>
+      @for (node of nodes; track node.text; let i = $index) {
+        <div class="ptt-node-wrap" [style.left.%]="node.x" [style.top.%]="node.y">
+          <article
+            class="ptt-node"
+            [style.--accent]="node.accent"
+            gsapReveal="pop"
+            [gsapRevealDelay]="i * 90"
+          >
+            <span class="ptt-node__num">0{{ i + 1 }}</span>
+            <p>{{ node.text }}</p>
+          </article>
+        </div>
       }
     </div>
   </div>

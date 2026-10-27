@@ -1,38 +1,53 @@
-<section class="trust">
-  <span class="trust__shape trust__shape--arc"></span>
-  <span class="trust__shape trust__shape--diamond"></span>
-  <span class="trust__shape trust__shape--triangle"></span>
+<section class="ab-section ab-trust" #root>
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--orange ab-trust__blob-a"></span>
+    <span class="ab-aura__blob ab-aura__blob--green ab-trust__blob-b"></span>
+  </div>
 
-  <div class="trust__inner">
-    <div class="trust__col" vcReveal="fade-up">
-      <h2 class="trust__heading">Trusted by Parents</h2>
-      <ul class="trust__list">
-        @for (point of trustedByParents; track point.text) {
-          <li>
-            <span class="trust__check">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M5 13l4 4 10-10"
-                  stroke="currentColor"
-                  stroke-width="2.4"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </span>
-            {{ point.text }}
-          </li>
-        }
-      </ul>
-    </div>
+  <div class="ab-wrap">
+    <header class="ab-trust__head" gsapReveal="fade-up">
+      <p class="ab-eyebrow">Safety &amp; trust</p>
+      <h2 class="ab-h2">Built on <span class="ab-grad-text">trust, every single day.</span></h2>
+    </header>
 
-    <div class="trust__col" vcReveal="fade-up" [vcRevealDelay]="120">
-      <h2 class="trust__heading">Inside V-Care</h2>
-      <ul class="trust__list trust__list--plain">
-        @for (point of insideVCare; track point.text) {
-          <li><span class="trust__dot"></span>{{ point.text }}</li>
-        }
-      </ul>
+    <div class="ab-trust__grid" data-trust-grid>
+      <div class="ab-card ab-trust__panel">
+        <h3>
+          <span class="ab-trust__badge ab-trust__badge--red"
+            ><i class="fa-solid fa-shield-heart"></i
+          ></span>
+          Trusted by parents
+        </h3>
+        <ul class="ab-trust__list" role="list">
+          @for (item of trustedByParents; track item) {
+            <li data-trust-item>
+              <span class="ab-trust__tick" data-trust-tick aria-hidden="true">
+                <i class="fa-solid fa-check"></i>
+              </span>
+              {{ item }}
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="ab-card ab-trust__panel">
+        <h3>
+          <span class="ab-trust__badge ab-trust__badge--blue"
+            ><i class="fa-solid fa-house-chimney-window"></i
+          ></span>
+          Inside V Care
+        </h3>
+        <ul class="ab-trust__list" role="list">
+          @for (item of insideVCare; track item) {
+            <li data-trust-item>
+              <span class="ab-trust__tick ab-trust__tick--blue" data-trust-tick aria-hidden="true">
+                <i class="fa-solid fa-circle"></i>
+              </span>
+              {{ item }}
+            </li>
+          }
+        </ul>
+      </div>
     </div>
   </div>
 </section>

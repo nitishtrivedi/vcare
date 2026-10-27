@@ -51,7 +51,10 @@ return [
 
     // Internal notification copies land here. Create this mailbox in
     // hPanel too (it can simply forward to whoever should see enquiries).
-    'mail_admin_to' => 'enquiries@vcarepreschool.in',
+    'mail_admin_to' => [
+        'enquiries@vcarepreschool.in',
+        'vcareeducationpune@gmail.com', //Fallback to gmail address
+    ],
 
     // Absolute URL to the logo shown in the customer-facing email header.
     // Must be a public https:// URL — email clients cannot load local files.

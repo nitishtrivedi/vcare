@@ -1,0 +1,171 @@
+<section class="pd" id="day" #root>
+  <header class="pd__head">
+    <p class="pd__eyebrow">A typical day</p>
+
+    <h2>A rhythm children <em>feel</em> in their bones.</h2>
+
+    <p class="pd__sub">
+      Explore the day. Hover or tap any part of the dial to see what happens, and how long it lasts.
+    </p>
+
+    <p
+      class="pd__clock-status"
+      [class.pd__clock-status--outside]="isOutOfHours()"
+      aria-live="polite"
+    >
+      <span class="pd__clock-dot" aria-hidden="true"></span>
+
+      @if (isOutOfHours()) {
+        Outside daycare hours · {{ currentTimeLabel() }} IST
+      } @else {
+        Daycare in progress · {{ currentTimeLabel() }} IST
+      }
+    </p>
+  </header>
+
+  <div class="pd__stage">
+    <!-- INTERACTIVE DAILY DIAL -->
+    <div class="pd__dial-wrap">
+      <svg
+        class="pd__dial"
+        viewBox="0 0 400 400"
+        role="group"
+        [attr.aria-label]="'Daily schedule from ' + dayStartLabel + ' to ' + dayEndLabel"
+      >
+        <!-- Decorative guide rings -->
+        <circle class="pd__track" cx="200" cy="200" r="180" />
+
+        <circle class="pd__track" cx="200" cy="200" r="128" />
+
+        <circle class="pd__track pd__track--dash" cx="200" cy="200" r="154" />
+
+        <!-- Schedule segments: interactive and never transformed by GSAP -->
+        @for (block of blocks; track block.label; let i = $index) {
+          <path
+            class="pd-arc pd-arc--{{ block.tone }}"
+            [class.is-active]="isActive(i)"
+            [class.is-selected]="selectedIndex() === i"
+            [attr.d]="block.arc"
+            tabindex="0"
+            role="button"
+            [attr.aria-pressed]="selectedIndex() === i"
+            [attr.aria-label]="
+              block.label + ', ' + formatBlockTime(block) + ', ' + formatBlockDuration(block)
+            "
+            (pointerenter)="preview(i)"
+            (pointerleave)="preview(null)"
+            (focus)="preview(i)"
+            (blur)="preview(null)"
+            (click)="select(i)"
+            (keydown.enter)="select(i)"
+            (keydown.space)="$event.preventDefault(); select(i)"
+          />
+        }
+
+        <!-- Actual current-time marker. It only exists during daycare hours. -->
+        @if (nowTick(); as tick) {
+          <line
+            class="pd__now"
+            [attr.x1]="tick.in.x"
+            [attr.y1]="tick.in.y"
+            [attr.x2]="tick.out.x"
+            [attr.y2]="tick.out.y"
+            aria-hidden="true"
+          />
+        }
+
+        <!-- Dial centre -->
+        <text class="pd__centre-total" x="200" y="186" text-anchor="middle">
+          {{ totalLabel }}
+        </text>
+
+        <text class="pd__centre-sub" x="200" y="210" text-anchor="middle">
+          of structured rhythm
+        </text>
+
+        <text class="pd__centre-range" x="200" y="232" text-anchor="middle">
+          {{ dayStartLabel }} – {{ dayEndLabel }}
+        </text>
+      </svg>
+
+      <!-- SELECTED ACTIVITY DETAILS -->
+      <aside class="pd__detail" [attr.data-tone]="active().tone">
+        <span class="pd__detail-index"> {{ activeIndex() + 1 }} / {{ blocks.length }} </span>
+
+        <h3>{{ active().label }}</h3>
+
+        <dl class="pd__detail-meta">
+          <div>
+            <dt>Time</dt>
+            <dd>{{ activeRange() }}</dd>
+          </div>
+
+          <div>
+            <dt>Length</dt>
+            <dd>{{ activeDuration() }}</dd>
+          </div>
+
+          <div>
+            <dt>Of the day</dt>
+            <dd>{{ activeShare() }}%</dd>
+          </div>
+        </dl>
+
+        <div class="pd__detail-bar" aria-hidden="true">
+          <span [style.width.%]="activeShare() * 2.2"></span>
+        </div>
+      </aside>
+
+      <p class="pd__live" aria-live="polite">
+        {{ liveText() }}
+      </p>
+    </div>
+
+    <!-- DAILY SCHEDULE LIST -->
+    <ol class="pd__list" role="listbox" aria-label="Daily schedule">
+      @for (block of blocks; track block.label; let i = $index) {
+        <li
+          class="pd-item pd-item--{{ block.tone }}"
+          [class.is-active]="isActive(i)"
+          [class.is-selected]="selectedIndex() === i"
+          role="option"
+          [attr.aria-selected]="selectedIndex() === i"
+          [attr.data-index]="i"
+          tabindex="0"
+          (pointerenter)="preview(i)"
+          (pointerleave)="preview(null)"
+          (focus)="preview(i)"
+          (blur)="preview(null)"
+          (click)="select(i)"
+          (keydown)="onListKeydown($event, i)"
+        >
+          <span class="pd-item__no">
+            {{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}
+          </span>
+
+          <span class="pd-item__body">
+            <span class="pd-item__label">
+              {{ block.label }}
+            </span>
+
+            <span class="pd-item__time">
+              {{ formatBlockTime(block) }}
+            </span>
+          </span>
+
+          <span class="pd-item__meter" aria-hidden="true">
+            <span [style.width.%]="(block.minutes / 90) * 100"></span>
+          </span>
+
+          <span class="pd-item__dur"> {{ block.minutes }} min </span>
+        </li>
+      }
+    </ol>
+  </div>
+
+  <footer class="pd__foot">
+    <span>
+      Durations reflect a typical day. Exact start times may shift slightly to suit the group.
+    </span>
+  </footer>
+</section>

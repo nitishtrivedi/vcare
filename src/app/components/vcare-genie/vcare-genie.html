@@ -1,117 +1,169 @@
 <div class="genie">
   @if (isOpen()) {
-    <section class="genie__panel" aria-label="VCare Genie chat">
+    <section
+      #panel
+      class="genie__panel"
+      aria-label="VCare Genie chat"
+      role="dialog"
+      aria-modal="false"
+    >
+      <!-- HEADER -->
       <header class="genie__header">
+        <div class="genie__header-glow" aria-hidden="true"></div>
+
         <div class="genie__header-dust" aria-hidden="true">
-          <span></span><span></span><span></span>
+          <span>✦</span>
+          <span>·</span>
+          <span>✧</span>
         </div>
 
         <div class="genie__identity">
           <div class="genie__avatar" aria-hidden="true">
             <span class="genie__avatar-glow"></span>
-
             <ng-container *ngTemplateOutlet="lionAvatar"></ng-container>
-
-            <span class="genie__poof">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
           </div>
 
           <div class="genie__identity-copy">
             <div class="genie__name-row">
               <strong>VCare Genie</strong>
-              <span class="genie__magic-star">✦</span>
+              <span class="genie__verified" aria-label="VCare assistant">✦</span>
             </div>
 
-            <span class="genie__subtitle"> Your little V Care guide </span>
+            <span class="genie__subtitle">Your little V Care guide</span>
 
             <span class="genie__online">
-              <i></i>
-              Ready to help
+              <i aria-hidden="true"></i>
+              Here to help you
             </span>
           </div>
         </div>
 
-        <button type="button" class="genie__close" aria-label="Close VCare Genie" (click)="close()">
+        <button
+          #closeButton
+          type="button"
+          class="genie__close"
+          aria-label="Close VCare Genie"
+          (click)="close()"
+        >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M6 6l12 12M18 6 6 18"
               stroke="currentColor"
-              stroke-width="2"
+              stroke-width="1.8"
               stroke-linecap="round"
             />
           </svg>
         </button>
       </header>
 
-      <div #messagesContainer class="genie__messages" aria-live="polite">
+      <!-- CHAT BODY -->
+      <div #messagesContainer class="genie__messages" aria-live="polite" aria-relevant="additions">
+        <!-- WELCOME STATE -->
         @if (messages().length === 1 && !isSending()) {
           <div class="genie__hero">
             <div class="genie__hero-scene" aria-hidden="true">
-              <span class="genie__magic-orbit genie__magic-orbit--one"></span>
-              <span class="genie__magic-orbit genie__magic-orbit--two"></span>
+              <span class="genie__scene-orbit genie__scene-orbit--one"></span>
+              <span class="genie__scene-orbit genie__scene-orbit--two"></span>
 
-              <span class="genie__magic-wand">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-              </span>
-
-              <span class="genie__magic-particle genie__magic-particle--1">✦</span>
-              <span class="genie__magic-particle genie__magic-particle--2">✦</span>
-              <span class="genie__magic-particle genie__magic-particle--3">•</span>
-              <svg viewBox="0 0 120 70" class="genie__lamp-svg">
-                <ellipse cx="60" cy="62" rx="30" ry="4" class="genie__lamp-shadow" />
-
-                <path class="genie__lamp-smoke" d="M60 40c-3-6 3-8 1-14-2-6 3-8 1-13" />
-
-                <path
-                  class="genie__lamp-body"
-                  d="M22 54c0-8 8-13 18-13h5c1-8 9-13 17-11 6 1.4 10 7 8 13h2c11 0 17 6 17 11 0 5-8 9-20 9H43c-9 0-21-3-21-9Z"
-                />
-
-                <ellipse cx="61" cy="41" rx="8" ry="2.6" class="genie__lamp-lid" />
-                <path d="M79 33c4-1.6 8 0 9 4" class="genie__lamp-spout-line" />
-              </svg>
+              <span class="genie__scene-star genie__scene-star--one">✦</span>
+              <span class="genie__scene-star genie__scene-star--two">✧</span>
+              <span class="genie__scene-star genie__scene-star--three">✦</span>
 
               <div class="genie__hero-avatar">
-                <span class="genie__hero-glow"></span>
+                <span class="genie__hero-avatar-glow"></span>
                 <ng-container *ngTemplateOutlet="lionAvatar"></ng-container>
               </div>
 
-              <span class="genie__hero-sparkle genie__hero-sparkle--a"></span>
-              <span class="genie__hero-sparkle genie__hero-sparkle--b"></span>
-              <span class="genie__hero-sparkle genie__hero-sparkle--c"></span>
+              <div class="genie__hero-note genie__hero-note--left">
+                <i class="fa-solid fa-heart" aria-hidden="true"></i>
+                Little learners
+              </div>
+
+              <div class="genie__hero-note genie__hero-note--right">
+                <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                Big possibilities
+              </div>
             </div>
 
-            <div class="genie__hero-badge">
-              <i class="fa-solid fa-wand-magic-sparkles"></i>
-              Your V Care helper
-            </div>
+            <span class="genie__hero-badge">
+              <span class="genie__badge-dot" aria-hidden="true"></span>
+              YOUR V CARE ASSISTANT
+            </span>
 
-            <h3 class="genie__hero-title">Hi, I'm VCare Genie!</h3>
+            <h3 class="genie__hero-title">
+              Hello, there! <span>👋</span>
+              <br />
+              I'm <span class="genie__title-accent">VCare Genie.</span>
+            </h3>
 
             <p class="genie__hero-text">
-              Ask me about programs, daycare, safety, timings, the Zero Fee Model and more.
+              Think of me as your friendly guide to your child's early learning journey. What would
+              you like to know?
             </p>
 
             <div class="genie__quick">
-              <span>Try asking</span>
+              <div class="genie__quick-heading">
+                <span>Let's get you started</span>
+                <span class="genie__quick-count">01 — 03</span>
+              </div>
 
-              @for (question of quickQuestions; track question) {
-                <button type="button" (click)="useQuickQuestion(question)">
-                  {{ question }}
+              @for (question of quickQuestions; track question; let i = $index) {
+                <button
+                  type="button"
+                  class="genie__quick-card"
+                  [disabled]="isSending()"
+                  (click)="useQuickQuestion(question)"
+                >
+                  <span class="genie__quick-icon" aria-hidden="true">
+                    @switch (i) {
+                      @case (0) {
+                        <i class="fa-solid fa-shapes"></i>
+                      }
+                      @case (1) {
+                        <i class="fa-solid fa-heart"></i>
+                      }
+                      @default {
+                        <i class="fa-regular fa-clock"></i>
+                      }
+                    }
+                  </span>
+
+                  <span class="genie__quick-copy">
+                    <strong>{{ question }}</strong>
+                    <small>
+                      @switch (i) {
+                        @case (0) {
+                          Discover our learning journeys
+                        }
+                        @case (1) {
+                          Understand our fee approach
+                        }
+                        @default {
+                          Plan your child's day
+                        }
+                      }
+                    </small>
+                  </span>
+
+                  <span class="genie__quick-arrow" aria-hidden="true">
+                    <i class="fa-solid fa-arrow-up-right"></i>
+                  </span>
                 </button>
               }
             </div>
+
+            <p class="genie__hero-footnote">
+              <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+              Every little question matters.
+            </p>
           </div>
         } @else {
+          <!-- CONVERSATION HISTORY -->
           @for (message of messages(); track message.id) {
             <div
               class="genie__message-row"
               [class.genie__message-row--user]="message.role === 'user'"
+              [class.genie__message-row--assistant]="message.role === 'assistant'"
             >
               @if (message.role === 'assistant') {
                 <div class="genie__message-avatar" aria-hidden="true">
@@ -130,24 +182,25 @@
 
                 @if (message.needsContact) {
                   <a routerLink="/contact" class="genie__contact-link" (click)="close()">
-                    Go to Contact Page
-                    <span>↗</span>
+                    Speak with our team
+                    <span aria-hidden="true">↗</span>
                   </a>
                 }
               </div>
             </div>
           }
 
+          <!-- THINKING STATE -->
           @if (isSending()) {
-            <div class="genie__message-row">
+            <div class="genie__message-row genie__message-row--assistant">
               <div class="genie__message-avatar" aria-hidden="true">
                 <ng-container *ngTemplateOutlet="lionAvatar"></ng-container>
               </div>
 
-              <div class="genie__message genie__message--typing" aria-label="VCare Genie is typing">
-                <span class="genie__typing-label"> VCare Genie is thinking </span>
+              <div class="genie__typing" aria-label="VCare Genie is thinking" role="status">
+                <span>Finding the right answer</span>
 
-                <span class="genie__typing-dots">
+                <span class="genie__typing-dots" aria-hidden="true">
                   <i></i>
                   <i></i>
                   <i></i>
@@ -158,7 +211,16 @@
         }
       </div>
 
+      <!-- MESSAGE COMPOSER -->
       <div class="genie__composer">
+        <div class="genie__composer-top">
+          <span>
+            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+            Ask away — we're listening.
+          </span>
+          <span class="genie__composer-shortcut">ENTER ↵</span>
+        </div>
+
         <div class="genie__composer-box">
           <textarea
             rows="1"
@@ -166,53 +228,78 @@
             (input)="onInput($event)"
             (keydown)="onComposerKeydown($event)"
             [disabled]="isSending()"
-            placeholder="Ask VCare Genie anything..."
+            placeholder="Type your question here..."
             aria-label="Message VCare Genie"
           ></textarea>
 
-          <!-- <span class="genie__composer-hint"> Enter to send · Shift + Enter for a new line </span> -->
+          <button
+            #sendButton
+            type="button"
+            class="genie__send"
+            [class.genie__send--cast]="justCast()"
+            [disabled]="!draft().trim() || isSending()"
+            aria-label="Send message"
+            (click)="send()"
+          >
+            <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+          </button>
         </div>
 
-        <button
-          type="button"
-          class="genie__send"
-          [class.genie__send--cast]="justCast()"
-          aria-label="Send message"
-          [disabled]="!draft().trim() || isSending()"
-          (click)="send()"
-        >
-          <span class="genie__send-glow"></span>
-
-          <i class="fa-solid fa-wand-magic-sparkles"></i>
-        </button>
+        <p class="genie__composer-footer">
+          <span
+            ><i class="fa-solid fa-shield-heart" aria-hidden="true"></i> Made for little
+            learners</span
+          >
+          <span>VCare Education</span>
+        </p>
       </div>
     </section>
   }
 
+  <!-- FLOATING LAUNCHER -->
   <button
+    #trigger
     type="button"
     class="genie__trigger"
     [class.genie__trigger--open]="isOpen()"
     [attr.aria-expanded]="isOpen()"
-    aria-label="Open VCare Genie"
+    [attr.aria-label]="isOpen() ? 'Close VCare Genie' : 'Open VCare Genie'"
     (click)="toggle()"
   >
-    <span class="genie__pulse-ring" aria-hidden="true"></span>
-    <span class="genie__wisp genie__wisp--a" aria-hidden="true"></span>
-    <span class="genie__wisp genie__wisp--b" aria-hidden="true"></span>
+    <span class="genie__trigger-ring" aria-hidden="true"></span>
+    <span class="genie__trigger-ring genie__trigger-ring--second" aria-hidden="true"></span>
+
     <span class="genie__trigger-icon" aria-hidden="true">
-      <ng-container *ngTemplateOutlet="lionAvatar"></ng-container>
+      @if (isOpen()) {
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M6 6l12 12M18 6 6 18"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+          />
+        </svg>
+      } @else {
+        <ng-container *ngTemplateOutlet="lionAvatar"></ng-container>
+      }
     </span>
+
+    @if (!isOpen()) {
+      <span class="genie__trigger-spark" aria-hidden="true">✦</span>
+    }
   </button>
 
   @if (!isOpen()) {
-    <span class="genie__label" aria-hidden="true"> VCare Genie </span>
+    <span class="genie__label" aria-hidden="true">
+      <span class="genie__label-dot"></span>
+      Need a little help?
+    </span>
   }
 </div>
 
+<!-- REUSABLE VCARE LION-GENIE MASCOT -->
 <ng-template #lionAvatar>
-  <svg viewBox="0 0 48 48" class="genie__lion-svg" aria-hidden="true">
-    <!-- Mane -->
+  <!-- <svg viewBox="0 0 48 48" class="genie__lion-svg" aria-hidden="true">
     <g class="genie__lion-mane">
       <path d="M24 2c2.5 0 4 4 3.2 9-.6 2.2-6 2.2-6.6 0C19.8 6 21.5 2 24 2Z" />
       <path
@@ -245,13 +332,11 @@
       />
     </g>
 
-    <!-- Genie tail -->
     <path
       class="genie__lion-tail"
       d="M17.5 33c-2 3 1 5.2 3 4-2.6 2.2-1.4 6 2.3 5.8 3.7-.2 4.4-3.3 2.4-5.8 2.8 1 4.8-2 2.8-5"
     />
 
-    <!-- Face -->
     <circle cx="24" cy="24" r="13" class="genie__lion-face" />
     <ellipse cx="24" cy="29" rx="7" ry="5" class="genie__lion-snout" />
 
@@ -261,19 +346,25 @@
     <path d="M24 25.4 22.6 27.3h2.8Z" class="genie__lion-nose" />
     <path d="M22.3 29.8c.6.9 1.5 1.3 1.7 1.3s1.1-.4 1.7-1.3" class="genie__lion-mouth" />
 
-    <!-- Genie turban -->
     <path
       class="genie__lion-turban"
       d="M14 13.5c2.2-6.8 7-9.5 10-9.5s7.8 2.7 10 9.5c-3.3-1.9-6.7-2.7-10-2.7s-6.7.8-10 2.7Z"
     />
 
     <path class="genie__lion-turban-band" d="M14.8 11.8c2.8 1.2 5.9 1.8 9.2 1.8s6.4-.6 9.2-1.8" />
-
     <circle cx="24" cy="6.1" r="2.1" class="genie__lion-turban-jewel" />
 
     <path
       class="genie__lion-genie-spark"
       d="M37 11l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7Z"
     />
-  </svg>
+  </svg> -->
+  <img
+    src="assets/images/logo-header-genie.png"
+    alt=""
+    class="genie__lion-image"
+    width="265"
+    height="273"
+    draggable="false"
+  />
 </ng-template>

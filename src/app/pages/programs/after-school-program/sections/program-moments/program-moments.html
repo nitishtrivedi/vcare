@@ -1,27 +1,24 @@
-<section class="moments">
-  <div class="moments__inner">
-    <div class="moments__heading" vcReveal="fade-up">
-      <span class="program-kicker"> V Care moments </span>
-
-      <h2>
-        After school,
-        <span>made memorable.</span>
-      </h2>
+<section class="ash-moments" id="moments">
+  <div class="ash-moments__inner">
+    <div class="ash-moments__head" gsapReveal="fade-up">
+      <span class="ash-kicker ash-kicker--light">Life after school</span>
+      <h2>Afternoons, <span>captured.</span></h2>
+      <p>See how children learn, play, create and make friends together.</p>
     </div>
 
     @if (videos().length > 0) {
-      <div class="moments__grid" vcReveal="zoom-in">
+      <div class="ash-moments__grid" gsapReveal="zoom-in">
         @for (video of videos(); track trackByIndex($index, video); let i = $index) {
           <button
             type="button"
-            class="moment"
-            [class.moment--feature]="i === 0 || i === 4"
+            class="ash-tile"
+            [class.ash-tile--large]="i === 0 || i === 5"
             [attr.aria-label]="'Play video ' + (i + 1)"
             (click)="openLightbox(i)"
           >
             <video
-              class="moment__thumb"
-              [class.moment__thumb--ready]="loadedThumbs().has(video.index)"
+              class="ash-tile__thumb"
+              [class.ash-tile__thumb--ready]="loadedThumbs().has(video.index)"
               [src]="video.src"
               [poster]="video.poster || null"
               muted
@@ -33,10 +30,10 @@
               (loadeddata)="onThumbReady(video.index)"
             ></video>
 
-            <span class="moment__number"> 0{{ i + 1 }} </span>
+            <span class="ash-tile__num">0{{ i + 1 }}</span>
 
-            <span class="moment__play">
-              <svg viewBox="0 0 24 24">
+            <span class="ash-tile__play" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                 <path d="M8 5v14l11-7z"></path>
               </svg>
             </span>
@@ -46,111 +43,74 @@
     }
 
     @if (isScanning() && videos().length === 0) {
-      <div class="moments__grid" vcReveal="zoom-in">
+      <div class="ash-moments__grid">
         @for (i of [1, 2, 3, 4, 5, 6]; track i) {
-          <div class="moment moment--skeleton" [class.moment--feature]="i === 1 || i === 5">
-            <span class="moment__scan-line"></span>
+          <div class="ash-tile ash-tile--skeleton" [class.ash-tile--large]="i === 1 || i === 6">
+            <span class="ash-tile__scan"></span>
           </div>
         }
       </div>
     }
 
     @if (!isScanning() && videos().length === 0) {
-      <div class="moments__empty">
-        <p>No videos uploaded yet.</p>
+      <div class="ash-moments__empty">
+        <p>Videos coming soon.</p>
         <!-- <small>
-          Add video files to <code>public/assets/videos/after-school-program/</code>, then list them
-          in <code>manifest.json</code> in that same folder — they'll appear here automatically.
+          Add files to <code>public/assets/videos/after-school-program/</code> and list them in
+          <code>manifest.json</code>.
         </small> -->
       </div>
     }
 
-    @if (isScanning() && videos().length > 0) {
-      <p class="moments__note moments__note--scanning">Still checking for more videos…</p>
-    } @else if (videos().length > 0) {
-      <p class="moments__note">Tap a video to watch.</p>
+    @if (videos().length > 0) {
+      <p class="ash-moments__note">Tap a video to watch.</p>
     }
   </div>
 </section>
 
 @if (lightboxVideo(); as video) {
   <div
-    class="video-lightbox"
+    class="ash-lb"
     role="dialog"
     aria-modal="true"
     aria-label="Video player"
     (click)="closeLightbox()"
   >
-    <button
-      type="button"
-      class="video-lightbox__close"
-      (click)="closeLightbox()"
-      aria-label="Close"
-    >
-      <svg
-        viewBox="0 0 24 24"
-        width="20"
-        height="20"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
-      </svg>
+    <button type="button" class="ash-lb__close" (click)="closeLightbox()" aria-label="Close">
+      ✕
     </button>
 
     @if (videos().length > 1) {
       <button
         type="button"
-        class="video-lightbox__nav video-lightbox__nav--prev"
+        class="ash-lb__nav ash-lb__nav--prev"
         (click)="prev($event)"
         aria-label="Previous video"
       >
-        <svg
-          viewBox="0 0 24 24"
-          width="22"
-          height="22"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M15 6l-6 6 6 6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        ‹
       </button>
     }
 
-    <div class="video-lightbox__content" (click)="$event.stopPropagation()">
+    <div class="ash-lb__content" (click)="$event.stopPropagation()">
       <video
-        class="video-lightbox__player"
+        class="ash-lb__player"
         [src]="video.src"
         [poster]="video.poster || null"
         controls
         autoplay
         playsinline
       ></video>
-
-      <span class="video-lightbox__counter">
-        {{ (lightboxIndex() ?? 0) + 1 }} / {{ videos().length }}
-      </span>
+      <span class="ash-lb__counter">{{ (lightboxIndex() ?? 0) + 1 }} / {{ videos().length }}</span>
     </div>
 
     @if (videos().length > 1) {
       <button
         type="button"
-        class="video-lightbox__nav video-lightbox__nav--next"
+        class="ash-lb__nav ash-lb__nav--next"
         (click)="next($event)"
         aria-label="Next video"
       >
-        <svg
-          viewBox="0 0 24 24"
-          width="22"
-          height="22"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
+        ›
       </button>
     }
   </div>

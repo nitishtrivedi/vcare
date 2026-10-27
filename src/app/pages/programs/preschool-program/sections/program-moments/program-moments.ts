@@ -8,6 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { ScrollReveal } from '../../../../../directives/scroll-reveal';
+import { GsapReveal } from '../../../../../directives/gsap-reveal';
 
 export interface MomentVideo {
   index: number;
@@ -22,7 +23,7 @@ interface ManifestEntry {
 
 @Component({
   selector: 'app-program-moments',
-  imports: [ScrollReveal],
+  imports: [GsapReveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './program-moments.html',
   styleUrl: './program-moments.scss',

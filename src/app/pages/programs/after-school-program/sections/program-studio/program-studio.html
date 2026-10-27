@@ -1,0 +1,35 @@
+<section class="ash-studio" id="studio">
+  <div class="ash-studio__head" gsapReveal="fade-up">
+    <div>
+      <span class="ash-kicker">Activity studio</span>
+      <h2>A well-rounded afternoon, <span>every day.</span></h2>
+    </div>
+    <p>Different children discover different things. Our afternoons leave room for all of them.</p>
+  </div>
+
+  <div class="ash-studio__grid">
+    @for (item of items; track item.title; let i = $index) {
+      <article
+        class="ash-tile"
+        [class.ash-tile--wide]="item.wide"
+        [style.--accent]="item.accent"
+        (pointermove)="onPointerMove($event)"
+        gsapReveal="pop"
+        [gsapRevealDelay]="i * 80"
+      >
+        <div class="ash-tile__top">
+          <span class="ash-tile__num">0{{ i + 1 }}</span>
+          <span class="ash-tile__icon" aria-hidden="true">{{ item.icon }}</span>
+        </div>
+
+        <h3>{{ item.title }}</h3>
+
+        <ul class="ash-tile__tags">
+          @for (tag of item.tags; track tag) {
+            <li>{{ tag }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+</section>

@@ -1,42 +1,19 @@
-<section class="our-team">
-  <div class="our-team__inner">
-    <div class="our-team__visual" vcReveal="slide-right">
-      <div class="our-team__circle our-team__circle--red"></div>
-      <div class="our-team__circle our-team__circle--yellow"></div>
-      <div class="our-team__circle our-team__circle--green"></div>
+<section class="ab-section ab-team" #root>
+  <div class="ab-aura" aria-hidden="true">
+    <span class="ab-aura__blob ab-aura__blob--blue ab-team__blob"></span>
+  </div>
 
-      <div class="our-team__photo">
-        <img
-          [src]="teamPhoto"
-          alt="The V Care team"
-          class="our-team__photo-img"
-          onerror="this.style.display = 'none'"
-        />
-        <!-- <div class="our-team__photo-placeholder">
-          <svg
-            viewBox="0 0 24 24"
-            width="52"
-            height="52"
-            fill="none"
-            stroke="#3BB44A"
-            stroke-width="1.6"
-            aria-hidden="true"
-          >
-            <circle cx="8" cy="9" r="2.4" />
-            <circle cx="16" cy="9" r="2.4" />
-            <circle cx="12" cy="7.3" r="2.4" />
-            <path
-              d="M3 19c.5-2.8 2.3-4.4 5-4.4s4.5 1.6 5 4.4M11 19c.5-2.8 2.3-4.4 5-4.4s4.5 1.6 5 4.4"
-              stroke-linecap="round"
-            />
-          </svg>
-          <strong>Team V Care</strong>
-          <span>Team photo coming soon</span>
-        </div> -->
-      </div>
+  <div class="ab-wrap ab-team__grid">
+    <div class="ab-team__visual">
+      <span class="ab-team__ring ab-team__ring--red" aria-hidden="true"></span>
+      <span class="ab-team__ring ab-team__ring--yellow" aria-hidden="true"></span>
 
-      <div class="our-team__mini-card">
-        <span class="our-team__mini-dot"></span>
+      <figure class="ab-team__photo">
+        <img [src]="teamPhoto" alt="The V Care team" loading="lazy" />
+      </figure>
+
+      <div class="ab-team__mini" aria-hidden="true">
+        <span class="ab-team__mini-dot"></span>
         <div>
           <strong>Every child matters</strong>
           <small>Every voice is heard</small>
@@ -44,54 +21,34 @@
       </div>
     </div>
 
-    <div class="our-team__content" vcReveal="slide-left">
-      <p class="our-team__eyebrow">Our Team</p>
-
-      <h2>
-        More than educators.
-        <span>People who care.</span>
-      </h2>
+    <div class="ab-team__copy" gsapReveal="fade-up">
+      <p class="ab-eyebrow">Our team</p>
+      <h2 class="ab-h2">More than educators. <span class="ab-grad-text">People who care.</span></h2>
 
       <p>
         Our team is a passionate group of educators and caregivers dedicated to nurturing young
         minds. Together, we create a joyful, safe and inspiring environment where every child can
         blossom.
       </p>
-
       <p>
         We believe great early education begins with relationships. Our educators take the time to
         know every child, understand their personality and support their individual journey.
       </p>
 
-      <div class="our-team__points">
-        <div class="our-team__point">
-          <span>01</span>
-          <div>
-            <strong>Caring educators</strong>
-            <p>Teachers who genuinely know and understand each child.</p>
-          </div>
-        </div>
+      <ol class="ab-team__points" role="list">
+        @for (p of points; track p.title; let i = $index) {
+          <li class="ab-card ab-team__point">
+            <span class="ab-team__num">0{{ i + 1 }}</span>
+            <div>
+              <strong>{{ p.title }}</strong>
+              <p>{{ p.text }}</p>
+            </div>
+          </li>
+        }
+      </ol>
 
-        <div class="our-team__point">
-          <span>02</span>
-          <div>
-            <strong>Collaborative culture</strong>
-            <p>Educators working together to create meaningful experiences.</p>
-          </div>
-        </div>
-
-        <div class="our-team__point">
-          <span>03</span>
-          <div>
-            <strong>Child-first thinking</strong>
-            <p>Every decision begins with what is best for the child.</p>
-          </div>
-        </div>
-      </div>
-
-      <a href="tel:+919765076513" class="our-team__button">
-        Meet V Care
-        <span>→</span>
+      <a href="tel:+919765076513" class="ab-btn ab-btn--primary ab-team__cta">
+        Meet V Care <i class="fa-solid fa-phone" aria-hidden="true"></i>
       </a>
     </div>
   </div>
