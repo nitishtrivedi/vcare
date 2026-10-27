@@ -13,7 +13,7 @@ export class UnderMaintenance implements OnDestroy {
   // CHANGE ONLY THIS DATE/TIME TO CONTROL THE COUNTDOWN
   // Format: YYYY-MM-DDTHH:mm:ss+05:30
   // ============================================================
-  readonly maintenanceEndTime = '2026-09-27T01:00:00+05:30';
+  readonly maintenanceEndTime = '2026-09-27T13:00:00+05:30';
 
   readonly countdown = signal({
     days: '00',
