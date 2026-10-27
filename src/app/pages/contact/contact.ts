@@ -14,6 +14,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { gsap, prefersReducedMotion, registerGsap } from '../../shared/motion/gsap-setup';
+import { AuthService } from '../../services/auth';
 
 export interface ContactSubmission {
   name: string;
@@ -38,6 +39,7 @@ export class Contact implements AfterViewInit, OnDestroy {
   private readonly fb = inject(FormBuilder);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly injector = inject(Injector);
+  private readonly authService = inject(AuthService);
   private ctx?: gsap.Context;
 
   readonly formBackgroundImage = 'assets/images/contact/contact-image.jpg';
@@ -251,19 +253,72 @@ export class Contact implements AfterViewInit, OnDestroy {
    * Same endpoint and contract as before. Replace with your real persistence
    * layer whenever needed; the UI code does not need to change.
    */
+  // private async saveEnquiry(submission: ContactSubmission): Promise<void> {
+  //   const response = await fetch('/api/enquiries.php', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify(submission),
+  //   });
+
+  //   let result: { success?: boolean; message?: string };
+
+  //   try {
+  //     result = await response.json();
+  //   } catch (err) {
+  //     console.log(err);
+  //     throw new Error('Invalid server response.');
+  //   }
+
+  //   if (!response.ok || !result.success) {
+  //     throw new Error(result.message ?? 'Unable to submit enquiry.');
+  //   }
+  // }
+
   private async saveEnquiry(submission: ContactSubmission): Promise<void> {
-    const response = await fetch('/api/enquiries.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(submission),
-    });
+    // Use the configured API URL instead of hardcoding /api.
+    // Localhost uses the development Hostinger API.
+    // Deployed environments use the configured same-origin API.
+    const endpoint = `${this.authService.apiUrl}/enquiries.php`;
+
+    let response: Response;
+
+    try {
+      response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(submission),
+      });
+    } catch (error) {
+      console.error('Contact enquiry network error:', error);
+
+      throw new Error(
+        'Unable to reach the enquiry server. Please check your connection and try again.',
+      );
+    }
+
+    // Read the response as text first so we can diagnose invalid JSON.
+    const responseBody = await response.text();
 
     let result: { success?: boolean; message?: string };
 
     try {
-      result = await response.json();
-    } catch {
-      throw new Error('Invalid server response.');
+      result = JSON.parse(responseBody) as {
+        success?: boolean;
+        message?: string;
+      };
+    } catch (error) {
+      console.error('Contact enquiry API returned a non-JSON response.', {
+        endpoint,
+        status: response.status,
+        contentType: response.headers.get('content-type'),
+        bodyPreview: responseBody.slice(0, 200),
+        error,
+      });
+
+      throw new Error('The enquiry server returned an invalid response. Please try again later.');
     }
 
     if (!response.ok || !result.success) {
