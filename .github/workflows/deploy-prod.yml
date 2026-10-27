@@ -1,18 +1,18 @@
-name: Deploy VCare Dev
+name: Deploy VCare Prod
 
 on:
   push:
     branches:
-      - dev
+      - master
 
 jobs:
   build-and-deploy:
-    name: Build and Deploy to dev.vcarepreschool.in
+    name: Build and Deploy to vcarepreschool.in
 
     # IMPORTANT:
     # This tells GitHub to use the secrets/settings
     # stored inside the DEV environment.
-    environment: Dev
+    environment: Prod
 
     runs-on: ubuntu-latest
 
