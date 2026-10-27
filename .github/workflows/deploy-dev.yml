@@ -44,27 +44,54 @@ jobs:
       - name: Build Angular
         run: npm run build
 
+        # ---------------------------------------
+      # 5. Generate config.php from the template
       # ---------------------------------------
-      # Configure Database
-      # ---------------------------------------
-
       - name: Generate config.php from secrets
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
-          #Configure Gemini for AI Bot
+          SUPPORT_MAILBOX_PASSWORD: ${{ secrets.SUPPORT_MAILBOX_PASSWORD }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
-          sed \
-            -e "s|{{DB_HOST}}|$DB_HOST|g" \
-            -e "s|{{DB_DATABASE}}|$DB_DATABASE|g" \
-            -e "s|{{DB_USERNAME}}|$DB_USERNAME|g" \
-            -e "s|{{DB_PASSWORD}}|$DB_PASSWORD|g" \
-            -e "s|{{GEMINI_API_KEY}}|$GEMINI_API_KEY|g" \
-            public/api/config.php.template > dist/vcare/browser/api/config.php
+          python3 <<'PY'
+          import os, re, pathlib
+
+          template = pathlib.Path('public/api/config.php.template')
+          target = pathlib.Path('dist/vcare/browser/api/config.php')
+
+          placeholders = {
+              '{{DB_HOST}}': 'DB_HOST',
+              '{{DB_DATABASE}}': 'DB_DATABASE',
+              '{{DB_USERNAME}}': 'DB_USERNAME',
+              '{{DB_PASSWORD}}': 'DB_PASSWORD',
+              '{{SUPPORT_MAILBOX_PASSWORD}}': 'SUPPORT_MAILBOX_PASSWORD',
+              '{{GEMINI_API_KEY}}': 'GEMINI_API_KEY',
+          }
+
+          def php_single_quoted(value):
+              # Escape only what a PHP single-quoted string needs.
+              return value.replace('\\', '\\\\').replace("'", "\\'")
+
+          content = template.read_text(encoding='utf-8')
+
+          for placeholder, env_name in placeholders.items():
+              value = os.environ.get(env_name, '')
+              if value == '':
+                  raise SystemExit(f'Secret {env_name} is empty. Add it to the Dev environment.')
+              content = content.replace(placeholder, php_single_quoted(value))
+              print(f'{env_name}: set (length {len(value)})')
+
+          leftover = re.findall(r'\{\{[A-Z_]+\}\}', content)
+          if leftover:
+              raise SystemExit(f'Unreplaced placeholders remain: {leftover}')
+
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_text(content, encoding='utf-8')
+          print('config.php generated at', target)
+          PY
 
       # ---------------------------------------
       # 5. Deploy Angular build to Hostinger
