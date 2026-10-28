@@ -764,3 +764,181 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* =====================================================
+   FRANCHISE INVESTMENT DROPDOWN
+   Scoped styles: does not change other form controls.
+   ===================================================== */
+
+.fr-budget-dropdown {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  z-index: 1;
+}
+
+.fr-budget-dropdown:has(.fr-budget-dropdown__menu) {
+  z-index: 20;
+}
+
+.fr-budget-dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  width: 100%;
+  min-height: 49px;
+  padding: 0.8rem 0.95rem;
+
+  border: 1.5px solid rgba(23, 58, 91, 0.14);
+  border-radius: 14px;
+
+  background: #fff;
+  color: var(--ab-ink);
+
+  font: 500 0.88rem/1.4 var(--v-font-body, 'Inter', sans-serif);
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.fr-budget-dropdown__trigger:hover {
+  border-color: rgba(23, 111, 174, 0.45);
+}
+
+.fr-budget-dropdown__trigger:focus-visible {
+  outline: none;
+  border-color: var(--ab-blue);
+  box-shadow: 0 0 0 4px rgba(23, 111, 174, 0.12);
+}
+
+.fr-budget-dropdown__trigger.fr-field--error {
+  border-color: var(--ab-red) !important;
+}
+
+.fr-budget-dropdown__placeholder {
+  color: #8a99a8;
+}
+
+.fr-budget-dropdown__arrow {
+  flex: 0 0 auto;
+  color: var(--ab-ink);
+  font-size: 0.78rem;
+  transition: transform 0.22s ease;
+}
+
+.fr-budget-dropdown__arrow--open {
+  transform: rotate(180deg);
+}
+
+/* Floating options panel */
+
+.fr-budget-dropdown__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  display: grid;
+  gap: 4px;
+
+  max-height: 240px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  padding: 6px;
+
+  border: 1px solid rgba(23, 58, 91, 0.10);
+  border-radius: 16px;
+
+  background: #fff;
+
+  box-shadow:
+    0 16px 38px rgba(23, 58, 91, 0.13),
+    0 4px 12px rgba(23, 58, 91, 0.06);
+
+  animation: fr-budget-dropdown-enter 0.16s ease-out both;
+}
+
+/* Individual investment options */
+
+.fr-budget-dropdown__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+
+  width: 100%;
+  padding: 0.8rem 0.85rem;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+
+  background: transparent;
+  color: var(--ab-ink);
+
+  font: 500 0.88rem/1.5 var(--v-font-body, 'Inter', sans-serif);
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease,
+    border-color 0.16s ease;
+}
+
+.fr-budget-dropdown__option:hover {
+  background: rgba(23, 111, 174, 0.07);
+  color: var(--ab-blue);
+}
+
+.fr-budget-dropdown__option:focus-visible {
+  outline: 2px solid var(--ab-blue);
+  outline-offset: -2px;
+  background: rgba(23, 111, 174, 0.07);
+}
+
+.fr-budget-dropdown__option--selected {
+  border-color: rgba(23, 111, 174, 0.12);
+  background: rgba(23, 111, 174, 0.08);
+  color: var(--ab-blue);
+  font-weight: 700;
+}
+
+.fr-budget-dropdown__option > i {
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+  color: var(--ab-blue);
+}
+
+@keyframes fr-budget-dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fr-budget-dropdown__menu {
+    animation: none;
+  }
+
+  .fr-budget-dropdown__arrow,
+  .fr-budget-dropdown__trigger,
+  .fr-budget-dropdown__option {
+    transition: none;
+  }
+}

@@ -1,3 +1,4 @@
+
 <!-- HERO -->
 <section class="ab-section fr-hero" #root>
   <div class="ab-aura" aria-hidden="true">
@@ -7,22 +8,22 @@
   </div>
 
   <div class="ab-wrap fr-hero__inner">
-    <p class="ab-eyebrow fr-hero__eyebrow">VCare franchise program</p>
+    <p class="ab-eyebrow fr-hero__eyebrow">Limited slots · VCare franchise program</p>
 
     <h1 class="ab-h2 fr-hero__title">
-      <span class="ab-mask"><span>Own a VCare.</span></span>
-      <span class="ab-mask"><span class="ab-grad-text">Build a legacy of care.</span></span>
+      <span class="ab-mask"><span>Own a preschool.</span></span>
+      <span class="ab-mask"><span class="ab-grad-text">Not just a franchise.</span></span>
     </h1>
 
     <p class="fr-hero__lead">
-      India’s preschool sector is growing fast, and parents in your city are already searching for a
-      name they can trust. Partner with VCare’s proven Zero Fee Model, ready-made curriculum and
-      complete operational playbook, and turn early childhood education into a thriving business.
+      Invest ₹50 Lakhs and earn fixed returns. We run the operations for you.
+      Choose the VCare investment model that suits you, with a complete
+      preschool setup and operational support.
     </p>
 
     <div class="fr-hero__actions">
       <a href="#franchise-enquiry" class="ab-btn ab-btn--primary">
-        Enquire about franchise <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        Enquire now <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </a>
       <a href="assets/documents/VCare_Franchise_Brochure.pdf" download class="ab-btn ab-btn--ghost">
         <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i> Download brochure
@@ -40,15 +41,16 @@
   </div>
 </section>
 
-<!-- MODELS -->
+<!-- INVESTMENT OPTIONS -->
 <section class="ab-section fr-models">
   <div class="ab-wrap">
     <header class="fr-head" gsapReveal="fade-up">
-      <p class="ab-eyebrow">Two ways to partner</p>
-      <h2 class="ab-h2">Choose how involved <span class="ab-grad-text">you want to be.</span></h2>
+      <p class="ab-eyebrow">Investment options</p>
+      <h2 class="ab-h2">Choose the option <span class="ab-grad-text">that suits you.</span></h2>
       <p class="fr-head__lead">
-        Every partner invests in the same trusted brand and Zero Fee Model. The only difference is
-        who runs the day-to-day.
+        Both options provide the same complete preschool setup and VCare
+        operational support. The difference is the amount you invest and
+        the fixed monthly return described in the brochure.
       </p>
     </header>
 
@@ -56,12 +58,14 @@
       @for (m of models; track m.name) {
         <article class="ab-card fr-model" data-model [style.--accent]="m.accent">
           <span class="fr-model__tag">{{ m.tag }}</span>
+
           <div class="fr-model__top">
-            <span class="fr-model__icon" aria-hidden="true"
-              ><i [class]="'fa-solid ' + m.icon"></i
-            ></span>
+            <span class="fr-model__icon" aria-hidden="true">
+              <i [class]="'fa-solid ' + m.icon"></i>
+            </span>
             <h3>{{ m.name }}</h3>
           </div>
+
           <p class="fr-model__pitch">{{ m.pitch }}</p>
 
           <div class="fr-model__stats">
@@ -75,11 +79,16 @@
 
           <ul class="fr-model__points" role="list">
             @for (p of m.points; track p) {
-              <li><i class="fa-solid fa-check" aria-hidden="true"></i>{{ p }}</li>
+              <li>
+                <i class="fa-solid fa-check" aria-hidden="true"></i>
+                {{ p }}
+              </li>
             }
           </ul>
 
-          <p class="fr-model__fit"><strong>Best for:</strong> {{ m.bestFor }}</p>
+          <p class="fr-model__fit">
+            <strong>Operations:</strong> {{ m.bestFor }}
+          </p>
 
           <a href="#franchise-enquiry" class="ab-btn ab-btn--primary fr-model__cta">
             Enquire about {{ m.name }}
@@ -92,7 +101,7 @@
   </div>
 </section>
 
-<!-- PILLARS -->
+<!-- COMPLETE SETUP AND SUPPORT -->
 <section class="ab-section fr-support">
   <div class="ab-aura" aria-hidden="true">
     <span class="ab-aura__blob ab-aura__blob--blue fr-support__blob"></span>
@@ -100,20 +109,21 @@
 
   <div class="ab-wrap">
     <header class="fr-head" gsapReveal="fade-up">
-      <p class="ab-eyebrow">What you get</p>
-      <h2 class="ab-h2">Support that <span class="ab-grad-text">cuts your risk in half.</span></h2>
+      <p class="ab-eyebrow">Complete setup</p>
+      <h2 class="ab-h2">Everything is <span class="ab-grad-text">included.</span></h2>
       <p class="fr-head__lead">
-        Five-plus years of operational learning, including curriculum, systems, training and
-        marketing, so you are never building from scratch.
+        From infrastructure and curriculum to recruitment, admissions,
+        safety and ongoing support, VCare provides the systems required
+        to establish and operate your preschool.
       </p>
     </header>
 
     <div class="fr-pillars" data-pillar-grid>
       @for (p of pillars; track p.title) {
         <article class="ab-card fr-pillar" data-pillar [style.--accent]="p.accent">
-          <span class="fr-pillar__icon" aria-hidden="true"
-            ><i [class]="'fa-solid ' + p.icon"></i
-          ></span>
+          <span class="fr-pillar__icon" aria-hidden="true">
+            <i [class]="'fa-solid ' + p.icon"></i>
+          </span>
           <h3>{{ p.title }}</h3>
           <p>{{ p.description }}</p>
         </article>
@@ -122,17 +132,18 @@
   </div>
 </section>
 
-<!-- OPPORTUNITY -->
+<!-- THE OPPORTUNITY -->
 <section class="ab-section fr-opp">
   <div class="ab-wrap">
     <header class="fr-head" gsapReveal="fade-up">
-      <p class="ab-eyebrow">The market opportunity</p>
+      <p class="ab-eyebrow">The opportunity</p>
       <h2 class="ab-h2">
-        The demand is there. <span class="ab-grad-text">We have the track record.</span>
+        Demand is there. <span class="ab-grad-text">The model is proven.</span>
       </h2>
       <p class="fr-head__lead">
-        Early childhood education is one of India’s fastest-growing sectors, and VCare’s own centre
-        is proof that the Zero Fee Model works.
+        VCare's Karvenagar, Pune centre has been operating for over five years.
+        The brochure highlights the demand for structured early education and
+        the opportunity to build on an established operating model.
       </p>
     </header>
 
@@ -148,7 +159,7 @@
   </div>
 </section>
 
-<!-- PROCESS -->
+<!-- HOW IT WORKS -->
 <section class="ab-section fr-steps">
   <div class="ab-aura" aria-hidden="true">
     <span class="ab-aura__blob ab-aura__blob--green fr-steps__blob"></span>
@@ -157,7 +168,11 @@
   <div class="ab-wrap">
     <header class="fr-head" gsapReveal="fade-up">
       <p class="ab-eyebrow">How it works</p>
-      <h2 class="ab-h2">Five steps. <span class="ab-grad-text">One thriving centre.</span></h2>
+      <h2 class="ab-h2">From enquiry <span class="ab-grad-text">to opening.</span></h2>
+      <p class="fr-head__lead">
+        Follow five steps from your initial enquiry to the launch of your VCare centre.
+        Opening typically takes three to six months from signing, depending on site readiness.
+      </p>
     </header>
 
     <div class="fr-steps__track">
@@ -180,8 +195,8 @@
 <section class="ab-section fr-faq">
   <div class="ab-wrap fr-faq__wrap">
     <header class="fr-head" gsapReveal="fade-up">
-      <p class="ab-eyebrow">Questions, answered</p>
-      <h2 class="ab-h2">Frequently asked <span class="ab-grad-text">franchise questions.</span></h2>
+      <p class="ab-eyebrow">Questions and answers</p>
+      <h2 class="ab-h2">Frequently asked <span class="ab-grad-text">questions.</span></h2>
     </header>
 
     <div class="fr-faq__list">
@@ -196,9 +211,12 @@
               (click)="toggleFaq(i)"
             >
               <span>{{ item.question }}</span>
-              <span class="fr-faq__icon" aria-hidden="true"><i class="fa-solid fa-plus"></i></span>
+              <span class="fr-faq__icon" aria-hidden="true">
+                <i class="fa-solid fa-plus"></i>
+              </span>
             </button>
           </h3>
+
           <div class="fr-faq__panel" [id]="'fr-faq-' + i" role="region">
             <div class="fr-faq__inner">
               <p>{{ item.answer }}</p>
@@ -222,24 +240,54 @@
       <p class="ab-eyebrow">Start your journey</p>
       <h2 class="ab-h2">Ready to build <span class="ab-grad-text">your VCare centre?</span></h2>
       <p>
-        We are onboarding franchise partners across Maharashtra for the upcoming academic year.
-        Spaces in high-demand locations are limited. Fill in the form and our team will schedule a
-        discovery call within 48 hours.
+        Share your details with our franchise team and we will call you
+        within 48 hours. Tell us your city and which investment option
+        you are considering.
       </p>
 
       <ul class="fr-cta__points" role="list">
         <li>
-          <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Investment starts at ₹50 Lakhs
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Model 1: ₹50 Lakh investment
         </li>
         <li>
-          <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Minimum ₹1,00,000/month
-          earning potential
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Model 2: ₹1 Crore investment
         </li>
         <li>
-          <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Full training, launch and
-          marketing support
+          <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+          Complete setup and operational support from VCare
         </li>
       </ul>
+
+      <p><strong>Jinal Vora — Managing Director</strong></p>
+      <p>
+        <strong>Call:</strong>
+        <a href="tel:9765076513"> +91-97650 76513</a>
+      </p>
+      <p>
+        <strong>Email:</strong>
+        <a href="mailto:support@vcarepreschool.in"> support@vcarepreschool.in</a>
+      </p>
+      <p>
+        <strong>Website:</strong>
+        <a href="https://vcarepreschool.in" target="_blank" rel="noopener noreferrer">
+           https://vcarepreschool.in
+        </a>
+      </p>
+      <p>
+        <strong>Visit:</strong>
+        Survey No 20/2+3, Jayshree Nivas, Shivshahi Colony, Canal Road,
+        Karvenagar, Pune, Maharashtra 411052.
+      </p>
+      <p>
+        <strong>Important information:</strong> The figures in the brochure are based
+        on current plans and are not a guarantee of future results. Returns start
+        from the first month after the centre opens, as confirmed in the franchise
+        agreement. This brochure is not financial, investment or legal advice.
+        Please take independent advice before committing your money. The signed
+        agreement sets out all binding terms.
+      </p>
     </div>
 
     <div class="ab-card fr-form-wrap">
@@ -302,7 +350,7 @@
               id="fr-city"
               type="text"
               formControlName="city"
-              placeholder="e.g. Nashik"
+              placeholder="e.g. Mumbai"
               [attr.aria-invalid]="f['city'].invalid && f['city'].touched"
               [class.fr-field--error]="f['city'].invalid && f['city'].touched"
             />
@@ -311,29 +359,110 @@
             }
           </div>
 
-          <div class="fr-field">
-            <label for="fr-budget">Investment budget</label>
+          <!-- <div class="fr-field">
+            <label for="fr-budget">Investment option you are considering</label>
             <select
               id="fr-budget"
               formControlName="budget"
               [attr.aria-invalid]="f['budget'].invalid && f['budget'].touched"
               [class.fr-field--error]="f['budget'].invalid && f['budget'].touched"
             >
-              <option value="" disabled>Select a range</option>
+              <option value="" disabled>Select an option</option>
               @for (option of budgetOptions; track option) {
                 <option [value]="option">{{ option }}</option>
               }
             </select>
             @if (f['budget'].invalid && f['budget'].touched) {
-              <span class="fr-field__error" role="alert">Please select a budget range.</span>
+              <span class="fr-field__error" role="alert">Please select an investment option.</span>
             }
-          </div>
+          </div> -->
+        
+<div class="fr-field">
+  <label for="fr-budget">Investment option you are considering</label>
+
+  <div
+    class="fr-budget-dropdown"
+    #budgetDropdownContainer
+    (click)="$event.stopPropagation()"
+    (keydown.escape)="closeBudgetDropdown(); focusBudgetTrigger()"
+  >
+    <button
+      #budgetDropdownTrigger
+      id="fr-budget"
+      type="button"
+      class="fr-budget-dropdown__trigger"
+      [class.fr-field--error]="f['budget'].invalid && f['budget'].touched"
+      [attr.aria-invalid]="f['budget'].invalid && f['budget'].touched"
+      [attr.aria-describedby]="
+        f['budget'].invalid && f['budget'].touched
+          ? 'fr-budget-error'
+          : null
+      "
+      aria-haspopup="listbox"
+      aria-controls="fr-budget-options"
+      [attr.aria-expanded]="budgetDropdownOpen()"
+      (click)="toggleBudgetDropdown()"
+      (keydown.arrowdown)="openBudgetDropdown($any($event), 0)"
+      (keydown.arrowup)="openBudgetDropdown($any($event), budgetOptions.length - 1)"
+    >
+      <span
+        [class.fr-budget-dropdown__placeholder]="!f['budget'].value"
+      >
+        {{ f['budget'].value || 'Select an option' }}
+      </span>
+
+      <i
+        class="fa-solid fa-chevron-down fr-budget-dropdown__arrow"
+        [class.fr-budget-dropdown__arrow--open]="budgetDropdownOpen()"
+        aria-hidden="true"
+      ></i>
+    </button>
+
+    @if (budgetDropdownOpen()) {
+      <div
+        class="fr-budget-dropdown__menu"
+        id="fr-budget-options"
+        role="listbox"
+        aria-label="Investment options"
+      >
+        @for (option of budgetOptions; track option; let i = $index) {
+          <button
+            #budgetDropdownOption
+            type="button"
+            role="option"
+            class="fr-budget-dropdown__option"
+            [class.fr-budget-dropdown__option--selected]="
+              f['budget'].value === option
+            "
+            [attr.aria-selected]="f['budget'].value === option"
+            (click)="selectBudgetOption(option)"
+            (keydown.arrowdown)="focusBudgetOption(i + 1, $any($event))"
+            (keydown.arrowup)="focusBudgetOption(i - 1, $any($event))"
+          >
+            <span>{{ option }}</span>
+
+            @if (f['budget'].value === option) {
+              <i class="fa-solid fa-check" aria-hidden="true"></i>
+            }
+          </button>
+        }
+      </div>
+    }
+  </div>
+
+  @if (f['budget'].invalid && f['budget'].touched) {
+    <span id="fr-budget-error" class="fr-field__error" role="alert">
+      Please select an investment option.
+    </span>
+  }
+</div>
+
         </div>
 
         <div class="fr-field">
-          <label for="fr-message"
-            >Anything you would like us to know? <span class="fr-optional">(optional)</span></label
-          >
+          <label for="fr-message">
+            Anything you would like us to know? <span class="fr-optional">(optional)</span>
+          </label>
           <textarea
             id="fr-message"
             rows="3"
@@ -345,9 +474,7 @@
         @if (formStatus() === 'success') {
           <div class="fr-alert fr-alert--success" role="status">
             <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
-            <span
-              >Thanks! Your franchise enquiry has been received. Our team will reach out soon.</span
-            >
+            <span>Thanks! Your franchise enquiry has been received. Our team will reach out soon.</span>
             <button type="button" (click)="dismissStatus()" aria-label="Dismiss message">
               <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
@@ -357,9 +484,9 @@
         @if (formStatus() === 'error') {
           <div class="fr-alert fr-alert--error" role="alert">
             <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
-            <span>{{
-              formErrorMessage() || 'Something went wrong. Please try again or call us directly.'
-            }}</span>
+            <span>
+              {{ formErrorMessage() || 'Something went wrong. Please try again or call us directly.' }}
+            </span>
             <button type="button" (click)="dismissStatus()" aria-label="Dismiss message">
               <i class="fa-solid fa-xmark" aria-hidden="true"></i>
             </button>
@@ -375,7 +502,8 @@
             <span class="fr-spinner" aria-hidden="true"></span>
             Sending…
           } @else {
-            Submit franchise enquiry <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            Submit franchise enquiry
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
           }
         </button>
       </form>
